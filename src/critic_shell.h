@@ -8,6 +8,8 @@
 #ifndef CRITIC_SHELL_H_
 #define CRITIC_SHELL_H_
 
+#include <math.h>
+#include "ethernet.h"
 #include "song_structs.h"
 
 int c_shell(Song song);

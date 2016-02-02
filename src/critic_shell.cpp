@@ -21,12 +21,49 @@ int c_shell(Song song) {
 
 int supervisor(Song song) {
 	//JUDGE IT
-	int score = 0;
+	int tally = MAX_NOTES;
 
-	// A Song holds Tracks; A Track holds Notes
-	//TODO
+	/* A Song holds Tracks; A Track holds Notes
+	//TODO: Finish
+	 * Consonance is good; Dissonance is bad
+	 * https://en.wikipedia.org/wiki/Consonance_and_dissonance
+	 * https://musicmasterworks.com/WhereMathMeetsMusic.html
+	 * https://en.wikipedia.org/wiki/Pythagorean_tuning
+	 * http://hyperphysics.phy-astr.gsu.edu/hbase/music/mussca.html
+	 *
+	 * Rhythm
+	 *
+	 *
+	 */
+	int instruments = sizeof(song.tunes)/sizeof(Track),
+		track_length = sizeof(song.tunes[0].channel)/sizeof(Note),
+		freq_ratio;
+	Note n1, n2;
 
-	return score;
+	// Inefficient; Could do better
+	for (int i = 0;i < instruments;i++) {
+		for (int j = 0;j < track_length;j++) {
+			for (int k = 0;k < track_length;k++) {
+				n1 = song.tunes[i].channel[j];
+				n2 = song.tunes[i].channel[k];
+
+				if (n1.tone > n2.tone) {
+					freq_ratio = floor((100*n1.tone) / n2.tone);
+				} else {
+					freq_ratio = floor((100*n2.tone) / n1.tone);
+				}
+
+				// If there is dissonance, -1/MAX_NOTE points
+				if (!(	freq_ratio == 200 || // 2:1
+						freq_ratio == 150 || // 3:2
+						freq_ratio == 133 || // 4:3
+						freq_ratio == 100))	 // 1:1
+					tally--;
+			}
+		}
+	}
+
+	return tally / MAX_NOTES;
 }
 
 int manual_override(Song song) {
@@ -40,6 +77,6 @@ int manual_override(Song song) {
 }
 
 bool override_switch() {
-	//TODO
-	return true;
+	info status = get_ethernet();
+	return status.manual_override;
 }

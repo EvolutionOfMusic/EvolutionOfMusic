@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-#include "synthesizer.h"
+#include "ethernet.h"
 #include "critic_shell.h"
 #include "ai_shell.h"
 //#include "song_structs.h"
@@ -40,6 +40,6 @@ int main() {
 }
 
 bool play_music_switch() {
-	//TODO
-	return false;
+		info status = get_ethernet();
+		return status.play_music;
 }
