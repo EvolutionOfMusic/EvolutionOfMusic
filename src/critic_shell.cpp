@@ -49,10 +49,10 @@ int supervisor(Song song) {
 				n1 = song.tunes[i].channel[j];
 				n2 = song.tunes[i].channel[k];
 
-				if (n1.tone > n2.tone) {
-					freq_ratio = floor((100*n1.tone) / n2.tone);
+				if (frequencies[n1.tone] > frequencies[n2.tone]) {
+					freq_ratio = floor((100*frequencies[n1.tone]) / frequencies[n2.tone]);
 				} else {
-					freq_ratio = floor((100*n2.tone) / n1.tone);
+					freq_ratio = floor((100*frequencies[n2.tone]) / frequencies[n1.tone]);
 				}
 
 				// If there is dissonance, -1/MAX_NOTE points

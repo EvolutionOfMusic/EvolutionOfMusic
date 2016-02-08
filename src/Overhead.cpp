@@ -56,7 +56,7 @@ bool play_music_switch() {
 		return status.play_music;
 }
 
-int test_main(int, char *[]) {
+/*int test_main(int, char *[]) {
 	BOOST_CHECK(true);
 	return 0;
-}
+}*/

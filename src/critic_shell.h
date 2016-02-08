@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include "ethernet.h"
+#include "frequencies.h"
 #include "song_structs.h"
 
 int c_shell(Song song);

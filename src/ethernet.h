@@ -10,7 +10,7 @@
 
 // TODO: SOCKETS YET AGAIN!
 // http://www.linuxhowtos.org/C_C++/socket.htm
-#include <sys/types.h>
+//#include <sys/types.h>
 //#include <sys/socket.h>
 #include "song_structs.h"
 
