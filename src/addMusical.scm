@@ -32,8 +32,25 @@
 	(cog-new-link 'Link ID y(0 linkerList) (cog-new-stv 0 0)))
 
 (define (updateLinkerList linkerList value)
-	(= Header (define getNextNode(Header Linker indexHeader indexLinker)
-	define x (if (cog-atom? (cog-node 'ConceptNode + + + Header "." index)))
+	((= indexHeader 0) (= indexLinker 0)
+	(= Header headFinder(linkerList))
+	(define getNextNode(Header Linker indexHeader indexLinker)
+	define x (if (cog-atom? (cog-node 'ConceptNode (+ Header index))))
 	)
 
-(define 
+(define (headFinder linkerList)
+	(cog-incoming-set (cog-node 'ConceptNode (+ linkerList "0") 1)) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
