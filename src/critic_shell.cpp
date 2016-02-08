@@ -34,6 +34,8 @@ int supervisor(Song song) {
 	 * Rhythm
 	 *
 	 *
+	 * Length
+	 *
 	 */
 	int instruments = sizeof(song.tunes)/sizeof(Track),
 		track_length = sizeof(song.tunes[0].channel)/sizeof(Note),

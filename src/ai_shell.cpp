@@ -11,7 +11,7 @@ Song ai_shell(int score) {
 	static Song song;
 
 	// Pass the song & score to the AI
-	start_AI(&song, score);
+	song = start_AI(score);
 
 	return song;
 }
