@@ -44,10 +44,10 @@ int supervisor(Song song) {
 
 	// Inefficient; Could do better
 	for (int i = 0;i < instruments;i++) {
-		for (int j = 0;j < track_length;j++) {
+		for (int j = 0;j < instruments;j++) {
 			for (int k = 0;k < track_length;k++) {
-				n1 = song.tunes[i].channel[j];
-				n2 = song.tunes[i].channel[k];
+				n1 = song.tunes[i].channel[k]; // Pick One Moment in Time
+				n2 = song.tunes[j].channel[k]; // Compare to Different Instrument
 
 				if (frequencies[n1.tone] > frequencies[n2.tone]) {
 					freq_ratio = floor((100*frequencies[n1.tone]) / frequencies[n2.tone]);
