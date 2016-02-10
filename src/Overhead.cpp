@@ -1,3 +1,15 @@
+/*
+ * Overhead.cpp
+ *
+ *  Created on: Jan 28, 2016
+ *      Author: Stephen
+ */
+// Unit Tests
+//#include <boost/test/minimal.hpp>
+//#define BOOST_TEST_MODULE MyTest
+//#include <boost/test/unit_test.hpp>
+//#include <gtest/gtest.h>
+
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -22,7 +34,7 @@ int main() {
 	srand(seed);
 
 	// Timing is everything
-	start_time = clock();
+	start_time = time(0);
 
 	song = ai_shell(0);
 	for (int i = 0;i < iterations;i++) {
@@ -33,13 +45,18 @@ int main() {
 			play_music(song);
 	}
 
-	end_time = clock();
+	end_time = time(0);
 	total_time = difftime(start_time, end_time);
 
-	cout << "Music Complete in :" << total_time << "seconds" << '\n';
+	cout << "Generation " << iterations << " Complete in " << total_time << " seconds" << '\n';
 }
 
 bool play_music_switch() {
 		info status = get_ethernet();
 		return status.play_music;
 }
+
+/*int test_main(int, char *[]) {
+	BOOST_CHECK(true);
+	return 0;
+}*/

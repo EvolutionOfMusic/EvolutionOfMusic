@@ -34,6 +34,8 @@ int supervisor(Song song) {
 	 * Rhythm
 	 *
 	 *
+	 * Length
+	 *
 	 */
 	int instruments = sizeof(song.tunes)/sizeof(Track),
 		track_length = sizeof(song.tunes[0].channel)/sizeof(Note),
@@ -42,15 +44,15 @@ int supervisor(Song song) {
 
 	// Inefficient; Could do better
 	for (int i = 0;i < instruments;i++) {
-		for (int j = 0;j < track_length;j++) {
+		for (int j = 0;j < instruments;j++) {
 			for (int k = 0;k < track_length;k++) {
-				n1 = song.tunes[i].channel[j];
-				n2 = song.tunes[i].channel[k];
+				n1 = song.tunes[i].channel[k]; // Pick One Moment in Time
+				n2 = song.tunes[j].channel[k]; // Compare to Different Instrument
 
-				if (n1.tone > n2.tone) {
-					freq_ratio = floor((100*n1.tone) / n2.tone);
+				if (frequencies[n1.tone] > frequencies[n2.tone]) {
+					freq_ratio = floor((100*frequencies[n1.tone]) / frequencies[n2.tone]);
 				} else {
-					freq_ratio = floor((100*n2.tone) / n1.tone);
+					freq_ratio = floor((100*frequencies[n2.tone]) / frequencies[n1.tone]);
 				}
 
 				// If there is dissonance, -1/MAX_NOTE points

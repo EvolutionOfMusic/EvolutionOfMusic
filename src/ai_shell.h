@@ -13,6 +13,6 @@
 #include "song_structs.h"
 
 Song ai_shell(int score);
-void start_AI(Song *output, int score);
+Song start_AI(int score);
 
 #endif /* AI_SHELL_H_ */
