@@ -20,23 +20,26 @@
 
 #define BYTES_PER_SECOND 12500000
 #define MAX_INSTRUMENTS 99
+
+#define INSTRUMENT_TYPES 3//?How many groupings of different types of instruments
+			  //will there be? E.g. harmony, melody, and percussian
 // END OF IMPORTANT DEFINITIONS
 
 typedef struct{
 	short int pause_time, 	// 1/16th beat, at the moment
-			  hold_time;	// 1/16th beat, at the moment
+		  hold_time;	// 1/16th beat, at the moment
 	int       tone;
 } Note;
 
 typedef struct{
-	int instrument_id,
-	    volume;
+	int  instrument_id,
+	     volume;
 	Note channel[MAX_NOTES+1];
 } Track;
 
 typedef struct{
-	int song_id,
-			 tempo;
+	int   song_id,
+	      tempo;
 	Track tunes[MAX_INSTRUMENTS+1];
 } Song;
 
