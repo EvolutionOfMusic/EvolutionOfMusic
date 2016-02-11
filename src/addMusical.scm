@@ -14,6 +14,12 @@
 ;call the walkList function within C++ as ID to link up sub-tracks
 ;name is to be referred as linkerX.Y
 
+(define (load-state)
+	(if(cog-atom? (cog-node 'ConceptNode "current_node_pair"))
+		cog-incoming-set (cog-node "current_node_pair")
+		(
+		 (cog-new-link 'ConceptLink (cog-new-node 'ConceptNode "current_node_pair") (cog-node 'ConceptNode "Note.1.1.0")))
+
 
 (define (walkList Header index)
 	(if (cog-atom? (cog-node 'ConceptNode + Header index)) 

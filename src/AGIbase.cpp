@@ -1,30 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <opencog/server/CogServer.h>
+#include <opencog/server/Factory.h>
+#include <opencog/util/Logger.h>
+#include <opencog/atomspace/SimpleTruthValue.h>
+#include "song_structs.h"
+#include "frequencies.h"
 
 int AGImain(){
 	int i;
+	char * currentNode = findCurrentNode();
 	Track currentTrack[INSTRUMENT_TYPES];
-	Song currentSong = generateRandomSong(0,127);
-	Song comparisonSong = generateRandomSong(1,127);
+	Song currentSong = generateRandomSong(0,127,1);
+	Song comparisonSong = generateRandomSong(1,127,1);
 	for(i=0 i<INSTRUMENT_TYPES; i++){
-		currentTrack[i] = decoupleTrack(currentSong, comparisonSong, i);
-		findNoteCouple();
+		//currentTrack[i] = decoupleTrack(currentSong, comparisonSong, i);
+		findNoteCouple(currentSong, comparisonSong, currentNode);
 	}
 }
 
-Song generateRandomSong(int ID, int volume){
+Song generateRandomSong(int ID, int volume, int numberOfInstruments){
 	Song newSong;
 	int BPM = MIN_TEMPO+(MAX_TEMPO-MIN_TEMP)*rand();
-	int maxInstruments = 49*rand(), i;
 	newSong.song_id = ID;
-	for(i=0; i<maxInstruments; i++)
+	for(i=0; i<numberOfInstruments; i++)
 		newSong.tunes[i] = generateRandomTrack(i, volume);
-	newSong.tunes[maxInstrument] = '\0';
+	newSong.tunes[numberOfInstruments] = '\0';
 	return newSong;
-
 }
 
+//Apply current node to 
 Track generateRandomTrack(int ID, int volume){
 	Track newTrack;
 	Note newNote;
@@ -46,9 +52,10 @@ Track generateRandomTrack(int ID, int volume){
 		j += newNote.pause_time + newNote.hold_time;
 	}
 	newTrack.channel[i] = '\0';
+	return newTrack;
 }
 
-Track decoupleTrack(Song importantSong, Song testSong, int instrumentIndex){
+Track decoupleTrack(Song importantSong, Song testSong, int instrumentIndex, char* currentNode){
 	int score[6], i, song_id;
 	Song tempSongs[5]; 
 	tempSong[0].tunes[0] = importantSong[instrumentIndex];
@@ -96,6 +103,37 @@ Song trackSkipper(Song insertSong, int skipID, int startAddIndex){
 	return tempSong;
 }
 
-void findNotePair(){
+void findNotePair(Song importantSong, Song testSong, char* currentNode){
+	Note subTrack1[2], subTrack2[MAX_NOTES],subTrack3[MAX_NOTES], subTrack4[MAX_NOTES];
+	subTrack1[0] = importantSong.tunes[0].channel[0];
+	subTrack1[1] = importantSong.tunes[0].channel[1];
+	//query the AtomSpace if it knows about subTrack1
 	
+
+}
+
+//can take wanted beat 'chord' as element A with 3 others being the rest 
+void findTrackMultiTrackPair(){
+
+}
+
+int songTime2Index(Track track, int time, int tempo){
+	int i = 0, j = 0;
+	while(i<time*tempo/60){
+		i+=track.channel[j].hold_time + track.channel[j].pause_time
+		j++;
+	}
+	return j-1;
+}
+
+char * findCurrentNode(){
+	Handle arg1 =;
+	Handle arg2 =;
+	Link lnk(LIST_LINK, arg1, arg2);
+	Handle currentNodePair = TLB::getHandle(&lnk);
+
+	SchemEval evaluator(&cogserver().getAtomSpace());
+	Handle Answer = evaluator.apply("name", currentNodePair);
+	char * returnString = Answer[LINKNAMERANGE];
+	return returnString;
 }
