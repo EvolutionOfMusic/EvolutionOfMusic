@@ -10,8 +10,12 @@
 
 // TODO: SOCKETS YET AGAIN!
 // http://www.linuxhowtos.org/C_C++/socket.htm
-//#include <sys/types.h>
-//#include <sys/socket.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include "song_structs.h"
 
 struct info {
@@ -19,6 +23,7 @@ struct info {
 		 manual_override;
 };
 
+void error(const char* msg);
 void play_music(Song song);
 info get_ethernet();
 

@@ -31,7 +31,7 @@ typedef struct{
 typedef struct{
 	int instrument_id,
 			 volume;
-	Note channel[NOTES_PER_MEASURE*NUM_MEASURES+1];
+	Note channel[MAX_NOTES+1];
 } Track;
 
 typedef struct{
