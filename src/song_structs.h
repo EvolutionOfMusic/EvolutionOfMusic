@@ -13,31 +13,33 @@
 
 #define NOTES_PER_MEASURE 16
 #define MAX_NOTES (NOTES_PER_MEASURE*NUM_MEASURES)
-#define MAX_NOTE_LENGTH 1 // measure
+#define MAX_NOTE_LENGTH NOTES_PER_MEASURE // 1 measure
 
 #define MAX_TEMPO 120 //bpm
 #define MIN_TEMPO 40
 
 #define BYTES_PER_SECOND 12500000
 #define MAX_INSTRUMENTS 99
+
+#define INSTRUMENT_TYPES 1
 // END OF IMPORTANT DEFINITIONS
 
 typedef struct{
 	short int pause_time, 	// 1/16th beat, at the moment
 			  hold_time;	// 1/16th beat, at the moment
-	int       tone;
+	int       tone;			// 0-95
 } Note;
 
 typedef struct{
-	int instrument_id,
-			 volume;
+	int  instrument_id,
+	     volume;
 	Note channel[MAX_NOTES+1];
 } Track;
 
 typedef struct{
-	int song_id,
-			 tempo;
-	Track tunes[];
+	int   song_id,
+	      tempo;
+	Track tunes[MAX_INSTRUMENTS+1];
 } Song;
 
 
