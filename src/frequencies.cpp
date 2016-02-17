@@ -20,8 +20,8 @@ const int frequencies[NUM_FREQ] = // New octave at 0, 12, 24, 36, 48, 60, 72
 /*# Semitones  | Desc		 |	Abbr.
  * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
  * 	 3		   = Whole & Half	(WH)
- * 	 2		   = Whole			(W)
- * 	 1		   = Half			(H)
+ * 	 2		   = Whole		(W)
+ * 	 1		   = Half		(H)
  * 	-1		   = End of Scale 	(EOS)
  */
 
