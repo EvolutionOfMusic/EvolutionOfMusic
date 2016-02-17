@@ -8,6 +8,8 @@
 #ifndef SONG_STRUCTS_H_
 #define SONG_STRUCTS_H_
 
+#include "frequencies.h"
+
 // IMPORTANT DEFINITIONS
 #define NUM_MEASURES 10
 
