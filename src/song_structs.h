@@ -22,6 +22,7 @@
 #define MAX_INSTRUMENTS 99
 
 #define INSTRUMENT_TYPES 1
+#define NUMBER_OF_TONES 96
 // END OF IMPORTANT DEFINITIONS
 
 typedef struct{
