@@ -264,6 +264,20 @@ class GeneticSong:
         """
         return len(self._chromosome_list)
 
+    def pop(self, track_id):
+        """
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> gene3 = NoteGene(3,3,3,3,3)
+        >>> nc1 = NoteChromosome(gene1, gene2, track_id=0)
+        >>> nc2 = NoteChromosome(gene3, track_id=1)
+        >>> song1 = GeneticSong(nc1, nc2)
+        >>> song1.pop(0) == nc1
+        True
+        """
+        return self._chromosome_dict
+    
+    
     def crossover(self, song, crossover_point):
         """
         >>> gene1 = NoteGene(1,1,1,1,1)

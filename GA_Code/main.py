@@ -143,8 +143,8 @@ def load_songs(file_obj, delimeter='*'):
         rv.append(song_from_string(song_string))
     return rv
 
-def get_crossover_prob(fitness, fitness_sum):
-    return fitness/fitness_sum
+def get_crossover_prob(index, p_of_c=0.60):
+    return (p_of_c)*(1 - p_of_c) ** index
 
 def get_mutation_prob(crossover_prob):
     return sqrt(crossover_prob)
@@ -169,6 +169,7 @@ if __name__ == "__main__":
             chromo_len = int(gene_config.readline().strip("chromo length: "))
             max_hold_time = int(gene_config.readline().strip("max hold time: "))
             max_pause_time = int(gene_config.readline().strip("max pause time: "))
+            #not finished, need to add more variables
     else:
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
