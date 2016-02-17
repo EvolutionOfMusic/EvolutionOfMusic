@@ -201,5 +201,24 @@ if __name__ == "__main__":
                
         raise SystemExit
 
+    # Sort all songs in song_list by score
+    song_list
     
-
+    # Go through assign fitness/mutation probs
+    for song in song_list:
+        
+        
+        # Start randomly drawing (2 random samples) for reproduction
+        
+        
+        # Do crossover
+        
+        
+        # Do mutation (there are 4 different type) (defined in config file)
+        
+        
+        # Add newcomer to new_song_list
+        
+    song_list = new_song_list
+    
+    raise SystemExit
