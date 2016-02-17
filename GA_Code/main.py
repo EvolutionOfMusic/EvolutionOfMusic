@@ -184,8 +184,9 @@ if __name__ == "__main__":
     else:
         with open("genetic_" + save_file) as genetic_load:
             song_list = load_songs(genetic_load)
-
-
+    
+    # Sort all songs in song_list by score
+    song_list
             
     if songs_graded:
         with open(save_file) as save:
@@ -200,11 +201,8 @@ if __name__ == "__main__":
                 save.write(str(song) + '\n')
                
         raise SystemExit
-
-    # Sort all songs in song_list by score
-    song_list
     
-    # Go through assign fitness/mutation probs
+    # Go through all songs
     for song in song_list:
         
         
