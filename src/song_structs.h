@@ -8,6 +8,8 @@
 #ifndef SONG_STRUCTS_H_
 #define SONG_STRUCTS_H_
 
+#include "frequencies.h"
+
 // IMPORTANT DEFINITIONS
 #define NUM_MEASURES 10
 
@@ -22,6 +24,7 @@
 #define MAX_INSTRUMENTS 99
 
 #define INSTRUMENT_TYPES 1
+#define NUMBER_OF_TONES NUM_FREQ
 // END OF IMPORTANT DEFINITIONS
 
 typedef struct{

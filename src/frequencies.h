@@ -9,6 +9,15 @@
 #define FREQ_H_
 
 // IMPORTANT DEFINITIONS
+#define NOTE_C1  33
+#define NOTE_CS1 35
+#define NOTE_D1  37
+#define NOTE_DS1 39
+#define NOTE_E1  41
+#define NOTE_F1  44
+#define NOTE_FS1 46
+#define NOTE_G1  49
+#define NOTE_GS1 52
 #define NOTE_A1  55
 #define NOTE_AS1 58
 #define NOTE_B1  62
@@ -84,8 +93,14 @@
 #define NOTE_A7  3520
 // END OF IMPORTANT DEFINITIONS
 
-#define NUM_FREQ (12 * 6) + 1
+#define NUM_FREQ (12 * 7) - 1
+#define MAX_SCALE_SIZE 12
 
 extern const int frequencies[NUM_FREQ];
+
+// Semitones from C in every octave
+extern const int everything_scale[MAX_SCALE_SIZE];
+extern const int major_scale[MAX_SCALE_SIZE];
+extern const int minor_scale[MAX_SCALE_SIZE];
 
 #endif /* FREQ_H_ */

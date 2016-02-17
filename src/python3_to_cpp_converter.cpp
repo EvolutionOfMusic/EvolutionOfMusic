@@ -14,68 +14,21 @@
 using namespace std;
 
 Song parse_song(ifstream &file){
-    /*char file_line[20];
-    char flow_control; 
-    static int i = 0, j = 0;   
-    status function_status;
-    long int pause_time, hold_time, tone;
-    
-    if(file.is_open()){ 
-        while(1) { 
-            file.getline(file_line, 20);
-            
-            flow_control = file_line[0];
-            if(flow_control == '%'){
-                function_status = EOT;
-                break;
-            }
-            
-            if(flow_control == '*'){
-                function_status = EOS;
-                break;
-            }
-            cout << "line 43" << endl;
-            if(flow_control == '#'){
-                function_status = EOSF;
-                break;
-            }
-            
-            if(i == 0){
-                track_ptr.instrument_id = atol(file_line);
-            } else if (i == 1) {
-                track_ptr.volume = atol(file_line);
-            } else {
-                sscanf(file_line, "%d %d %d", &pause_time, &tone, &hold_time);
-                track_ptr.channel[j].hold_time = hold_time;
-                track_ptr.channel[j].pause_time = pause_time;
-                track_ptr.channel[j].tone = tone;
-                j++;
-            } 
-            
-            i++;
-            
-        } 
-    }
-    
-    i = 0;
-    j = 0;
-    
-    return function_status;*/
-	char file_line[20];
+    char file_line[20];
 	
 	Song song;
-	int NUM_TRACKS,
+	int NUM_TRACKS, i, j,
 		instr_id, volume;
 	long int pause_time, hold_time, tone;
 	
 	if (file.is_open()) {
-		// SongID
-		file.getline(file_line, 20);
-		sscanf(file_line, "%d", &song.song_id);
-		
 		// Number of Tracks
 		file.getline(file_line, 20);
 		sscanf(file_line, "%d", &NUM_TRACKS);
+
+		// SongID
+		file.getline(file_line, 20);
+		sscanf(file_line, "%d", &song.song_id);
 		
 		for (i = 0;i < NUM_TRACKS;i++) {
 			// Instrument ID, Volume
@@ -88,9 +41,9 @@ Song parse_song(ifstream &file){
 				// Pause Time, Tone, Hold Time
 				file.getline(file_line, 20);
 				sscanf(file_line, "%d %d %d", &pause_time, &tone, &hold_time);
-				song.track[i].tone = tone;
-				song.track[i].pause_time = pause_time;
-				song.track[i].hold_time = hold_time;
+				song.tunes[i].channel[j].tone = tone;
+				song.tunes[i].channel[j].pause_time = pause_time;
+				song.tunes[i].channel[j].hold_time = hold_time;
 			}
 		}
 	}
@@ -106,7 +59,7 @@ int main(int argc, char** argv) {
     
     song = parse_song(file);
 	
-	Track track = song.track[0];
+	Track track = song.tunes[0];
     
     cout << track.instrument_id << endl;
     cout << track.volume << endl;

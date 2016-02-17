@@ -15,8 +15,8 @@ int AGImain(){
 	Song currentSong = generateRandomSong(0,127,1);
 	Song comparisonSong = generateRandomSong(1,127,1);
 	for(i=0 i<INSTRUMENT_TYPES; i++){
-		//currentTrack[i] = decoupleTrack(currentSong, comparisonSong, i);
-		findNoteCouple(currentSong, comparisonSong, currentNode);
+		//currentTrack[i] = decoupleNotePair(currentSong, comparisonSong, i);
+		findNotePair(currentSong, currentNode);
 	}
 }
 
@@ -55,7 +55,7 @@ Track generateRandomTrack(int ID, int volume){
 	return newTrack;
 }
 
-Track decoupleTrack(Song importantSong, Song testSong, int instrumentIndex, char* currentNode){
+Track decoupleNotePair(Song importantSong, Song testSong, int instrumentIndex, char* currentNode){
 	int score[6], i, song_id;
 	Song tempSongs[5]; 
 	tempSong[0].tunes[0] = importantSong[instrumentIndex];
@@ -103,16 +103,44 @@ Song trackSkipper(Song insertSong, int skipID, int startAddIndex){
 	return tempSong;
 }
 
-void findNotePair(Song importantSong, Song testSong, char* currentNode){
+void findNotePair(Song testSong, char* currentNode){
 	Note subTrack1[2], subTrack2[MAX_NOTES],subTrack3[MAX_NOTES], subTrack4[MAX_NOTES];
-	subTrack1[0] = importantSong.tunes[0].channel[0];
-	subTrack1[1] = importantSong.tunes[0].channel[1];
-	//query the AtomSpace if it knows about subTrack1
-	
+	int i, j, score[NUMBER_OF_TONES], baseScore, AGIKnowldege = 0;
+	testSong.tunes[0].channel[2].tone = 0;
+
+	//needs 
+
+	//determine the value for the rest of the song
+	for(j=0; j<NUMBER_OF_TONES; j++){
+		testSong.tunes[0].channel[1].tone = j;
+		testSong.tunes[0].channel[0].tone = 0;		
+
+		//query the AtomSpace if it knows about the track
+		if(SCHEMEBOOLEAN()){
+			AGIKnowledge =1;
+			baseScore = evaluator.apply("SUBTRACTSCORE", arg);
+		}
+
+		for(i=1; i<NUMBER_OF_TONES; i++){
+			testSong.tunes[0].channel[0].tone = i;
+			score[i] = critic(testSong);
+		}
+		if(AGIKnowledge){
+			for(i=1; i<NUMBER_OF_TONES; i++){
+				evaluator.apply("addNotePair", arg);
+			}
+		else{
+		//algebra or other assumptions
+		//assumptions being the song starting off with a non-zero score
+		//and there is a perfect score attainable with one of the note pairs
+		}
+	}
+
 
 }
 
-//can take wanted beat 'chord' as element A with 3 others being the rest 
+//can take wanted beat 'chord' as element A with 3 others being the rest
+//the value associated with multiple notes being played at any give moment 
 void findTrackMultiTrackPair(){
 
 }
@@ -133,7 +161,7 @@ char * findCurrentNode(){
 	Handle currentNodePair = TLB::getHandle(&lnk);
 
 	SchemEval evaluator(&cogserver().getAtomSpace());
-	Handle Answer = evaluator.apply("name", currentNodePair);
+	Handle Answer = evaluator.apply("load-state", currentNodePair);
 	char * returnString = Answer[LINKNAMERANGE];
 	return returnString;
 }
