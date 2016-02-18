@@ -186,9 +186,6 @@ if __name__ == "__main__":
         with open("genetic_" + save_file) as genetic_load:
             song_list = load_songs(genetic_load)
     
-    # Sort all songs in song_list by score
-    song_list
-            
     if songs_graded:
         with open(save_file) as save:
             total_score = int(save.readline())
@@ -196,25 +193,43 @@ if __name__ == "__main__":
                 song.score = int(save.readline())
                 song.crossover_chance = get_crossover_prob(song.score, total_score)
                 song.mutation_chance = get_mutation_prob(song.crossover_chance)
-    else:        
+    else:
         with open(save_file, 'w+') as save:
             for song in song_list:
                 save.write(str(song) + '\n')
                
         raise SystemExit
     
-    # Go through all songs
+    prob_song_list = []
+    
+    # Sort all songs in song_list by score
     for song in song_list:
-        
+        for i in range(song.crossover_chance)
+            prob_song_list.append(song)
+    
+    
+    # Go through all songs
+    for i in range(len(prob_song_list)):
+        # Depends on the sorted list
         
         # Start randomly drawing (2 random samples) for reproduction
-        
+        song1 = random.sample(song_list, 1)[0]
+        song2 = random.sample(song_list, 1)[0]
         
         # Do crossover
+        song1.crossover(song2, random.randrange(0, len(song2)))
         
-        
-        # Do mutation (there are 4 different type) (defined in config file)
-        
+        # Do mutation (there are 4 different types) (defined in config file)
+        while prob_mutate > 0.70:
+            prob_mutate = randrange(0, song1.mutation_chance)
+            if prob_mutate <= 0.05:
+                song.pop()
+                break
+            else if prob_mutate > 0.05 and prob_mutate <= 0.1:
+                song.mutate()
+                break
+            else if prob_mutate > 0.1 and prob_mutate <= 0.15:
+                song[random.sample(song.track_ids, 1)[0]]
         
         # Add newcomer to new_song_list
         
