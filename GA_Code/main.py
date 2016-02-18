@@ -229,14 +229,15 @@ if __name__ == "__main__":
                 break
             else if prob_mutate > 0.05 and prob_mutate <= 0.1:
                 # 
-                song1.mutate(random_chromosome(), )
+                #song1.mutate(random_chromosome(), )
                 break
             else if prob_mutate > 0.1 and prob_mutate <= 0.15:
                 #song1[random.sample(song1.track_ids, 1)[0]]
                 break
             else if prob_mutate > 0.15 and prob_mutate <= 0.70:
-                # Incremets or decrements a note by a semitone
-                song1[random.sample(song1.track_ids, 1)[0]][random.randrange(0, 160)].mutate(random_gene(), )
+                # Increments or decrements a note by a semitone
+                #song1[random.sample(song1.track_ids, 1)[0]][random.randrange(0, 160)].mutate(random_gene(), )
+                break
         
         # Add newcomer to new_song_list
         new_song_list.append(song1)
