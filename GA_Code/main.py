@@ -201,6 +201,7 @@ if __name__ == "__main__":
         raise SystemExit
     
     prob_song_list = []
+    new_song_list = []
     
     # Sort all songs in song_list by score
     for song in song_list:
@@ -223,16 +224,24 @@ if __name__ == "__main__":
         while prob_mutate > 0.70:
             prob_mutate = randrange(0, song1.mutation_chance)
             if prob_mutate <= 0.05:
-                song.pop()
+                # Removes a note
+                song1.pop()
                 break
             else if prob_mutate > 0.05 and prob_mutate <= 0.1:
-                song.mutate()
+                # 
+                song1.mutate(random_chromosome(), )
                 break
             else if prob_mutate > 0.1 and prob_mutate <= 0.15:
-                song[random.sample(song.track_ids, 1)[0]]
+                #song1[random.sample(song1.track_ids, 1)[0]]
+                break
+            else if prob_mutate > 0.15 and prob_mutate <= 0.70:
+                # Incremets or decrements a note by a semitone
+                song1[random.sample(song1.track_ids, 1)[0]][random.randrange(0, 160)].mutate(random_gene(), )
         
         # Add newcomer to new_song_list
+        new_song_list.append(song1)
         
+    # At the moment we replace all old songs, no matter how good they are
     song_list = new_song_list
     
     raise SystemExit
