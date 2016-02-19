@@ -245,23 +245,41 @@ class NoteChromosome:
         
         return rv 
 
-    def mutate(self, new_gene, index):
+    def mutate(self, *delta_mask):
         """
         >>> gene1 = NoteGene(1,1,1,1,1)
         >>> gene2 = NoteGene(2,2,2,2,2)
         >>> gene3 = NoteGene(3,3,3,3,3)
-        >>> nc1 = NoteChromosome(gene1,gene2)
+        >>> gene4 = NoteGene(4,4,4,4,4)
+        >>> nc1 = NoteChromosome(gene1,gene2,gene3)
+        >>> nc2 = NoteChromosome(gene4)
         >>> nc1
         None
         None
         [1, 1, 1, 1, 1]
         [2, 2, 2, 2, 2]
-        >>> nc1.mutate(new_gene=gene3, index=0)
+        [3, 3, 3, 3, 3]
+        >>> nc1.mutate(2,2,2,2,2,1,1,1,1,1,0,0,0,0,0)
         >>> nc1
         None
         None
         [3, 3, 3, 3, 3]
-        [2, 2, 2, 2, 2]
+        [3, 3, 3, 3, 3]
+        [3, 3, 3, 3, 3]
+        >>> nc2.mutate(0,-1,-2,-3,-4)
+        >>> nc2
+        None
+        None
+        [4, 3, 2, 1, 0]
+        >>> nc1.mutate(2,2,2,2,2)
+        Traceback (most recent call last):
+            ...
+        ValueError: delta mask must be of size 15 not 5
         """
-        self._gene_list[index] = new_gene
-       
+        if len(delta_mask) is not len(self)*5:
+            raise ValueError("delta mask must be of size {} not {}".format(len(self)*5, len(delta_mask)))
+
+        for i in range(len(self)):
+            j = i * 5
+            self[i].mutate(*delta_mask[j:j + 5])
+

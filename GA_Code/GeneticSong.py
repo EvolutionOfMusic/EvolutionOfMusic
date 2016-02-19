@@ -104,7 +104,7 @@ class GeneticSong:
         self.crossover_chance = 0
         self.score = 0
 
-        self.song_id = self._song_count
+        self.song_id = type(self)._song_count
         type(self)._song_count += 1
 
 
@@ -132,6 +132,20 @@ class GeneticSong:
         True
         """
         return {nc.track_id for nc in self._chromosome_list}
+
+    @property
+    def num_genes(self):
+        """
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> gene3 = NoteGene(3,3,3,3,3)
+        >>> nc1 = NoteChromosome(gene1,gene2,track_id=19)
+        >>> nc2 = NoteChromosome(gene3,track_id=1919)
+        >>> song = GeneticSong(nc1, nc2)
+        >>> song.num_genes
+        3
+        """
+        return sum([len(nc) for nc in self._chromosome_dict.values()])
         
     def __eq__(self, gsong):
         """
@@ -243,7 +257,7 @@ class GeneticSong:
         >>> song[2]
         Traceback (most recent call last):
             ...
-        KeyError: track id does not exist
+        KeyError: 'track id does not exist'
         """
         if track_id not in self._chromosome_dict:
            raise KeyError("track id does not exist") 
@@ -262,21 +276,7 @@ class GeneticSong:
         >>> len(song)
         2
         """
-        return len(self._chromosome_list)
-
-    def pop(self, track_id):
-        """
-        >>> gene1 = NoteGene(1,1,1,1,1)
-        >>> gene2 = NoteGene(2,2,2,2,2)
-        >>> gene3 = NoteGene(3,3,3,3,3)
-        >>> nc1 = NoteChromosome(gene1, gene2, track_id=0)
-        >>> nc2 = NoteChromosome(gene3, track_id=1)
-        >>> song1 = GeneticSong(nc1, nc2)
-        >>> song1.pop(0) == nc1
-        True
-        """
-        return self._chromosome_dict
-    
+        return len(self._chromosome_dict)
     
     def crossover(self, song, crossover_point):
         """
@@ -299,7 +299,7 @@ class GeneticSong:
         >>> song5 = GeneticSong(nc2)
         >>> song6 = GeneticSong(nc4)
         >>> song1.crossover(song2, 1)
-        21
+        22
         0
         0
         0
@@ -318,7 +318,7 @@ class GeneticSong:
         [7, 7, 7, 7, 7]
         [8, 8, 8, 8, 8]
         >>> song3.crossover(song4, 1)
-        22
+        23
         0
         0
         0
@@ -327,7 +327,7 @@ class GeneticSong:
         [1, 1, 1, 1, 1]
         [6, 6, 6, 6, 6]
         >>> song5.crossover(song6, 1)
-        23
+        24
         0
         0
         0
@@ -357,7 +357,110 @@ class GeneticSong:
                 
         return GeneticSong(*new_chromosome_list, max_len=self.max_length)
 
+    def mutate(self, *delta_mask):
+        """
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> gene3 = NoteGene(3,3,3,3,3)
+        >>> gene4 = NoteGene(4,4,4,4,4)
+        >>> gene5 = NoteGene(5,5,5,5,5)
+        >>> gene6 = NoteGene(6,6,6,6,6)
+        >>> gene7 = NoteGene(7,7,7,7,7)
+        >>> gene8 = NoteGene(8,8,8,8,8)
+        >>> nc1 = NoteChromosome(gene1, gene2, track_id = 1)
+        >>> nc2 = NoteChromosome(gene3, gene4, track_id = 3)
+        >>> nc3 = NoteChromosome(gene5, track_id=0)
+        >>> nc4 = NoteChromosome(gene6, track_id=2)
+        >>> nc5 = NoteChromosome(gene7, track_id=4)
+        >>> nc6 = NoteChromosome(gene8, track_id=6)
+        >>> song1 = GeneticSong(nc1, nc2)
+        >>> song1.song_id = 1
+        >>> song2 = GeneticSong(nc3, nc4, nc5, nc6)
+        >>> song2.song_id = 19
+        >>> song1.mutate(2,2,2,2,2,1,1,1,1,1,0,0,0,0,0,-1,-1,-1,-1,-1)
+        >>> song1
+        1
+        0
+        0
+        0
+        1
+        None
+        [3, 3, 3, 3, 3]
+        [3, 3, 3, 3, 3]
+        <BLANKLINE>
+        3
+        None
+        [3, 3, 3, 3, 3]
+        [3, 3, 3, 3, 3]
+        >>> song2.song_id == 19
+        True
+        >>> song2.mutate(-2,-2,-2,-2,-2,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-5,-5,-5,-5,-5)
+        >>> song2
+        19
+        0
+        0
+        0
+        0
+        None
+        [3, 3, 3, 3, 3]
+        <BLANKLINE>
+        2
+        None
+        [3, 3, 3, 3, 3]
+        <BLANKLINE>
+        4
+        None
+        [3, 3, 3, 3, 3]
+        <BLANKLINE>
+        6
+        None
+        [3, 3, 3, 3, 3]
+        >>> song2.mutate(1,1,1)
+        Traceback (most recent call last):
+            ...
+        ValueError: Expecting delta mask of size 20
+        """
+        if len(delta_mask) is not to_gene_index(self.num_genes):
+            raise ValueError("Expecting delta mask of size {}".format(self.num_genes * 5))
 
+        start_index = 0
+        for nc in self._chromosome_dict.values():
+            end_index = to_gene_index(len(nc)) + start_index
+            nc.mutate(*delta_mask[start_index:end_index])
+            start_index = end_index
+        
+    def chromosome_delete(self, track_id):
+        """
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> nc1 = NoteChromosome(gene1,track_id=0)
+        >>> nc2 = NoteChromosome(gene2,track_id=1)
+        >>> song = GeneticSong(nc1,nc2)
+        >>> song.chromosome_delete(track_id=0) 
+        >>> song
+        15
+        0
+        0
+        0
+        1
+        None
+        [2, 2, 2, 2, 2]
+        >>> song.chromosome_delete(track_id=1)
+        >>> song
+        15
+        0
+        0
+        0
+        >>> song.chromosome_delete(track_id=1)
+        Traceback (most recent call last):
+            ...
+        KeyError: 'track_id 1 does not exist'
+        """
+        if track_id not in self.track_ids:
+            raise KeyError("track_id {} does not exist".format(track_id))
+        
+        self._chromosome_dict.pop(track_id)
+        
             
 def set_subtract(set1, set2):
     """
@@ -374,4 +477,4 @@ def set_subtract(set1, set2):
     """
     return set1.union(set2) - set1.intersection(set2)
 
-
+to_gene_index = lambda index: index * 5
