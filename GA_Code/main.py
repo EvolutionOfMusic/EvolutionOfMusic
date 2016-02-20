@@ -1,6 +1,7 @@
 from NoteGene import NoteGene
 from NoteChromosome import NoteChromosome
 from GeneticSong import GeneticSong
+from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 
 from random import SystemRandom, seed, randrange
 from math import inf, sqrt
@@ -143,11 +144,19 @@ def load_songs(file_obj, delimeter='*'):
         rv.append(song_from_string(song_string))
     return rv
 
-def get_crossover_prob(index, p_of_c=0.60):
-    return (p_of_c)*(1 - p_of_c) ** index
+def get_crossover_prob(score, total_score):
+    return int(100 * (score/total_score))
 
 def get_mutation_prob(crossover_prob):
     return sqrt(crossover_prob)
+
+get_prob = lambda randomozer: randomizer.randrange(0, 100)
+
+random_track_id = lambda song, randomizer: randomizer.sample(song.track_ids, 1)[0]
+
+random_crossover_point = lambda chromo_len, randomizer: randomizer.randrange(chromo_len)
+
+random_delta_mask = lambda max_step_size, randomizer, song: (randomizer.randrange(max_step_size + 1) for i in range(chromo_len*len(song)*5))
 
 if __name__ == "__main__":
     if sys.argv[1] == '-n':
@@ -164,15 +173,20 @@ if __name__ == "__main__":
         with open(CONFIG_FILE_PATH) as gene_config:
             #to do: clean this up and have errors and functions for config file
             save_file = gene_config.readline().strip("save file: ").strip('\n')
+            input_file = gene_config.readline().strip("input file: ").strip('\n')
             num_songs = int(gene_config.readline().strip("song count: "))
             song_len = int(gene_config.readline().strip("song length: "))
             chromo_len = int(gene_config.readline().strip("chromo length: "))
             max_hold_time = int(gene_config.readline().strip("max hold time: "))
             max_pause_time = int(gene_config.readline().strip("max pause time: "))
-            #not finished, need to add more variables
+            chromo_delete_prob = float(gene_config.readline().strip("chromo delete prob: "))
+            max_step_size = int(gene_config.readline().strip("max step size: "))
     else:
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
+    randomizer = SystemRandom()
+
+    
     if create_new_genome:
               
         song_list = []
@@ -187,7 +201,7 @@ if __name__ == "__main__":
             song_list = load_songs(genetic_load)
     
     if songs_graded:
-        with open(save_file) as save:
+        with open(input_file) as save:
             total_score = int(save.readline())
             for song in song_list:
                 song.score = int(save.readline())
@@ -200,49 +214,35 @@ if __name__ == "__main__":
                
         raise SystemExit
     
-    prob_song_list = []
+    song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     new_song_list = []
     
-    # Sort all songs in song_list by score
-    for song in song_list:
-        for i in range(song.crossover_chance)
-            prob_song_list.append(song)
-    
-    
     # Go through all songs
-    for i in range(len(prob_song_list)):
-        # Depends on the sorted list
+    for i in range(len(song_list)):
         
         # Start randomly drawing (2 random samples) for reproduction
-        song1 = random.sample(song_list, 1)[0]
-        song2 = random.sample(song_list, 1)[0]
+       
+        song1, song2 = sample_pair(song_list)
         
         # Do crossover
-        song1.crossover(song2, random.randrange(0, len(song2)))
+        song3 = song1.crossover(song2, random_crossover_point(chromo_len, randomizer))
+
         
-        # Do mutation (there are 4 different types) (defined in config file)
-        while prob_mutate > 0.70:
-            prob_mutate = randrange(0, song1.mutation_chance)
-            if prob_mutate <= 0.05:
-                # Removes a note
-                song1.pop()
-                break
-            else if prob_mutate > 0.05 and prob_mutate <= 0.1:
-                # 
-                #song1.mutate(random_chromosome(), )
-                break
-            else if prob_mutate > 0.1 and prob_mutate <= 0.15:
-                #song1[random.sample(song1.track_ids, 1)[0]]
-                break
-            else if prob_mutate > 0.15 and prob_mutate <= 0.70:
-                # Increments or decrements a note by a semitone
-                #song1[random.sample(song1.track_ids, 1)[0]][random.randrange(0, 160)].mutate(random_gene(), )
-                break
-        
+        if song2.mutation_chance <= get_prob(randomizer):
+            delta_mask = random_delta_mask(max_step_size, randomizer, song3)
+            song3.mutate(*delta_mask)
+
         # Add newcomer to new_song_list
-        new_song_list.append(song1)
+        new_song_list.append(song3)
         
     # At the moment we replace all old songs, no matter how good they are
     song_list = new_song_list
+
+    with open(save_file, 'w') as save:
+        for song in song_list:
+            save.write(str(song) + '\n')
+
+    with open(save_file + "_genetic", 'w') as genetic_save:
+        save_songs(genetic_save, *song_list)
     
     raise SystemExit
