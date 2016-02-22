@@ -140,6 +140,30 @@
          type = "String";
       }
    }
+   element pio_1.s1
+   {
+      datum baseAddress
+      {
+         value = "26253408";
+         type = "String";
+      }
+   }
+   element onchip_memory2_0.s1
+   {
+      datum baseAddress
+      {
+         value = "26230784";
+         type = "String";
+      }
+   }
+   element pio_0.s1
+   {
+      datum baseAddress
+      {
+         value = "26253392";
+         type = "String";
+      }
+   }
    element sdram_0.s1
    {
       datum baseAddress
@@ -153,30 +177,6 @@
       datum baseAddress
       {
          value = "26253312";
-         type = "String";
-      }
-   }
-   element pio_1.s1
-   {
-      datum baseAddress
-      {
-         value = "26253408";
-         type = "String";
-      }
-   }
-   element pio_0.s1
-   {
-      datum baseAddress
-      {
-         value = "26253392";
-         type = "String";
-      }
-   }
-   element onchip_memory2_0.s1
-   {
-      datum baseAddress
-      {
-         value = "26230784";
          type = "String";
       }
    }
@@ -269,10 +269,15 @@
  <parameter name="projectName" value="Evo_Synth.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1456008472616" />
+ <parameter name="timeStamp" value="1456168609845" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
+ <interface
+   name="tristate_conduit_bridge_0_out"
+   internal="tristate_conduit_bridge_0.out"
+   type="conduit"
+   dir="end" />
  <module kind="clock_source" version="12.1" enabled="1" name="clk_0">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -372,7 +377,7 @@
   <parameter name="transceiver_type" value="GXB" />
   <parameter name="tstamp_fp_width" value="4" />
   <parameter name="uiHostClockFrequency" value="0" />
-  <parameter name="uiMDIOFreq" value="0 MHz" />
+  <parameter name="uiMDIOFreq" value="0.0 MHz" />
   <parameter name="useLvds" value="false" />
   <parameter name="useMAC" value="true" />
   <parameter name="useMDIO" value="false" />
@@ -1209,9 +1214,4 @@
    end="jtag_uart_0.irq">
   <parameter name="irqNumber" value="1" />
  </connection>
- <connection
-   kind="avalon_streaming"
-   version="12.1"
-   start="triple_speed_ethernet_0.receive"
-   end="triple_speed_ethernet_0.transmit" />
 </system>
