@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <ATOMSPACE/opencog/opencog/cogserver/server/CogServer.h>
-#include <ATOMSPACE/opencog/opencog/cogserver/server/Factory.h>
-#include <ATOMSPACE/cogutils/opencog/util/Logger.h>
-#include <ATOMSPACE/atomspace/opencog/atomspace/SimpleTruthValue.h>
+#include "CogServer.h"
+#include "Factory.h"
+#include "Logger.h"
+#include "SimpleTruthValue.h"
 #include "song_structs.h"
 #include "frequencies.h"
 

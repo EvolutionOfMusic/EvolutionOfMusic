@@ -1,2 +1,0 @@
-(define (addNote ID)
-(cog-new-node 'ConceptNode' ID))

@@ -5,15 +5,22 @@
 
 CC = g++
 INC_DIR = ../../..
-CFLAGS = -g -I$(INC_DIR)/.. #-Wall
-DEPS = AGIbase.h $(INC_DIR)/CogServer.h $(INC_DIR)/Factory.h $(INC_DIR)/Logger.h $(INC_DIR)/SimpleTruthValue.h song_structs.h frequencies.h
-OBJ = AGIbase.o CogServer.o 
+DIR = opencog/opencog/cogserver/server cogutils/opencog/util atomspace/opencog/atomspace
+CFLAGS = -I/. $(foreach d, $(DIR), -I/$(INC_DIR)/$$i) #-g -Wall
+DEPS = AGIbase.h song_structs.h frequencies.h
+OBJ = AGIbase.o song_structs.o frequencies.o
+MAKEFILE = build/Makefile
+MAKE1 = opencog/$(MAKEFILE)
+MAKE2 = cogutils/$(MAKEFILE)
+MAKE3 = atomspace/$(MAKEFILE)
+
+include $(INC_DIR)/$(MAKE1) $(INC_DIR)/$(MAKE2) $(INC_DIR)/$(MAKE3)
 
 %.0: %.cpp #$(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 AGIbase: $(OBJ)
-	g++ $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean: 
 	rm -rf *.o
@@ -22,5 +29,12 @@ delete: clean
 	rm -rf AGIbase
 	rm -rf *~
 
-help: 
-	@echo 'RULES: AGIbase, clean, delete'
+help:   
+	@echo 'Directories:'; 
+	@for i in $(DIR); do \
+		echo $(INC_DIR)$$i; \
+	done;
+	@echo '';
+	@echo 'RULES: AGIbase, clean, delete';
+	@echo ''
+
