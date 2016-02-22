@@ -150,6 +150,19 @@ def get_crossover_prob(score, total_score):
 def get_mutation_prob(crossover_prob):
     return sqrt(crossover_prob)
 
+def get_commandline_arguments():
+    if sys.argv[1] == '-n':
+        create_new_genome = True
+        songs_graded = False
+        seed(int(sys.argv[2]))
+    elif sys.argv[1] == '-g':
+        create_new_genome = False
+        songs_graded = True
+    else:
+        raise ValueError("main.py missing one argument")
+
+    return create_new_genome, songs_graded
+
 get_prob = lambda randomozer: randomizer.randrange(0, 100)
 
 random_track_id = lambda song, randomizer: randomizer.sample(song.track_ids, 1)[0]
@@ -159,16 +172,10 @@ random_crossover_point = lambda chromo_len, randomizer: randomizer.randrange(chr
 random_delta_mask = lambda max_step_size, randomizer, song: (randomizer.randrange(max_step_size + 1) for i in range(chromo_len*len(song)*5))
 
 if __name__ == "__main__":
-    if sys.argv[1] == '-n':
-        create_new_genome = True
-        songs_graded = False
-    elif sys.argv[1] == '-g':
-        create_new_genome = False
-        songs_graded = True
-    else:
-        raise ValueError("main.py missing one argument")
-    
 
+    create_new_genome, songs_graded = get_commandline_arguments()
+    randomizer = SystemRandom()
+    
     if os.path.exists(CONFIG_FILE_PATH) and os.path.isfile(CONFIG_FILE_PATH):
         with open(CONFIG_FILE_PATH) as gene_config:
             #to do: clean this up and have errors and functions for config file
@@ -184,9 +191,6 @@ if __name__ == "__main__":
     else:
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
-    randomizer = SystemRandom()
-
-    
     if create_new_genome:
               
         song_list = []
@@ -216,15 +220,13 @@ if __name__ == "__main__":
     
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     new_song_list = []
+
     
-    # Go through all songs
     for i in range(len(song_list)):
         
-        # Start randomly drawing (2 random samples) for reproduction
-       
         song1, song2 = sample_pair(song_list)
         
-        # Do crossover
+    
         song3 = song1.crossover(song2, random_crossover_point(chromo_len, randomizer))
 
         
@@ -232,10 +234,10 @@ if __name__ == "__main__":
             delta_mask = random_delta_mask(max_step_size, randomizer, song3)
             song3.mutate(*delta_mask)
 
-        # Add newcomer to new_song_list
+        
         new_song_list.append(song3)
         
-    # At the moment we replace all old songs, no matter how good they are
+   
     song_list = new_song_list
 
     with open(save_file, 'w') as save:
