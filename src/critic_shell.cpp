@@ -59,8 +59,10 @@ int supervisor(Song song) {
 				if (!(	freq_ratio == 200 || // 2:1
 						freq_ratio == 150 || // 3:2
 						freq_ratio == 133 || // 4:3
-						freq_ratio == 100))	 // 1:1
+						freq_ratio == 100)) {	 // 1:1
 					tally--;
+					if (tally == 0) break;
+				}
 			}
 		}
 	}
