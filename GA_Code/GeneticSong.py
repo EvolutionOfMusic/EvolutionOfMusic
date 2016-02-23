@@ -80,11 +80,11 @@ class GeneticSong:
     
     _song_count = 0
     
-    def __init__(self, *nchromos, max_len=None):
+    def __init__(self, *nchromos, tempo=0, max_len=None):
         """
         >>> gene = NoteGene(1,1,1,1,1)
         >>> chromosome = NoteChromosome(gene)
-        >>> song = GeneticSong(chromosome, max_len=3)
+        >>> song = GeneticSong(chromosome, max_len=3, tempo=8)
         >>> song2 = GeneticSong(chromosome)
         >>> song.mutation_chance
         0
@@ -94,11 +94,14 @@ class GeneticSong:
         0
         >>> song.max_length
         3
+        >>> song.tempo
+        8
         """
         
         self._chromosome_dict = {nc.track_id:nc for nc in nchromos[:max_len]}
         
         self._max_length = max_len
+        self.tempo = tempo
             
         self.mutation_chance = 0
         self.crossover_chance = 0
@@ -177,12 +180,10 @@ class GeneticSong:
         >>> gene4 = NoteGene(4,4,4,4,4)
         >>> nc1 = NoteChromosome(gene1, gene2, track_id=1)
         >>> nc2 = NoteChromosome(gene3, gene4, track_id=2)
-        >>> song = GeneticSong(nc1, nc2)
+        >>> song = GeneticSong(nc1, nc2, tempo=19)
         >>> song
         13
-        0
-        0
-        0
+        19
         1
         None
         [1, 1, 1, 1, 1]
@@ -194,9 +195,7 @@ class GeneticSong:
         [4, 4, 4, 4, 4]
         """
         rv = str(self.song_id) + '\n'
-        rv += str(self.score) + '\n'
-        rv += str(self.crossover_chance) + '\n'
-        rv += str(self.mutation_chance) + '\n'
+        rv += str(self.tempo) + '\n'
         
         for chromosome in self._chromosome_list:
             rv += (chromosome.__repr__() + "\n\n")

@@ -183,11 +183,13 @@ if __name__ == "__main__":
             input_file = gene_config.readline().strip("input file: ").strip('\n')
             num_songs = int(gene_config.readline().strip("song count: "))
             song_len = int(gene_config.readline().strip("song length: "))
-            chromo_len = int(gene_config.readline().strip("chromo length: "))
+            max_chromo_len = int(gene_config.readline().strip("max chromo length: "))
             max_hold_time = int(gene_config.readline().strip("max hold time: "))
             max_pause_time = int(gene_config.readline().strip("max pause time: "))
             chromo_delete_prob = float(gene_config.readline().strip("chromo delete prob: "))
             max_step_size = int(gene_config.readline().strip("max step size: "))
+            max_tempo = int(gene_config.readline().strip("max tempo: "))
+            min_tempo = int(gene_config.readline().strip("min tempo: "))
     else:
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
