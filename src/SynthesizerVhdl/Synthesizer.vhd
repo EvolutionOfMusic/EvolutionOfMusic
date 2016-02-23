@@ -31,9 +31,7 @@ architecture synthesizer of Synthesizer is
   signal target_lut_addresses 	: LUT_ADDRESSES;
   
   signal lut_addresses2                  : MUX_INPUTS;
-
-  --signal target_lut_addresses 	        : LUT_ADDRESSES;
->>>>>>> 6486807819d4f5c6f66b8ee65a3e32223fd5c34d
+  
   signal audioData		        : WAVE_ARRAY;
 
   signal full_addr                      : std_logic_vector(16 downto 0);
