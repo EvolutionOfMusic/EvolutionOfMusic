@@ -1,7 +1,6 @@
 library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.std_logic_textio.all;
-    use IEEE.numeric_bit.all;
     use IEEE.numeric_std.all;
     use IEEE.std_logic_signed.all;
     use IEEE.std_logic_unsigned.all;
@@ -26,15 +25,15 @@ end Synthesizer;
 
 architecture synthesizer of Synthesizer is
 
-  signal lut_addresses          : MUX_INPUTS;
+  signal lut_addresses2          : MUX_INPUTS;
 
   signal target_lut_addresses 	: LUT_ADDRESSES;
-  
-  signal lut_addresses2                  : MUX_INPUTS;
   
   signal audioData		        : WAVE_ARRAY;
 
   signal full_addr                      : std_logic_vector(16 downto 0);
+
+  signal temp_us : unsigned(15 downto 0);
 
   type freq_array is array (0 to 95) of Integer;
   type step_array is array (0 to 95) of std_logic_vector(15 downto 0);
@@ -52,10 +51,6 @@ architecture synthesizer of Synthesizer is
 		2093, 2217, 2349, 2489, 2637, 2794, 2960, 3136, 3322, 3520, 3729, 3951, -- Octave7
 		4186, 4435, 4699, 4978, 5274, 5588, 5920, 6272, 6645, 7040, 7459, 7902  -- Octave8
 	);    -- the frequencies for the frequency counters
-
-	signal target_lut_addresses : LUT_ADDRESSES;
-	signal audioData			: WAVE_ARRAY;
-	signal full_addr            : std_logic_vector(16 downto 0);
 	
 	component AddressIncrementor is
 	port (
@@ -83,22 +78,36 @@ architecture synthesizer of Synthesizer is
 		ROM_step    : out LUT_ADDRESSES
 	);
 	end component;
-	
-	component SinLut is
-	port (
-		clk      : in  std_logic;
-		--Address input
-		address  : in std_logic_vector(16 downto 0);
-		--Sine output
-		audioData : out WAVE_ARRAY
-	);
+
+	component AudioSynthesis is
+			port(
+				-- system signal
+				clk 				: in std_logic;
+				-- Input to select tone
+				freq_address 		: in std_logic_vector (11 downto 0);
+				-- Input to select the instrument to be used
+				instrument_address 	: in std_logic_vector(4 downto 0);
+				-- Audio data to be outputted
+				audioData 			: out WAVE_ARRAY
+			);
 	end component;
+	
+--	component SinLut is
+--	port (
+--		clk      : in  std_logic;
+--		--Address input
+--		address  : in std_logic_vector(16 downto 0);
+--		--Sine output
+--		audioData : out WAVE_ARRAY
+--	);
+--	end component;
 
 	begin
         --step_array and freq_array are types not variables
         loop1: for i in 0 to 95 generate
-			--std_logic_vector cannot convert unsigned integers in this version of VHDL
-			steps(i) <= std_logic_vector(to_unsigned(freqs(i)*(4294967296/50000000),16));   -- Hard Coded 
+			--the magic number represents: 2^32/50000000
+			temp_us <= to_unsigned(freqs(i)*(33554432/390625),16);
+            steps(i) <= std_logic_vector(temp_us);   -- Hard Coded 
                                                              -- clock frequency
                                                              -- 50 MHz
 		end generate loop1;  
@@ -111,7 +120,7 @@ architecture synthesizer of Synthesizer is
 				clk => clk,
 				reset_n => reset_n,
 				phase_inc => steps(I),
-				lut_address => lut_addresses2(I)
+				lut_address => lut_addresses2(I)(0)
 			);
         end generate Gen_INC;
 	
@@ -134,7 +143,7 @@ architecture synthesizer of Synthesizer is
 		aAudioSynthesis: AudioSynthesis
 			port map(
 				clk 				=> clk,
-				freq_address 		=> target_lut_addresses,
+				freq_address 		=> target_lut_addresses(0),
 				instrument_address 	=> instrument_addr,
 				audioData 			=> audioData
 			);
