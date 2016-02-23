@@ -1,13 +1,13 @@
 library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.std_logic_textio.all;
-    use IEEE.std_logic_arith.all;
     use IEEE.numeric_bit.all;
     use IEEE.numeric_std.all;
     use IEEE.std_logic_signed.all;
     use IEEE.std_logic_unsigned.all;
-	
-use work.SynthesizerPackage.all;
+
+library work;	
+	use work.SynthesizerPackage.ALL;
 
 entity Synthesizer is
 	port (
@@ -26,23 +26,22 @@ end Synthesizer;
 
 architecture synthesizer of Synthesizer is
 
-  signal lut_addresses                  : MUX_INPUTS;
+  signal lut_addresses2                  : MUX_INPUTS;
 
-  signal target_lut_addresses 	        : LUT_ADDRESSES;
+  --signal target_lut_addresses 	        : LUT_ADDRESSES;
   signal audioData		        : WAVE_ARRAY;
+
+  signal full_addr                      : std_logic_vector(16 downto 0);
 
   type freq_array is array (0 to 95) of Integer;
   type step_array is array (0 to 95) of std_logic_vector(15 downto 0);
+
+  signal steps : step_array;
 
   constant freqs : freq_array :=
     (
 33,35,37,39,41,44,46,49,52,55,58,62,65,69,73,78,82,87,93,98,104,110,117,123,131,139,147,156,165,175,185,196,208,220,233,247,262,277,294,311,330,349,370,392,415,440,466,494,523,554,587,622,659,698,740,784,831,880,932,988,1047,1109,1175,1245,1319,1397,1480,1568,1661,1760,1865,1976,2093,2217,2349,2489,2637,2794,2960,3136,3322,3520,3729,3951,4186,4435,4699,4978,5274,5588,5920,6272,6645,7040,7459,7902
 );    -- the frequencies for the frequency counters
-  
-
-	signal target_lut_addresses 	: LUT_ADDRESSES;
-	signal audioData		: WAVE_ARRAY;
-  signal full_addr                      : std_logic_vector(16 downto 0);
 
 
 	component AddressIncrementor is
@@ -88,12 +87,13 @@ architecture synthesizer of Synthesizer is
 	end component;
 
 	begin
-
-          for i in 0 to 95 loop
-            step_array(i) <= std_logic_vector(to_unsigned(freq_array(i)*(2^32/50000000),16));                                                               -- Hard Coded
+		--step_array and freq_array are types not variables
+          loop1: for i in 0 to 95 generate
+			--std_logic_vector cannot convert unsigned integers in this version of VHDL
+            steps(i) <= std_logic_vector(to_unsigned(freqs(i)*(4294967296/50000000),16));   -- Hard Coded 
                                                              -- clock frequency
-                                                             -- 50 MH
-          end loop;
+                                                             -- 50 MHz
+	end generate loop1;
           
 
           -- Add a frequency for the Incrementors
@@ -103,8 +103,8 @@ architecture synthesizer of Synthesizer is
 		port map(
 			clk => clk,
 			reset_n => reset_n,
-			phase_inc => step_array(I),
-			lut_address => lut_addresses(I)
+			phase_inc => steps(I),
+			lut_address => lut_addresses2(I)
 		);
         end generate Gen_INC;
 
@@ -112,7 +112,7 @@ architecture synthesizer of Synthesizer is
     port map(
       clk => clk,
       sel_sig => tone_addr,
-      freq_counts => lut_addresses,
+      freq_counts => lut_addresses2,
       ROM_step => target_lut_addresses
       );
 
