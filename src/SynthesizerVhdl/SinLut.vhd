@@ -552,7 +552,6 @@ X"fe7", X"fea", X"fed", X"ff0", X"ff3", X"ff7", X"ffa", X"ffd"
 
 begin
 
-  instrument <= address(16 downto 12);
   tone <= address(11 downto 0);
 
 rom_select: process (clk)
