@@ -24,51 +24,54 @@ entity AudioSynthesis is
 end entity;
 
 architecture instrumentSynthesis of AudioSynthesis is
-	type instrument_function is envelope
-		audioData		:	WAVE_ARRAY;
-		function_length	:	std_logic_vector;
-	end envelope;
+	package instr_class is
+		type audioData is WAVE_ARRAY;
+		type function_length is INTEGER;
+		
+		function get_audio() return audioData;
+		function get_size() return function_length;
+		
+		procedure sample(audioOut : out WAVE_ARRAY);
+	end instr_class;
+	
+	package instr_class body is
+		procedure sample(audioOut : out WAVE_ARRAY)
+			variable i : integer := 0;
+		begin
+			for i in 0 to 0 loop
+				audioOut(i) <= audioData(conv_integer(freq_address(i))) & "0000";	
+			end loop;
+		end procedure;
+	end instr_class;
 	
 	signal 	sineData, brassData, windData, percussiveData : WAVE_ARRAY;
 begin
-	sinLut: SinLut
-		port map(
-			clk 		=> clk,
-			address 	=> freq_addr,
-			audioData 	=> sineData
-		);
+	--sinLut: SinLut
+	--	port map(
+	--		clk 		=> clk,
+	--		address 	=> freq_addr,
+	--		audioData 	=> sineData
+	--	);
+	--	
+	--rom_select: process (clk)
+	--	variable i : integer := 0;
+	--begin
+	--	if clk'event and clk = '1' then
+	--		with instrument_address select audioData(i) <=
+	--		--	audioData(i)	|	Instrument Address
+	--			sineData 		when "00000" else 
+	--			brassData 		when "00001" else
+	--			windData 		when "00010" else
+	--			percussiveData 	when "00011";
+	--	end if;
+	--end process rom_select;
 	
-	brassLut: BrassLut
-		port map(
-			clk 		=> clk,
-			address 	=> freq_addr,
-			audioData 	=> brassData
-		);
 	
-	windLut: WindLut
-		port map(
-			clk 		=> clk,
-			address 	=> freq_addr,
-			audioData 	=> windData
-		);
-	
-	percussiveLut: PercussiveLut
-		port map(
-			clk 		=> clk,
-			address 	=> freq_addr,
-			audioData 	=> percussiveData
-		);
-		
 	rom_select: process (clk)
 		variable i : integer := 0;
 	begin
 		if clk'event and clk = '1' then
-			with instrument_address select audioData(i) <=
-			--	audioData(i)	|	Instrument Address
-				sineData 		when "00000" else 
-				brassData 		when "00001" else
-				windData 		when "00010" else
-				percussiveData 	when "00011";
+			instrument.sample(audioOut => audioData);
 		end if;
 	end process rom_select;
 	

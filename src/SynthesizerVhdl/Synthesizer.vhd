@@ -11,28 +11,24 @@ library work;
 entity Synthesizer is
 	port (
 	-- system signals
-	clk         : in  std_logic;
-	reset_n     : in  std_logic;
-  
+	clk         		: in  std_logic;
+	reset_n     		: in  std_logic;
+	audio_input_valid	: in  std_logic;
+	
 	-- Frequency control
 	--Bottom 16 bits are for first oscillator, next 16 are for second, next 16 are for third
 	instrument_addr		  	: in  std_logic_vector(4 downto 0); -- There are actually 24 possible instruments
 	tone_addr               : in  std_logic_vector(6 downto 0);
 	audio_output			: out std_logic_vector(15 downto 0);
-	audio_output_valid		: out std_logic
+	audio_output_valid		: inout std_logic
 	);
 end Synthesizer;
 
 architecture synthesizer of Synthesizer is
-
-  signal lut_addresses2          : MUX_INPUTS;
-
+  signal lut_addresses2         : MUX_INPUTS;
   signal target_lut_addresses 	: LUT_ADDRESSES;
-  
   signal audioData		        : WAVE_ARRAY;
-
   signal full_addr                      : std_logic_vector(16 downto 0);
-
   signal temp_us : unsigned(15 downto 0);
 
   type freq_array is array (0 to 95) of Integer;
