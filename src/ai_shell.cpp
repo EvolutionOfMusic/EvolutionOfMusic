@@ -36,7 +36,7 @@ Song start_AI(int score) {
 	
 	// READ OUTPUT
 	ifstream file("main_py_output");
-	song = parse_song(&file);
+	song = parse_song(file);
 	
 	return song;
 }
