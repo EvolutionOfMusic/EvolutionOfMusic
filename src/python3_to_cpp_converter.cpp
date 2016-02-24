@@ -25,7 +25,11 @@ Song parse_song(ifstream &file){
 		// Number of Tracks
 		file.getline(file_line, 20);
 		sscanf(file_line, "%d", &NUM_TRACKS);
-
+		
+		// Tempo
+		file.getline(file_line, 20);
+		sscanf(file_line, "%d", &song.tempo);
+		
 		// SongID
 		file.getline(file_line, 20);
 		sscanf(file_line, "%d", &song.song_id);
