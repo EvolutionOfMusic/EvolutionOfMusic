@@ -5,11 +5,7 @@
  * Created on February 8, 2016, 10:20 AM
  */
 
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <list>
-#include "song_structs.h"
+#include "python3_to_cpp_converter.h"
 
 using namespace std;
 
