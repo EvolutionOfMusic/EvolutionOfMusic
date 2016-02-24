@@ -12,8 +12,10 @@ Song ai_shell(int score) {
 
 	// Init
 	if (song == null &&
-		score == 0)
-		system(sprintf(buffer, 25, "python3 main.py -n %d", rand()));
+		score == 0) {
+		sprintf(buffer, 25, "python3 main.py -n %d", rand())
+		system(buffer);
+	}
 
 	// Pass the song & score to the AI
 	song = start_AI(score);
@@ -26,7 +28,8 @@ Song start_AI(int score) {
 	char * buffer;
 
 	// DO YOUR STUFF
-	system(sprintf(buffer, 25, "python3 main.py -g", rand()));
-
+	sprintf(buffer, 25, "python3 main.py -g", rand());
+	system(buffer);
+	
 	return song;
 }
