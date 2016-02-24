@@ -14,7 +14,7 @@ Song ai_shell(int score) {
 	// Init
 	if (song == null &&
 		score == 0) {
-		sprintf(buffer, 25, "python3 main.py -n %d", rand())
+		sprintf(buffer, 25, "python3 main.py -n %d %d", getpid(), rand())
 		system(buffer);
 	}
 
