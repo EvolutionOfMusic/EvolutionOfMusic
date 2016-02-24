@@ -10,6 +10,7 @@
 
 // rand
 #include <stdlib.h>
+#include "python3_to_cpp_converter.h"
 #include "song_structs.h"
 
 Song ai_shell(int score);
