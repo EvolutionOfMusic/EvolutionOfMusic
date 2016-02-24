@@ -17,7 +17,7 @@ Song parse_song(ifstream &file){
     char file_line[20];
 	
 	Song song;
-	int NUM_TRACKS, i, j,
+	int NUM_TRACKS, NUM_NOTES, i, j,
 		instr_id, volume;
 	long int pause_time, hold_time, tone;
 	
@@ -25,19 +25,27 @@ Song parse_song(ifstream &file){
 		// Number of Tracks
 		file.getline(file_line, 20);
 		sscanf(file_line, "%d", &NUM_TRACKS);
-
+		
+		// Tempo
+		file.getline(file_line, 20);
+		sscanf(file_line, "%d", &song.tempo);
+		
 		// SongID
 		file.getline(file_line, 20);
 		sscanf(file_line, "%d", &song.song_id);
 		
 		for (i = 0;i < NUM_TRACKS;i++) {
+			// Number of Notes
+			file.getline(file_line, 20);
+			sscanf(file_line, "%d", &NUM_NOTES);
+		
 			// Instrument ID, Volume
 			file.getline(file_line, 20);
 			sscanf(file_line, "%d %d", &instr_id, &volume);
 			song.tunes[i].instrument_id = instr_id;
 			song.tunes[i].volume = volume;
 			
-			for (j = 0;j < MAX_NOTES;j++) {
+			for (j = 0;j < NUM_NOTES;j++) {
 				// Pause Time, Tone, Hold Time
 				file.getline(file_line, 20);
 				sscanf(file_line, "%d %d %d", &pause_time, &tone, &hold_time);

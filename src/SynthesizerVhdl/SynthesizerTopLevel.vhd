@@ -51,10 +51,10 @@ architecture additionalSynthesizer of SynthesizerTopLevel is
 		
 begin
 
-
-	read_phase_increment0: process(avs_write_n_phase_increments_voice0)
+	--avs_write_n_phase_increments_voice0 doesn't exist anywhere.
+	read_phase_increment0: process(avs_write_n_voice_select)
 	begin
-		if falling_edge(avs_write_n_phase_increments_voice0) then
+		if falling_edge(avs_write_n_voice_select) then
 				tone_s <=   avs_writedata_voice_select(6 downto 0);
                                 instrument_s <=   avs_writedata_voice_select(11 downto 7);
 		end if;

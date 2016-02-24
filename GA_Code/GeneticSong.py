@@ -3,8 +3,6 @@ from random import randint, seed
 
 from NoteGene import NoteGene
 from NoteChromosome import NoteChromosome
-#implement getter and setter for max_len
-#track length is 160 notes
 
        
 class GeneticSong:
@@ -36,8 +34,6 @@ class GeneticSong:
     0
     0
     0
-    0
-    0
     None
     [1, 1, 1, 1, 1]
     [2, 2, 2, 2, 2]
@@ -48,8 +44,6 @@ class GeneticSong:
     [4, 4, 4, 4, 4]
     >>> song2
     1
-    0
-    0
     0
     2
     None
@@ -63,9 +57,12 @@ class GeneticSong:
     >>> print(song1)
     2
     0
+    0
+    2
     0 None
     2 1 2
     4 2 4
+    2
     1 None
     6 3 6
     8 4 8
@@ -159,9 +156,12 @@ class GeneticSong:
         >>> song1 = GeneticSong(nc1)
         >>> song2 = GeneticSong(nc1)
         >>> song3 = GeneticSong(nc2)
+        >>> song4 = GeneticSong(nc1,tempo=8)
         >>> song1 == song2
         True
         >>> song1 == song3
+        False
+        >>> song1 == song4
         False
         """
         if type(gsong) is not GeneticSong:
@@ -170,6 +170,7 @@ class GeneticSong:
         return ((self._chromosome_list == gsong._chromosome_list) and
                 (self.mutation_chance == gsong.mutation_chance) and
                 (self.crossover_chance == gsong.mutation_chance) and
+                (self.tempo == gsong.tempo) and
                 (self.score == gsong.score))
 
     def __repr__(self):
@@ -182,7 +183,7 @@ class GeneticSong:
         >>> nc2 = NoteChromosome(gene3, gene4, track_id=2)
         >>> song = GeneticSong(nc1, nc2, tempo=19)
         >>> song
-        13
+        14
         19
         1
         None
@@ -209,18 +210,22 @@ class GeneticSong:
         >>> gene4 = NoteGene(4,4,4,4,4)
         >>> nc1 = NoteChromosome(gene1, gene2, track_id=0)
         >>> nc2 = NoteChromosome(gene3, gene4, track_id=1)
-        >>> song = GeneticSong(nc1, nc2)
+        >>> song = GeneticSong(nc1, nc2, tempo=1)
         >>> print(song)
         2
-        14
+        1
+        15
+        2
         0 None
         2 1 2
         4 2 4
+        2
         1 None
         6 3 6
         8 4 8
         """
         rv = str(len(self)) + '\n'
+        rv += str(self.tempo) + '\n'
         rv += str(self.song_id) + '\n'
         for chromosome in self._chromosome_list:
             rv += (str(chromosome) + "\n")
@@ -298,9 +303,7 @@ class GeneticSong:
         >>> song5 = GeneticSong(nc2)
         >>> song6 = GeneticSong(nc4)
         >>> song1.crossover(song2, 1)
-        22
-        0
-        0
+        24
         0
         0
         None
@@ -317,18 +320,14 @@ class GeneticSong:
         [7, 7, 7, 7, 7]
         [8, 8, 8, 8, 8]
         >>> song3.crossover(song4, 1)
-        23
-        0
-        0
+        25
         0
         0
         None
         [1, 1, 1, 1, 1]
         [6, 6, 6, 6, 6]
         >>> song5.crossover(song6, 1)
-        24
-        0
-        0
+        26
         0
         1
         None
@@ -376,11 +375,9 @@ class GeneticSong:
         >>> song1.song_id = 1
         >>> song2 = GeneticSong(nc3, nc4, nc5, nc6)
         >>> song2.song_id = 19
-        >>> song1.mutate(2,2,2,2,2,1,1,1,1,1,0,0,0,0,0,-1,-1,-1,-1,-1)
+        >>> song1.mutate(0,2,2,2,2,2,1,1,1,1,1,0,0,0,0,0,-1,-1,-1,-1,-1)
         >>> song1
         1
-        0
-        0
         0
         1
         None
@@ -393,12 +390,10 @@ class GeneticSong:
         [3, 3, 3, 3, 3]
         >>> song2.song_id == 19
         True
-        >>> song2.mutate(-2,-2,-2,-2,-2,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-5,-5,-5,-5,-5)
+        >>> song2.mutate(40,-2,-2,-2,-2,-2,-3,-3,-3,-3,-3,-4,-4,-4,-4,-4,-5,-5,-5,-5,-5)
         >>> song2
         19
-        0
-        0
-        0
+        40
         0
         None
         [3, 3, 3, 3, 3]
@@ -417,12 +412,14 @@ class GeneticSong:
         >>> song2.mutate(1,1,1)
         Traceback (most recent call last):
             ...
-        ValueError: Expecting delta mask of size 20
+        ValueError: Expecting delta mask of size 21
         """
-        if len(delta_mask) is not to_gene_index(self.num_genes):
-            raise ValueError("Expecting delta mask of size {}".format(self.num_genes * 5))
+        if len(delta_mask) is not (to_gene_index(self.num_genes) + 1):
+            raise ValueError("Expecting delta mask of size {}".format(self.num_genes * 5 + 1))
 
-        start_index = 0
+        self.tempo += delta_mask[0]
+        
+        start_index = 1
         for nc in self._chromosome_dict.values():
             end_index = to_gene_index(len(nc)) + start_index
             nc.mutate(*delta_mask[start_index:end_index])
@@ -437,18 +434,14 @@ class GeneticSong:
         >>> song = GeneticSong(nc1,nc2)
         >>> song.chromosome_delete(track_id=0) 
         >>> song
-        15
-        0
-        0
+        17
         0
         1
         None
         [2, 2, 2, 2, 2]
         >>> song.chromosome_delete(track_id=1)
         >>> song
-        15
-        0
-        0
+        17
         0
         >>> song.chromosome_delete(track_id=1)
         Traceback (most recent call last):
@@ -459,6 +452,51 @@ class GeneticSong:
             raise KeyError("track_id {} does not exist".format(track_id))
         
         self._chromosome_dict.pop(track_id)
+
+    def chromosome_add(self, chromosome):
+        """
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> gene3 = NoteGene(3,3,3,3,3)
+        >>> nc1 = NoteChromosome(gene1,track_id=0)
+        >>> nc2 = NoteChromosome(gene2,track_id=1)
+        >>> nc3 = NoteChromosome(gene3,track_id=2)
+        >>> song = GeneticSong(nc1,nc2,max_len=3)
+        >>> len(song)
+        2
+        >>> song.chromosome_add(nc3)
+        >>> len(song)
+        3
+        >>> song
+        16
+        0
+        0
+        None
+        [1, 1, 1, 1, 1]
+        <BLANKLINE>
+        1
+        None
+        [2, 2, 2, 2, 2]
+        <BLANKLINE>
+        2
+        None
+        [3, 3, 3, 3, 3]
+        >>> song.chromosome_add(4)
+        Traceback (most recent call last):
+            ...
+        ValueError: argument must be of type NoteChromosome
+        >>> song.chromosome_add(nc3)
+        Traceback (most recent call last):
+            ...
+        IndexError: max song length has been reached
+        """
+        if type(chromosome) is not NoteChromosome:
+            raise ValueError("argument must be of type NoteChromosome")
+        
+        if len(self) is self.max_length:
+            raise IndexError("max song length has been reached")
+
+        self._chromosome_dict[chromosome.track_id] = chromosome
         
             
 def set_subtract(set1, set2):

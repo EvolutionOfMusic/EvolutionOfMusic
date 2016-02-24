@@ -25,12 +25,12 @@ entity FrequencyMUX is
 )end entity;
 
 architecture frequencySelect of FrequencyMUX is
-  variable select       : integer;
+	variable select       : integer;
 
-  begin
+begin
     
-  select <= to_integer(unsigned(sel_sig));
+	select <= to_integer(unsigned(sel_sig));
 
-  ROM_step <= freq_counts(select);
-
-  end frequencySelect;
+	ROM_step <= freq_counts(select);
+	
+ end frequencySelect;

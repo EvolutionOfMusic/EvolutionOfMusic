@@ -33,7 +33,6 @@ signal tone             : std_logic_vector(11 downto 0);
 type rom_type is array (0 to 4095) of std_logic_vector (11 downto 0);
 
 constant SIN_ROM_0 : rom_type :=
-
 (
 X"000", X"003", X"006", X"009", X"00d", X"010", X"013", X"016", 
 X"019", X"01c", X"01f", X"023", X"026", X"029", X"02c", X"02f", 
@@ -552,7 +551,6 @@ X"fe7", X"fea", X"fed", X"ff0", X"ff3", X"ff7", X"ffa", X"ffd"
 
 begin
 
-  instrument <= address(16 downto 12);
   tone <= address(11 downto 0);
 
 rom_select: process (clk)
