@@ -9,6 +9,7 @@
 
 Song ai_shell(int score) {
 	static Song song = null;
+	char * buffer;
 
 	// Init
 	if (song == null &&
