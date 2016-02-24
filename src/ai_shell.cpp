@@ -32,7 +32,8 @@ Song start_AI(int score) {
 	sprintf(buffer, 25, "python3 main.py -g", rand());
 	system(buffer);
 	
-	// WAIT FOR OUTPUT
+	// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
+	pause();
 	
 	// READ OUTPUT
 	ifstream file("main_py_output");
