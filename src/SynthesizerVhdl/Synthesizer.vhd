@@ -20,7 +20,7 @@ entity Synthesizer is
 	instrument_addr		  	: in  std_logic_vector(4 downto 0); -- There are actually 24 possible instruments
 	tone_addr               : in  std_logic_vector(6 downto 0);
 	audio_output			: out std_logic_vector(15 downto 0);
-	audio_output_valid		: inout std_logic
+	audio_output_valid		: out std_logic
 	);
 end Synthesizer;
 
