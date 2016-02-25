@@ -20,7 +20,7 @@ entity Synthesizer is
 	instrument_addr		  	: in  std_logic_vector(4 downto 0); -- There are actually 24 possible instruments
 	tone_addr               : in  std_logic_vector(6 downto 0);
 	audio_output			: out std_logic_vector(15 downto 0);
-	audio_output_valid		: inout std_logic
+	audio_output_valid		: out std_logic
 	);
 end Synthesizer;
 
@@ -35,7 +35,6 @@ architecture synthesizer of Synthesizer is
   type step_array is array (0 to 95) of std_logic_vector(15 downto 0);
 
   signal steps : step_array;
-
   constant freqs : freq_array :=
     ( -- 12 Notes per octave; All octaves start at C# and end in B#
 		33, 35, 37, 39, 41, 44, 46, 49, 52, 55, 58, 62, 						-- Octave1
@@ -87,16 +86,6 @@ architecture synthesizer of Synthesizer is
 				audioData 			: out WAVE_ARRAY
 			);
 	end component;
-	
---	component SinLut is
---	port (
---		clk      : in  std_logic;
---		--Address input
---		address  : in std_logic_vector(16 downto 0);
---		--Sine output
---		audioData : out WAVE_ARRAY
---	);
---	end component;
 
 	begin
         --step_array and freq_array are types not variables
@@ -127,15 +116,7 @@ architecture synthesizer of Synthesizer is
 			  freq_counts => lut_addresses2,
 			  ROM_step => target_lut_addresses
 			);
-	
-		--full_addr(16 downto 12) <= instrument_addr;
-		--full_addr(11 downto 0) <= target_lut_addresses;
-		--aSinLut: SinLut
-		--	port map(
-		--		clk 		=> clk,
-		--		address 	=> full_addr,
-		--		audioData 	=> audioData
-		--	);	
+			
 		aAudioSynthesis: AudioSynthesis
 			port map(
 				clk 				=> clk,

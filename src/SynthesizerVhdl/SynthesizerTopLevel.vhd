@@ -66,8 +66,8 @@ begin
 	port map(
 		clk => csi_clk32k,
 		reset_n => reset_n,
-	        instrument_addr => instrument_s,
-                tone_addr => tone_s,
+	    instrument_addr => instrument_s,
+        tone_addr => tone_s,
 		audio_output => aso_data_audio_out(31 downto 16),
 		audio_output_valid => aso_valid_audio_out
 	);

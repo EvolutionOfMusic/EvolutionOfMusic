@@ -44,7 +44,6 @@ architecture instrumentSynthesis of AudioSynthesis is
 		end procedure;
 	end instr_class;
 	
-	signal 	sineData, brassData, windData, percussiveData : WAVE_ARRAY;
 begin
 	--sinLut: SinLut
 	--	port map(
