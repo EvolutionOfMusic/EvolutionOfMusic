@@ -55,6 +55,17 @@ class NoteGene:
         """
         return self.left_hold_time + self.right_hold_time
 
+    def __len__(self):
+        """
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> len(gene1)
+        2
+        >>> len(gene2)
+        4
+        """
+        return self.hold_time
+        
     def __str__(self):
         """
         Returns the string representation of a NoteGene, in the format of,

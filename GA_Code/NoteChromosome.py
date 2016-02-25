@@ -13,10 +13,11 @@ class NoteChromosome:
     >>> gene3 = NoteGene(3,3,3,3,3)
     >>> gene4 = NoteGene(4,4,4,4,4)
     >>> nc1 = NoteChromosome(gene1,gene2,gene3)
-    >>> nc2 = NoteChromosome(gene1,gene2,gene3,gene4, max_len=3)
+    >>> nc2 = NoteChromosome(gene1,gene2,gene3,gene4, max_len=12)
     >>> nc1[0] == gene1
     True
     >>> print(nc1)
+    3
     None None
     2 1 2
     4 2 4
@@ -34,7 +35,7 @@ class NoteChromosome:
     >>> nc2 = copy(nc1)
     >>> nc1 == nc2
     True
-    >>> nc3 = NoteChromosome(gene1,gene2,gene3,max_len=2,track_id=23,volume=8)
+    >>> nc3 = NoteChromosome(gene1,gene2,gene3,max_len=10,track_id=23,volume=8)
     >>> nc3
     23
     8
@@ -53,17 +54,53 @@ class NoteChromosome:
         >>> nc.volume
         10
         """
+        self._gene_list = []
+
         if max_len is inf:
             self._gene_list = list(genes)
-        elif len(genes) <= max_len:
-            self._gene_list = list(genes)
         else:
-            self._gene_list = [genes[i] for i in range(max_len)]
+            self._gene_list = NoteChromosome._trim_gene_list(genes, max_len)
 
         self.track_id = track_id
         self.volume = volume
         self._max_length = max_len
 
+    @staticmethod
+    def _trim_gene_list(gene_list, max_len):
+        """
+        >>> max_len = 160
+        >>> gene_list1 = [NoteGene(1,80,1,81,1)]
+        >>> gene_list2 = [NoteGene(1,80,1,80,1)]
+        >>> gene_list3 = [NoteGene(1,20,1,20,1),
+        ...               NoteGene(1,20,1,20,1),
+        ...               NoteGene(1,20,1,20,1),
+        ...               NoteGene(1,20,1,20,1)]
+        >>> gene_list4 = [NoteGene(1,20,1,20,1),
+        ...               NoteGene(1,20,1,20,1),
+        ...               NoteGene(1,20,1,20,1),
+        ...               NoteGene(1,20,1,20,1),
+        ...               NoteGene(1,10,1,10,1)]
+        >>> NoteChromosome._trim_gene_list(gene_list1, max_len)
+        []
+        >>> NoteChromosome._trim_gene_list(gene_list2, max_len)
+        [[1, 80, 1, 80, 1]]
+        >>> NoteChromosome._trim_gene_list(gene_list3, max_len) == gene_list3
+        True
+        >>> NoteChromosome._trim_gene_list(gene_list4, max_len) == gene_list4[:4]
+        True
+        """
+        total_notes = 0
+        rv = []
+        for gene in gene_list:
+            total_notes += len(gene)
+            
+            if total_notes > max_len:
+                break
+        
+            rv.append(gene)
+            
+        return rv
+    
     @property
     def max_length(self):
         return self._max_length
@@ -72,7 +109,11 @@ class NoteChromosome:
     def max_length(self, new_max_length):
         self._gene_list = self._gene_list[0:new_max_length]
         self._max_length = new_max_length
-             
+
+    @property
+    def max_index(self):
+        return (len(self._gene_list) - 1)
+        
     def __len__(self):
         """
         Returns the number of genes in the Chromosome
@@ -119,12 +160,13 @@ class NoteChromosome:
         >>> gene3 = NoteGene(3,3,3,3,3)
         >>> nc = NoteChromosome(gene1, gene2, gene3, volume=1, track_id=2)
         >>> print(nc)
+        3
         2 1
         2 1 2
         4 2 4
         6 3 6
         """
-        rv = ''
+        rv = str(len(self)) + '\n'
         rv += str(self.track_id) + ' '
         rv += str(self.volume) + '\n'
         for gene in self._gene_list:
@@ -202,8 +244,8 @@ class NoteChromosome:
         >>> gene2 = NoteGene(2,2,2,2,2)
         >>> gene3 = NoteGene(3,3,3,3,3)
         >>> gene4 = NoteGene(4,4,4,4,4)
-        >>> nc1 = NoteChromosome(gene1,gene2,max_len=2)
-        >>> nc2 = NoteChromosome(gene3,gene4,max_len=2)
+        >>> nc1 = NoteChromosome(gene1,gene2,max_len=20)
+        >>> nc2 = NoteChromosome(gene3,gene4,max_len=20)
         >>> nc2
         None
         None
@@ -228,22 +270,18 @@ class NoteChromosome:
             ...
         TypeError: only arguments of type NoteChromosome accepted
         """
-        if crossover_point >= self.max_length:
+        if crossover_point > self.max_index:
             raise IndexError("crossover point out of bounds")
 
         if type(nchromo) is not NoteChromosome:
             raise TypeError("only arguments of type NoteChromosome accepted")
-
-       
+    
         gene_list = self[:crossover_point] + nchromo[crossover_point:]
 
-        rv = NoteChromosome(*gene_list, track_id=self.track_id,
+        gene_list = NoteChromosome._trim_gene_list(gene_list, self.max_length)
+        
+        return NoteChromosome(*gene_list, track_id=self.track_id,
                               volume=self.volume, max_len=self.max_length)
-        
-        rv.track_id = self.track_id
-        rv.volume = self.volume
-        
-        return rv 
 
     def mutate(self, *delta_mask):
         """

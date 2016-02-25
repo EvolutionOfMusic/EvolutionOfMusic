@@ -2,6 +2,7 @@ from NoteGene import NoteGene
 from NoteChromosome import NoteChromosome
 from GeneticSong import GeneticSong
 from BiasedRandomSequence import BiasedRandomSequence, sample_pair
+from ConfigFile import ConfigFile
 
 from random import SystemRandom, seed, randrange
 from math import inf, sqrt
@@ -11,71 +12,41 @@ import os
 
 CONFIG_FILE_PATH = "pyth_main.config"
 
-def random_gene(max_hold_time=10, max_pause_time=10):
-    """
-    >>> gene1 = random_gene()
-    >>> gene2 = random_gene(max_hold_time=20, max_pause_time=5)
-    >>> gene1 == gene2
-    False
-    >>> gene2.hold_time <= 20
-    True
-    >>> gene2.hold_time > 20
-    False
-    >>> gene2.pause_time <= 5
-    True
-    >>> gene2.pause_time > 5
-    False
-    """
-    right_pause_time = randrange(0, max_pause_time//2)
-    right_hold_time = randrange(0, max_hold_time//2)
-    tone = randrange(0, 96)
-    left_hold_time = randrange(0, max_hold_time//2)
-    left_pause_time = randrange(0, max_pause_time//2)
+def random_gene(config_obj):
+    right_pause_time = randrange(0, config_obj.max_pause_time//2 + 1)
+    right_hold_time = randrange(0, config_obj.max_hold_time//2 + 1)
+    tone = randrange(config_obj.min_note, config_obj.max_note + 1)
+    left_hold_time = randrange(0, config_obj.max_hold_time//2 + 1)
+    left_pause_time = randrange(0, config_obj.max_pause_time//2 + 1)
     
     return NoteGene(right_pause_time, right_hold_time, tone,
                     left_hold_time, left_pause_time)
 
-def random_chromosome(length, max_hold=10, max_pause=10, max_vol=10, max_id=10):
-    """
-    >>> nc1 = random_chromosome(length=3)
-    >>> nc2 = random_chromosome(length=10)
-    >>> nc1 == nc2
-    False
-    >>> len(nc1)
-    3
-    >>> len(nc2)
-    10
-    """
-    volume = randrange(0,max_vol)
-    track_id = randrange(0,max_id)
+def random_chromosome(config_obj):
+    volume = randrange(0,config_obj.max_volume)
+    track_id = randrange(0,config_obj.max_track_id)
     gene_list = []
-    for i in range(length):
-        gene_list.append(random_gene(max_hold, max_pause))
+    for i in range(config_obj.chromo_length):
+        gene_list.append(random_gene(config_obj))
     return NoteChromosome(*gene_list, track_id=track_id, volume=volume)
 
-def random_song(song_len, chromo_len=10, max_hold=10, max_pause=10):
-    """
-    >>> song1 = random_song(song_len=3)
-    >>> song2 = random_song(song_len=2)
-    >>> song1 == song2
-    False
-    >>> len(song1)
-    3
-    >>> len(song2)
-    2
-    """
+random_tempo = lambda min_t, max_t: randrange(max_t) + min_t
+
+def random_song(config_obj):
     chromo_list = []
-    for i in range(song_len):
-        chromo_list.append(random_chromosome(chromo_len, max_hold, max_pause))
-    return GeneticSong(*chromo_list, max_len=song_len)
+    for i in range(config_obj.song_length):
+        chromo_list.append(random_chromosome(config_obj))
+    return GeneticSong(*chromo_list, max_len=config_obj.song_length,
+                       tempo=random_tempo(config_obj.min_tempo, config_obj.max_tempo))
 
-def save_songs(save_file_obj, *songs, delimeter='*'):
-    song_string = ''
-    for song in songs:
-        song_string += (song.__repr__() + '\n{}\n'.format(delimeter))
+def save_songs(save_file, *songs, delimeter='*'):
+    with open("genetic_" + save_file, 'w+') as sav_file:
+        song_string = ''
+        for song in songs:
+            song_string += (song.__repr__() + '\n{}\n'.format(delimeter))
 
-    song_string = song_string.strip('\n{}\n'.format(delimeter))
-    save_file_obj.write(song_string)
+        song_string = song_string.strip('\n{}\n'.format(delimeter))
+        sav_file.write(song_string)
 
 def gene_from_string(gene_string):
     """
@@ -122,27 +93,26 @@ def song_from_string(song_string):
     >>> song1 == song2
     True
     """
-    meta_data_list = song_string.split('\n')[0:4]  
-    song_id, score, crossover_chance, mutation_chance = map(int, meta_data_list)
-    chromo_strings = song_string.split('\n', 4)[-1].replace('\n\n', '*').split('*')
+    meta_data_list = song_string.split('\n')[0:2]  
+    song_id, tempo = map(int, meta_data_list)
+    chromo_strings = song_string.split('\n', 2)[-1].replace('\n\n', '*').split('*')
 
     chromo_list = map(chromosome_from_string, chromo_strings)
 
     rv = GeneticSong(*chromo_list)
-    rv.score = score
-    rv.crossover_chance = crossover_chance
-    rv.mutation_chance = mutation_chance
     rv.song_id = song_id
+    rv.tempo = tempo
     
     return rv
 
-def load_songs(file_obj, delimeter='*'):
-    rv = []
-    file_contents = file_obj.read().split('\n{}\n'.format(delimeter))
+def load_songs(load_file, delimeter='*'):
+    with open("genetic_" + load_file) as file_obj:
+        rv = []
+        file_contents = file_obj.read().split('\n{}\n'.format(delimeter))
 
-    for song_string in file_contents:
-        rv.append(song_from_string(song_string))
-    return rv
+        for song_string in file_contents:
+            rv.append(song_from_string(song_string))
+        return rv
 
 def get_crossover_prob(score, total_score):
     return int(100 * (score/total_score))
@@ -177,44 +147,27 @@ if __name__ == "__main__":
     randomizer = SystemRandom()
     
     if os.path.exists(CONFIG_FILE_PATH) and os.path.isfile(CONFIG_FILE_PATH):
-        with open(CONFIG_FILE_PATH) as gene_config:
-            #to do: clean this up and have errors and functions for config file
-            save_file = gene_config.readline().strip("save file: ").strip('\n')
-            input_file = gene_config.readline().strip("input file: ").strip('\n')
-            num_songs = int(gene_config.readline().strip("song count: "))
-            song_len = int(gene_config.readline().strip("song length: "))
-            max_chromo_len = int(gene_config.readline().strip("max chromo length: "))
-            max_hold_time = int(gene_config.readline().strip("max hold time: "))
-            max_pause_time = int(gene_config.readline().strip("max pause time: "))
-            chromo_delete_prob = float(gene_config.readline().strip("chromo delete prob: "))
-            max_step_size = int(gene_config.readline().strip("max step size: "))
-            max_tempo = int(gene_config.readline().strip("max tempo: "))
-            min_tempo = int(gene_config.readline().strip("min tempo: "))
+       config_file = ConfigFile(CONFIG_FILE_PATH)
     else:
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
     if create_new_genome:
-              
         song_list = []
-        for i in range(num_songs):
-            r_song = random_song(song_len, chromo_len, max_hold_time, max_pause_time)
-            song_list.append(r_song)
-        
-        with open("genetic_" + save_file, 'w+') as genetic_sav:
-            save_songs(genetic_sav, *song_list)
+        for i in range(config_file.song_count):
+            song_list.append(random_song(config_file))
+        save_songs(config_file.save_file, *song_list)
     else:
-        with open("genetic_" + save_file) as genetic_load:
-            song_list = load_songs(genetic_load)
+        song_list = load_songs(genetic_load)
     
     if songs_graded:
-        with open(input_file) as save:
+        with open(config_file.input_file) as save:
             total_score = int(save.readline())
             for song in song_list:
                 song.score = int(save.readline())
                 song.crossover_chance = get_crossover_prob(song.score, total_score)
                 song.mutation_chance = get_mutation_prob(song.crossover_chance)
     else:
-        with open(save_file, 'w+') as save:
+        with open(config_file.save_file, 'w+') as save:
             for song in song_list:
                 save.write(str(song) + '\n')
                
@@ -229,11 +182,11 @@ if __name__ == "__main__":
         song1, song2 = sample_pair(song_list)
         
     
-        song3 = song1.crossover(song2, random_crossover_point(chromo_len, randomizer))
+        song3 = song1.crossover(song2, random_crossover_point(config_file.chromo_length, randomizer))
 
         
         if song2.mutation_chance <= get_prob(randomizer):
-            delta_mask = random_delta_mask(max_step_size, randomizer, song3)
+            delta_mask = random_delta_mask(config.max_step_size, randomizer, song3)
             song3.mutate(*delta_mask)
 
         
@@ -242,11 +195,11 @@ if __name__ == "__main__":
    
     song_list = new_song_list
 
-    with open(save_file, 'w') as save:
+    with open(config.save_file, 'w') as save:
         for song in song_list:
             save.write(str(song) + '\n')
 
-    with open(save_file + "_genetic", 'w') as genetic_save:
+    with open(config.save_file + "_genetic", 'w') as genetic_save:
         save_songs(genetic_save, *song_list)
     
     raise SystemExit
