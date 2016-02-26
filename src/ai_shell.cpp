@@ -17,14 +17,18 @@ Song ai_shell(int score) {
 		sprintf(buffer, 25, "python3 main.py -n -p %d -s %d", getpid(), rand())
 		system(buffer);
 		
-		// Init signal handler for first use
-		signal(SIGCONT, sig_handler);
+		init_AI();
 	}
 
 	// Pass the song & score to the AI
 	song = start_AI(score);
 
 	return song;
+}
+
+void init_AI() {
+	// Init signal handler for first use
+	signal(SIGCONT, sig_handler);
 }
 
 Song start_AI(int score) {

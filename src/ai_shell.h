@@ -17,6 +17,7 @@
 #include "song_structs.h"
 
 Song ai_shell(int score);
+void init_AI();
 Song start_AI(int score);
 void sig_handler(int sig);
 
