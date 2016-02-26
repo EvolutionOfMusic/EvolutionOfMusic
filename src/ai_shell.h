@@ -12,10 +12,12 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <signal.h>
 #include "python3_to_cpp_converter.h"
 #include "song_structs.h"
 
 Song ai_shell(int score);
 Song start_AI(int score);
+void sig_handler(int sig);
 
 #endif /* AI_SHELL_H_ */

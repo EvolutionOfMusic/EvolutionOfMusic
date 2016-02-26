@@ -55,17 +55,3 @@ Song parse_song(ifstream &file){
 	return song;
 }
 
-/*int main(int argc, char** argv) {
-    Song song;
-    char songid[5];
-    
-    ifstream file("main_py_output");
-    
-    song = parse_song(file);
-	
-	Track track = song.tunes[0];
-    
-    cout << track.instrument_id << endl;
-    cout << track.volume << endl;
-}*/
-

@@ -16,6 +16,9 @@ Song ai_shell(int score) {
 		score == 0) {
 		sprintf(buffer, 25, "python3 main.py -p %d -n %d", getpid(), rand())
 		system(buffer);
+		
+		// Init signal handler for first use
+		signal(SIGCONT, sig_handler);
 	}
 
 	// Pass the song & score to the AI
@@ -40,4 +43,11 @@ Song start_AI(int score) {
 	song = parse_song(file);
 	
 	return song;
+}
+
+void sig_handler(int sig) {
+	// We have resumed.
+	// Re-init signal handler
+	signal(SIGCONT, sig_handler);
+	return;
 }
