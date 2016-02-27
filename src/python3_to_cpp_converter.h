@@ -9,11 +9,11 @@
 #define PYTHON_CONV_H_
 
 #include <cstdlib>
-#include <fstream>
+#include <fstream> // ifstream, ofstream
 #include <iostream>
-#include <list>
+#include <vector>
 #include "song_structs.h"
 
-Song parse_song(ifstream &file);
+std::vector<Song> parse_song(ifstream &file);
 
 #endif /* PYTHON_CONV_H_ */

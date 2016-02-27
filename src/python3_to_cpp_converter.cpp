@@ -9,49 +9,59 @@
 
 using namespace std;
 
-Song parse_song(ifstream &file){
+std::vector<Song> parse_song(ifstream &file){
     char file_line[20];
 	
-	Song song;
-	int NUM_TRACKS, NUM_NOTES, i, j,
-		instr_id, volume;
-	long int pause_time, hold_time, tone;
+	std::vector<Song> song_list;
+	
+	int NUM_SONGS, NUM_TRACKS, NUM_NOTES;
 	
 	if (file.is_open()) {
-		// Number of Tracks
+		// Number of Songs
 		file.getline(file_line, 20);
-		sscanf(file_line, "%d", &NUM_TRACKS);
+		sscanf(file_line, "%d", &NUM_SONGS);
 		
-		// Tempo
-		file.getline(file_line, 20);
-		sscanf(file_line, "%d", &song.tempo);
-		
-		// SongID
-		file.getline(file_line, 20);
-		sscanf(file_line, "%d", &song.song_id);
-		
-		for (i = 0;i < NUM_TRACKS;i++) {
-			// Number of Notes
-			file.getline(file_line, 20);
-			sscanf(file_line, "%d", &NUM_NOTES);
-		
-			// Instrument ID, Volume
-			file.getline(file_line, 20);
-			sscanf(file_line, "%d %d", &instr_id, &volume);
-			song.tunes[i].instrument_id = instr_id;
-			song.tunes[i].volume = volume;
+		for (int i = 0;i < NUM_SONGS;i++) {
+			// Make a new song
+			Song song;
 			
-			for (j = 0;j < NUM_NOTES;j++) {
-				// Pause Time, Tone, Hold Time
+			// Number of Tracks
+			file.getline(file_line, 20);
+			sscanf(file_line, "%d", &NUM_TRACKS);
+			
+			// Tempo
+			file.getline(file_line, 20);
+			sscanf(file_line, "%d", &song.tempo);
+			
+			// SongID
+			file.getline(file_line, 20);
+			sscanf(file_line, "%d", &song.song_id);
+			
+			for (int j = 0;j < NUM_TRACKS;j++) {
+				// Number of Notes
 				file.getline(file_line, 20);
-				sscanf(file_line, "%d %d %d", &pause_time, &tone, &hold_time);
-				song.tunes[i].channel[j].tone = tone;
-				song.tunes[i].channel[j].pause_time = pause_time;
-				song.tunes[i].channel[j].hold_time = hold_time;
+				sscanf(file_line, "%d", &NUM_NOTES);
+			
+				// Instrument ID, Volume
+				file.getline(file_line, 20);
+				sscanf(file_line, "%d %d", 
+					&song.tunes[j].instrument_id, 
+					&song.tunes[j].volume);
+				
+				for (int k = 0;k < NUM_NOTES;k++) {
+					// Pause Time, Tone, Hold Time
+					file.getline(file_line, 20);
+					sscanf(file_line, "%d %d %d", 
+						&song.tunes[j].channel[k].pause_time, 
+						&song.tunes[j].channel[k].tone, 
+						&song.tunes[j].channel[k].hold_time)
+				}
 			}
+			// Add it to the list
+			song_list.push_back(song);
 		}
 	}
 	
-	return song;
+	return song_list;
 }
 
