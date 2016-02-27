@@ -5,9 +5,10 @@ from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 from ConfigFile import ConfigFile
 
 from random import SystemRandom, seed, randrange
+from argparse import ArgumentParser
 from math import inf, sqrt
 import sys
-import os
+from os import system, path
 
 
 CONFIG_FILE_PATH = "pyth_main.config"
@@ -120,19 +121,28 @@ def get_crossover_prob(score, total_score):
 def get_mutation_prob(crossover_prob):
     return sqrt(crossover_prob)
 
-def get_commandline_arguments():
-    if sys.argv[1] == '-n':
-        create_new_genome = True
-        songs_graded = False
-        seed(int(sys.argv[2]))
-    elif sys.argv[1] == '-g':
-        create_new_genome = False
-        songs_graded = True
-    else:
-        raise ValueError("main.py missing one argument")
+def init_arg_parser():
+    parser = ArgumentParser()
+    parser.add_argument('-n', "--new", help="creates new genome", action="store_true")
+    parser.add_argument('-s', "--seed", help="specifies seed for new genome", type=int)
+    parser.add_argument('-p', "--pid", help="pid for assciated c code", type=int)
+    return parser 
 
-    return create_new_genome, songs_graded
+def get_commandline_args():
+    return init_arg_parser().parse_args()
 
+def alert_parent_program(pid):
+    if pid is not None:
+        system("kill -CONT -" + str(pid))
+
+def write_to_output_file(output_file_name, *songs):
+     with open(output_file_name, 'w') as save:
+        save.write(len(songs) + '\n')
+        for song in songs:
+            save.write(str(song) + '\n')
+
+        
+#these should be a class
 get_prob = lambda randomozer: randomizer.randrange(0, 100)
 
 random_track_id = lambda song, randomizer: randomizer.sample(song.track_ids, 1)[0]
@@ -142,64 +152,54 @@ random_crossover_point = lambda chromo_len, randomizer: randomizer.randrange(chr
 random_delta_mask = lambda max_step_size, randomizer, song: (randomizer.randrange(max_step_size + 1) for i in range(chromo_len*len(song)*5))
 
 if __name__ == "__main__":
-
-    create_new_genome, songs_graded = get_commandline_arguments()
+    args = get_commandline_args()
+    
     randomizer = SystemRandom()
     
-    if os.path.exists(CONFIG_FILE_PATH) and os.path.isfile(CONFIG_FILE_PATH):
+    if path.exists(CONFIG_FILE_PATH) and path.isfile(CONFIG_FILE_PATH):
        config_file = ConfigFile(CONFIG_FILE_PATH)
     else:
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
-    if create_new_genome:
+    if args.new:
         song_list = []
+        seed(args.seed)
         for i in range(config_file.song_count):
             song_list.append(random_song(config_file))
+            
         save_songs(config_file.save_file, *song_list)
+        write_to_output_file(config_file.save, *song_list)
+        alert_parent_program(args.pid)       
+        raise SystemExit
+    
     else:
         song_list = load_songs(genetic_load)
-    
-    if songs_graded:
+
         with open(config_file.input_file) as save:
             total_score = int(save.readline())
             for song in song_list:
                 song.score = int(save.readline())
                 song.crossover_chance = get_crossover_prob(song.score, total_score)
                 song.mutation_chance = get_mutation_prob(song.crossover_chance)
-    else:
-        with open(config_file.save_file, 'w+') as save:
-            for song in song_list:
-                save.write(str(song) + '\n')
-               
-        raise SystemExit
-    
+
+                
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     new_song_list = []
 
     
     for i in range(len(song_list)):
-        
         song1, song2 = sample_pair(song_list)
-        
-    
         song3 = song1.crossover(song2, random_crossover_point(config_file.chromo_length, randomizer))
 
-        
         if song2.mutation_chance <= get_prob(randomizer):
             delta_mask = random_delta_mask(config.max_step_size, randomizer, song3)
             song3.mutate(*delta_mask)
 
-        
         new_song_list.append(song3)
         
-   
     song_list = new_song_list
 
-    with open(config.save_file, 'w') as save:
-        for song in song_list:
-            save.write(str(song) + '\n')
-
-    with open(config.save_file + "_genetic", 'w') as genetic_save:
-        save_songs(genetic_save, *song_list)
-    
+    write_to_output_file(config.save_file, *song_list)
+    save_songs(config.save_file, *song_list)
+    alert_parent_program(args.pid)
     raise SystemExit
