@@ -14,10 +14,14 @@ Song ai_shell(int score) {
 	// Init
 	if (song == null &&
 		score == 0) {
+		// Prepare the signal handler
+		init_AI();
+		
 		sprintf(buffer, 25, "python3 main.py -n -p %d -s %d", getpid(), rand())
 		system(buffer);
 		
-		init_AI();
+		// Wait for python's init to complete
+		pause();
 	}
 
 	// Pass the song & score to the AI
@@ -28,25 +32,44 @@ Song ai_shell(int score) {
 
 void init_AI() {
 	// Init signal handler for first use
-	signal(SIGCONT, sig_handler);
+	sig_handler(0);
+	
+	// Clear the file
+	ofstream file("main_py_input", std::ofstream::out | std::ofstream::trunc);
+	if (file.is_open())	file.close();
 }
 
 Song start_AI(int score) {
-	Song song;
-	char * buffer;
+	static std::vector<Song> song_list;
+	static int song_index = -1;
+	
+	ofstream file("main_py_input", std::ios_base::app);
+	if (file.is_open()) {
+		file << score << "\n";
+		file.close();
+	}
+	
+	if (song_index == song_list.size() ||
+		song_index == -1) {
+		char * buffer;
 
-	// DO YOUR STUFF
-	sprintf(buffer, 25, "python3 main.py");
-	system(buffer);
+		// DO YOUR STUFF
+		sprintf(buffer, 25, "python3 main.py");
+		system(buffer);
+		
+		// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
+		pause();
+		
+		// READ OUTPUT
+		ifstream file("main_py_output");
+		song_list = parse_song(file);
+		
+		song_index = 0;
+	} else {
+		song_index++;
+	}
 	
-	// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
-	pause();
-	
-	// READ OUTPUT
-	ifstream file("main_py_output");
-	song = parse_song(file);
-	
-	return song;
+	return song_list.at(song_index);
 }
 
 void sig_handler(int sig) {

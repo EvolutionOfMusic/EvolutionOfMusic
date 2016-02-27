@@ -9,6 +9,8 @@
 #define CRITIC_SHELL_H_
 
 #include <math.h>
+#include <pthread.h>
+#include <stdio.h>
 #include "ethernet.h"
 #include "frequencies.h"
 #include "song_structs.h"
