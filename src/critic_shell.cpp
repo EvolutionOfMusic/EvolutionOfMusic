@@ -6,8 +6,6 @@
  */
 
 #include "critic_shell.h"
-#include <pthread.h>
-#include <stdio.h>
 
 int c_shell(Song song) {
 	int score = 100;
