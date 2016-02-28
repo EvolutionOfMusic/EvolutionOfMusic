@@ -88,16 +88,6 @@ architecture synthesizer of Synthesizer is
 				audioData 			: out WAVE_ARRAY
 			);
 	end component;
-	
---	component SinLut is
---	port (
---		clk      : in  std_logic;
---		--Address input
---		address  : in std_logic_vector(16 downto 0);
---		--Sine output
---		audioData : out WAVE_ARRAY
---	);
---	end component;
 
 	begin
         --step_array and freq_array are types not variables
@@ -129,14 +119,6 @@ architecture synthesizer of Synthesizer is
 			  ROM_step => target_lut_addresses
 			);
 	
-		--full_addr(16 downto 12) <= instrument_addr;
-		--full_addr(11 downto 0) <= target_lut_addresses;
-		--aSinLut: SinLut
-		--	port map(
-		--		clk 		=> clk,
-		--		address 	=> full_addr,
-		--		audioData 	=> audioData
-		--	);	
 		aAudioSynthesis: AudioSynthesis
 			port map(
 				clk 				=> clk,
