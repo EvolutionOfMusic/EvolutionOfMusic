@@ -1,13 +1,45 @@
 library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.std_logic_textio.all;
-    use IEEE.std_logic_arith.all;
-    use IEEE.numeric_bit.all;
+--    use IEEE.std_logic_arith.all;
+--    use IEEE.numeric_bit.all;
     use IEEE.numeric_std.all;
-    use IEEE.std_logic_signed.all;
-    use IEEE.std_logic_unsigned.all;
+--    use IEEE.std_logic_signed.all;
+--    use IEEE.std_logic_unsigned.all;
 	
 use work.SynthesizerPackage.all;
+
+package instr_class is
+--	type audioData is (WAVE_ARRAY);
+--	type function_length is (INTEGER);
+	
+	function get_audio return WAVE_ARRAY;
+	function get_size return INTEGER;
+	
+	procedure sample(audioOut : out WAVE_ARRAY);
+end instr_class;
+
+package body instr_class is
+	procedure sample(audioOut : out WAVE_ARRAY; freq_address : in std_logic_vector(11 downto 0)) is
+		variable i : integer := 0;
+	begin
+		for i in 0 to 0 loop
+			--what is freq_address supposed to be? I'm assuming its supposed to be freq_address
+			audioOut(i) := freq_address & "0000";	
+		end loop;
+	end procedure;
+end instr_class;
+
+library IEEE;
+    use IEEE.std_logic_1164.all;
+    use IEEE.std_logic_textio.all;
+--  use IEEE.std_logic_arith.all;
+--  use IEEE.numeric_bit.all;
+    use IEEE.numeric_std.all;
+	
+library work;
+	use work.all;
+	use work.SynthesizerPackage.all;
 
 entity AudioSynthesis is
   port (
@@ -20,31 +52,13 @@ entity AudioSynthesis is
 	
 	--Audio output
 	audioData 			: out WAVE_ARRAY
-  )
+  );
 end entity;
 
 architecture instrumentSynthesis of AudioSynthesis is
-	package instr_class is
-		type audioData is WAVE_ARRAY;
-		type function_length is INTEGER;
-		
-		function get_audio() return audioData;
-		function get_size() return function_length;
-		
-		procedure sample(audioOut : out WAVE_ARRAY);
-	end instr_class;
-	
-	package instr_class body is
-		procedure sample(audioOut : out WAVE_ARRAY)
-			variable i : integer := 0;
-		begin
-			for i in 0 to 0 loop
-				audioOut(i) <= audioData(conv_integer(freq_address(i))) & "0000";	
-			end loop;
-		end procedure;
-	end instr_class;
 	
 begin
+
 	--sinLut: SinLut
 	--	port map(
 	--		clk 		=> clk,
@@ -70,7 +84,8 @@ begin
 		variable i : integer := 0;
 	begin
 		if clk'event and clk = '1' then
-			instrument.sample(audioOut => audioData);
+			--does not work, its a procedure so I don't what it wants
+			--instrument.sample(audioOut => audioData; freq_address => freq_address);
 		end if;
 	end process rom_select;
 	
