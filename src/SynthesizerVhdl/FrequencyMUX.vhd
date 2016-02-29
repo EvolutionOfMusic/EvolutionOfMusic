@@ -1,11 +1,11 @@
 library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.std_logic_textio.all;
-    use IEEE.std_logic_arith.all;
-    use IEEE.numeric_bit.all;
+--    use IEEE.std_logic_arith.all;
+--    use IEEE.numeric_bit.all;
     use IEEE.numeric_std.all;
-    use IEEE.std_logic_signed.all;
-    use IEEE.std_logic_unsigned.all;
+--    use IEEE.std_logic_signed.all;
+--    use IEEE.std_logic_unsigned.all;
 	
 use work.SynthesizerPackage.all;
 
@@ -22,15 +22,15 @@ entity FrequencyMUX is
 
     -- Frequency to be outputted
     ROM_step    : out LUT_ADDRESSES
-)end entity;
+);end entity;
 
 architecture frequencySelect of FrequencyMUX is
-	variable select       : integer;
+	signal select1       : integer;
 
 begin
     
-	select <= to_integer(unsigned(sel_sig));
+	select1 <=to_integer(unsigned(sel_sig));
 
-	ROM_step <= freq_counts(select);
+	ROM_step <= freq_counts(select1);
 	
  end frequencySelect;

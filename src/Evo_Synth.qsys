@@ -16,7 +16,15 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
+         type = "int";
+      }
+   }
+   element audio_0
+   {
+      datum _sortIndex
+      {
+         value = "15";
          type = "int";
       }
    }
@@ -48,7 +56,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
    }
@@ -56,7 +64,7 @@
    {
       datum _sortIndex
       {
-         value = "0";
+         value = "17";
          type = "int";
       }
    }
@@ -80,7 +88,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "14";
          type = "int";
       }
    }
@@ -96,7 +104,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
    }
@@ -104,7 +112,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "11";
          type = "int";
       }
    }
@@ -112,7 +120,7 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "0";
          type = "int";
       }
    }
@@ -120,7 +128,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -128,7 +136,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
    }
@@ -140,19 +148,19 @@
          type = "String";
       }
    }
-   element pio_0.s1
-   {
-      datum baseAddress
-      {
-         value = "26253392";
-         type = "String";
-      }
-   }
    element sdram_0.s1
    {
       datum baseAddress
       {
          value = "8388608";
+         type = "String";
+      }
+   }
+   element pio_0.s1
+   {
+      datum baseAddress
+      {
+         value = "26253392";
          type = "String";
       }
    }
@@ -184,7 +192,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
       datum megawizard_uipreferences
@@ -197,7 +205,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
    }
@@ -213,7 +221,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "2";
          type = "int";
       }
    }
@@ -221,7 +229,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
    }
@@ -229,7 +237,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "1";
          type = "int";
       }
       datum megawizard_uipreferences
@@ -242,7 +250,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "12";
          type = "int";
       }
    }
@@ -250,7 +258,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "13";
          type = "int";
       }
    }
@@ -277,10 +285,9 @@
  <parameter name="projectName" value="Evo_Synth.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1456348564382" />
+ <parameter name="timeStamp" value="1456636585223" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
    name="tristate_conduit_bridge_0_out"
    internal="tristate_conduit_bridge_0.out"
@@ -296,17 +303,17 @@
    internal="triple_speed_ethernet_0.receive"
    type="avalon_streaming"
    dir="start" />
+ <interface name="clk_0_clk_in" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
-   name="synthesizer_0_audio"
-   internal="synthesizer_0.audio"
+   name="audio_0_external_interface"
+   internal="audio_0.external_interface"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="audio_0_avalon_right_channel_source"
+   internal="audio_0.avalon_right_channel_source"
    type="avalon_streaming"
    dir="start" />
- <module kind="clock_source" version="12.1" enabled="1" name="clk_0">
-  <parameter name="clockFrequency" value="50000000" />
-  <parameter name="clockFrequencyKnown" value="true" />
-  <parameter name="inputClockFrequency" value="50000000" />
-  <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
  <module
    kind="altera_avalon_onchip_memory2"
    version="12.1"
@@ -883,12 +890,28 @@
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
   <parameter name="AUTO_DEVICE" value="EP2C35F672C6" />
  </module>
- <module kind="synthesizer" version="1.0" enabled="1" name="synthesizer_0" />
- <connection
-   kind="reset"
-   version="12.1"
-   start="clk_0.clk_reset"
-   end="altpll_0.inclk_interface_reset" />
+ <module kind="synthesizer" version="1.0" enabled="1" name="synthesizer_0">
+  <parameter name="AUTO_CLOCK_50M_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_CLOCK_32K_CLOCK_RATE" value="50000000" />
+ </module>
+ <module kind="clock_source" version="12.1" enabled="1" name="clk_0">
+  <parameter name="clockFrequency" value="50000000" />
+  <parameter name="clockFrequencyKnown" value="true" />
+  <parameter name="inputClockFrequency" value="0" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module
+   kind="altera_up_avalon_audio"
+   version="12.0"
+   enabled="1"
+   name="audio_0">
+  <parameter name="avalon_bus_type" value="Streaming" />
+  <parameter name="audio_in" value="true" />
+  <parameter name="audio_out" value="true" />
+  <parameter name="dw" value="32" />
+  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
+ </module>
  <connection
    kind="avalon"
    version="12.1"
@@ -1052,11 +1075,6 @@
    version="12.1"
    start="altpll_0.c0"
    end="nios2_qsys_0.clk" />
- <connection
-   kind="clock"
-   version="12.1"
-   start="clk_0.clk"
-   end="altpll_0.inclk_interface" />
  <connection kind="clock" version="12.1" start="altpll_0.c0" end="pio_1.clk" />
  <connection kind="clock" version="12.1" start="altpll_0.c0" end="pio_0.clk" />
  <connection
@@ -1107,7 +1125,6 @@
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x01904000" />
  </connection>
- <connection kind="clock" version="12.1" start="altpll_0.c0" end="clk_0.clk_in" />
  <connection
    kind="reset"
    version="12.1"
@@ -1269,4 +1286,34 @@
    version="12.1"
    start="altpll_0.c0"
    end="synthesizer_0.clock_32k" />
+ <connection
+   kind="reset"
+   version="12.1"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="clk_0.clk_in_reset" />
+ <connection
+   kind="clock"
+   version="12.1"
+   start="clk_0.clk"
+   end="altpll_0.inclk_interface" />
+ <connection
+   kind="reset"
+   version="12.1"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="audio_0.clock_reset_reset" />
+ <connection
+   kind="clock"
+   version="12.1"
+   start="altpll_0.c0"
+   end="audio_0.clock_reset" />
+ <connection
+   kind="avalon_streaming"
+   version="12.1"
+   start="synthesizer_0.audio"
+   end="audio_0.avalon_left_channel_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="12.1"
+   start="audio_0.avalon_left_channel_source"
+   end="audio_0.avalon_right_channel_sink" />
 </system>

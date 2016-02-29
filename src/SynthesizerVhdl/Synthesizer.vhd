@@ -29,12 +29,14 @@ architecture synthesizer of Synthesizer is
   signal target_lut_addresses 	: LUT_ADDRESSES;
   signal audioData		        : WAVE_ARRAY;
   signal full_addr                      : std_logic_vector(16 downto 0);
-  signal temp_us : unsigned(15 downto 0);
 
   type freq_array is array (0 to 95) of Integer;
   type step_array is array (0 to 95) of std_logic_vector(15 downto 0);
+  type tempType is array (0 to 95) of unsigned(15 downto 0);
 
   signal steps : step_array;
+  signal temp_us : tempType;
+
   constant freqs : freq_array :=
     ( -- 12 Notes per octave; All octaves start at C# and end in B#
 		33, 35, 37, 39, 41, 44, 46, 49, 52, 55, 58, 62, 						-- Octave1
@@ -74,28 +76,25 @@ architecture synthesizer of Synthesizer is
 	);
 	end component;
 
-	component AudioSynthesis is
-			port(
-				-- system signal
-				clk 				: in std_logic;
-				-- Input to select tone
-				freq_address 		: in std_logic_vector (11 downto 0);
-				-- Input to select the instrument to be used
-				instrument_address 	: in std_logic_vector(4 downto 0);
-				-- Audio data to be outputted
-				audioData 			: out WAVE_ARRAY
-			);
-	end component;
+	component SinLut is
+ 	port (
+ 		clk      : in  std_logic;
+ 		--Address input
+ 		address  : in std_logic_vector(16 downto 0);
+ 		--Sine output
+		audioData : out WAVE_ARRAY
+	);
+ 	end component;
 
 	begin
         --step_array and freq_array are types not variables
         loop1: for i in 0 to 95 generate
-			--the magic number represents: 2^32/50000000
-			temp_us <= to_unsigned(freqs(i)*(33554432/390625),16);
-            steps(i) <= std_logic_vector(temp_us);   -- Hard Coded 
+		--the magic number represents: 2^32/50000000
+		temp_us(i) <= to_unsigned(freqs(i)*(33554432/390625),16);
+		steps(i) <= std_logic_vector(temp_us(i));   -- Hard Coded 
                                                              -- clock frequency
                                                              -- 50 MHz
-		end generate loop1;  
+	end generate loop1;  
 
         -- Add a frequency for the Incrementors
         Gen_INC:
@@ -109,28 +108,29 @@ architecture synthesizer of Synthesizer is
 			);
         end generate Gen_INC;
 	
-		aFrequencyMUX: FrequencyMUX 
-			port map(
-			  clk => clk,
-			  sel_sig => tone_addr,
-			  freq_counts => lut_addresses2,
-			  ROM_step => target_lut_addresses
-			);
-			
-		aAudioSynthesis: AudioSynthesis
-			port map(
-				clk 				=> clk,
-				freq_address 		=> target_lut_addresses(0),
-				instrument_address 	=> instrument_addr,
-				audioData 			=> audioData
-			);
+	aFrequencyMUX: FrequencyMUX 
+		port map(
+		  clk => clk,
+		  sel_sig => tone_addr,
+		  freq_counts => lut_addresses2,
+		  ROM_step => target_lut_addresses
+		);
+	
+	full_addr <= instrument_addr + tone_addr;
+	
+	aSinLut: SinLut
+		port map(
+		  clk => clk,
+ 		  address => full_addr,
+		  audioData => audioData
+		);
 
-		send_output: process(clk, reset_n)
-		begin
-			if rising_edge(clk) then
-				audio_output <= audioData(0);
-			end if;
-		end process send_output;
+	send_output: process(clk, reset_n)
+	begin
+		if rising_edge(clk) then
+			audio_output <= audioData(0);
+		end if;
+	end process send_output;
 
-		audio_output_valid <= '1';
+	audio_output_valid <= '1';
 end synthesizer;
