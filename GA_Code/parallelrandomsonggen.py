@@ -8,29 +8,21 @@ from NoteChromosome import NoteChromosome
 from GeneticSong import GeneticSong
 
 class ParallelChromoGen(Thread):
-    _gene_list = []
-    _gene_lock = Lock()
     
-    def __init__(self, config_name):
+    def __init__(self, config_name, lock, shared_list):
         Thread.__init__(self)
         self._config_file = ConfigFile(config_name)
+        self._lock = lock
+        self._shared_list = shared_list
     
     def run(self):
         gene = random_gene(self._config_file)
-        type(self)._gene_lock.acquire()
-        type(self)._gene_list.append(gene)
-        type(self)._gene_lock.release()
+        type(self)._lock.acquire()
+        type(self)._shared_list.append(gene)
+        type(self)._lock.release()
         
-    def result(self):
-        volume = randrange(0, self._config_file.max_volume)
-        track_id = randrange(0, self._config_file.max_track_id)
-        return NoteChromosome(*type(self)._gene_list, volume=volume, track_id=track_id,
-                              max_len=self._config_file.chromo_length)
-
 
 class ParallelSongGen(Thread):
-    _chromo_list = []
-    _chromo_lock = Lock()
 
     def __init__(self, config_name):
         Thread.__init__(self)
@@ -59,8 +51,10 @@ class ParallelSongGen(Thread):
         
         
 if __name__ == "__main__":
-    #seed(666)
-    threads = [ParallelSongGen("pyth_main.config") for i in range(10)]
+    seed(666)
+    my_lock = Lock()
+    global_list = []
+    threads = [ParallelChromoGen("pyth_main.config") for i in range(10)]
     for thread in threads:
         thread.start()
     for thread in threads:
