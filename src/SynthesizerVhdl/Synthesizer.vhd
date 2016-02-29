@@ -76,18 +76,15 @@ architecture synthesizer of Synthesizer is
 	);
 	end component;
 
-	component AudioSynthesis is
-			port(
-				-- system signal
-				clk 				: in std_logic;
-				-- Input to select tone
-				freq_address 		: in std_logic_vector (11 downto 0);
-				-- Input to select the instrument to be used
-				instrument_address 	: in std_logic_vector(4 downto 0);
-				-- Audio data to be outputted
-				audioData 			: out WAVE_ARRAY
-			);
-	end component;
+	component SinLut is
+ 	port (
+ 		clk      : in  std_logic;
+ 		--Address input
+ 		address  : in std_logic_vector(16 downto 0);
+ 		--Sine output
+		audioData : out WAVE_ARRAY
+	);
+ 	end component;
 
 	begin
         --step_array and freq_array are types not variables
@@ -111,28 +108,29 @@ architecture synthesizer of Synthesizer is
 			);
         end generate Gen_INC;
 	
-		aFrequencyMUX: FrequencyMUX 
-			port map(
-			  clk => clk,
-			  sel_sig => tone_addr,
-			  freq_counts => lut_addresses2,
-			  ROM_step => target_lut_addresses
-			);
+	aFrequencyMUX: FrequencyMUX 
+		port map(
+		  clk => clk,
+		  sel_sig => tone_addr,
+		  freq_counts => lut_addresses2,
+		  ROM_step => target_lut_addresses
+		);
 	
-		aAudioSynthesis: AudioSynthesis
-			port map(
-				clk 				=> clk,
-				freq_address 		=> target_lut_addresses(0),
-				instrument_address 	=> instrument_addr,
-				audioData 			=> audioData
-			);
+	full_addr <= instrument_addr + tone_addr;
+	
+	aSinLut: SinLut
+		port map(
+		  clk => clk,
+ 		  address => full_addr,
+		  audioData => audioData
+		);
 
-		send_output: process(clk, reset_n)
-		begin
-			if rising_edge(clk) then
-				audio_output <= audioData(0);
-			end if;
-		end process send_output;
+	send_output: process(clk, reset_n)
+	begin
+		if rising_edge(clk) then
+			audio_output <= audioData(0);
+		end if;
+	end process send_output;
 
-		audio_output_valid <= '1';
+	audio_output_valid <= '1';
 end synthesizer;
