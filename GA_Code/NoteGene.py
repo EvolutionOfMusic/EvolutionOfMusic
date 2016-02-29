@@ -64,7 +64,7 @@ class NoteGene:
         >>> len(gene2)
         4
         """
-        return self.hold_time + 1
+        return self.hold_time
         
     def __str__(self):
         """

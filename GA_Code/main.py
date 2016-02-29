@@ -15,10 +15,10 @@ CONFIG_FILE_PATH = "pyth_main.config"
 
 def random_gene(config_obj):
     right_pause_time = randrange(0, config_obj.max_pause_time//2 + 1)
-    right_hold_time = randrange(0, config_obj.max_hold_time//2 + 1)
+    right_hold_time = randrange(1, config_obj.max_hold_time//2 + 1)
     tone = randrange(config_obj.min_note, config_obj.max_note + 1)
     left_hold_time = randrange(0, config_obj.max_hold_time//2 + 1)
-    left_pause_time = randrange(0, config_obj.max_pause_time//2 + 1)
+    left_pause_time = randrange(1, config_obj.max_pause_time//2 + 1)
     
     return NoteGene(right_pause_time, right_hold_time, tone,
                     left_hold_time, left_pause_time)
@@ -29,7 +29,8 @@ def random_chromosome(config_obj):
     gene_list = []
     for i in range(config_obj.chromo_length):
         gene_list.append(random_gene(config_obj))
-    return NoteChromosome(*gene_list, track_id=track_id, volume=volume)
+    return NoteChromosome(*gene_list, track_id=track_id, volume=volume,
+                          max_len=config_obj.chromo_length)
 
 random_tempo = lambda min_t, max_t: randrange(max_t) + min_t
 
@@ -137,7 +138,7 @@ def alert_parent_program(pid):
 
 def write_to_output_file(output_file_name, *songs):
      with open(output_file_name, 'w') as save:
-        save.write(len(songs) + '\n')
+        save.write(str(len(songs)) + '\n')
         for song in songs:
             save.write(str(song) + '\n')
 
@@ -168,7 +169,7 @@ if __name__ == "__main__":
             song_list.append(random_song(config_file))
             
         save_songs(config_file.save_file, *song_list)
-        write_to_output_file(config_file.save, *song_list)
+        write_to_output_file(config_file.save_file, *song_list)
         alert_parent_program(args.pid)       
         raise SystemExit
     
