@@ -44,9 +44,9 @@ void set_sd(vector<Song> song_list) {
 				
 				for (int j = 0;j < NUM_NOTES;j++) {
 					//PAUSE_TIME, TONE, HOLD_TIME
-					toSD 	<< (*it).tunes[i].channel[j].pause_time << " " 
-						<< (*it).tunes[i].channel[j].tone << " " 
-						<< (*it).tunes[i].channel[j].hold_time << "\n";
+					toSD << (*it).tunes[i].channel[j].pause_time << " " << 
+						(*it).tunes[i].channel[j].tone << " " << 
+						(*it).tunes[i].channel[j].hold_time << "\n";
 				}
 			}
 		}
