@@ -69,7 +69,7 @@ int supervisor(Song song) {
 
 	    		// Must be within an octave of the past two notes, not counting rests
 	    		if(	((abs(a3-a2) >= 8) && (a2 != 0)) || 
-	    			((abs(a3-a1) >= 8)&& (a2 != 0))
+	    			((abs(a3-a1) >= 8)&& (a2 != 0))  )
 				score -= 2;
 	    	    
 		}
