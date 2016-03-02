@@ -51,6 +51,7 @@ Song start_AI(int score) {
 	
 	if (song_index == song_list.size() ||
 		song_index == -1) {
+		if (song_index != -1) set_sd(song_list);
 		char * buffer;
 
 		// DO YOUR STUFF
@@ -64,6 +65,7 @@ Song start_AI(int score) {
 		ifstream file("main_py_output");
 		song_list = parse_song(file);
 		
+		// Index Change
 		song_index = 0;
 	} else {
 		song_index++;
