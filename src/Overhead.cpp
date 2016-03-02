@@ -4,22 +4,14 @@
  *  Created on: Jan 28, 2016
  *      Author: Stephen
  */
-// Unit Tests
-//#include <boost/test/minimal.hpp>
-//#define BOOST_TEST_MODULE MyTest
-//#include <boost/test/unit_test.hpp>
-//#include <gtest/gtest.h>
 
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-#include "ethernet.h"
 #include "critic_shell.h"
 #include "ai_shell.h"
 //#include "song_structs.h"
 
-
-bool play_music_switch();
 
 int main() {
 	using namespace std;
@@ -39,12 +31,7 @@ int main() {
 	song = ai_shell(0);
 	for (int i = 0;i < iterations;i++) {
 		score = c_shell(song);
-		//Not sure how this will work with the AGI as it will only
-		//work on figuring out one type of instrument groups at a time
-		song = ai_shell(score);
-
-		if (play_music_switch())
-			play_music(song);
+		song = ai_shell(iterations-i, score);
 	}
 
 	end_time = time(0);
@@ -53,12 +40,3 @@ int main() {
 	cout << "Generation " << iterations << " Complete in " << total_time << " seconds" << '\n';
 }
 
-bool play_music_switch() {
-		info status = get_ethernet();
-		return status.play_music;
-}
-
-/*int test_main(int, char *[]) {
-	BOOST_CHECK(true);
-	return 0;
-}*/
