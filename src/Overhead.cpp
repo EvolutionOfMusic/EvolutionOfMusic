@@ -5,13 +5,7 @@
  *      Author: Stephen
  */
 
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
-#include "critic_shell.h"
-#include "ai_shell.h"
-//#include "song_structs.h"
-
+#include "Overhead.h"
 
 int main() {
 	using namespace std;
