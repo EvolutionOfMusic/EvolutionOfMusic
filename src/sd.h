@@ -8,7 +8,8 @@
 #ifndef SD_H_
 #define SD_H_
 
-#include <stdlib.h>
+#include <vector>
+#include <stdlib.h
 #include "song_structs.h"
 
 void error(const char* msg);
