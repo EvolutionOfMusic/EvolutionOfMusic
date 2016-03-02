@@ -22,7 +22,7 @@ int c_shell(Song song) {
 int supervisor(Song song) {
 	//JUDGE IT
 	int score = 100;
-	int tally = MAX_NOTES;
+	int tally = 0;
 
 	/* A Song holds Tracks; A Track holds Notes
 	//TODO: Finish
@@ -90,16 +90,19 @@ int supervisor(Song song) {
 					freq_ratio = floor((100*frequencies[n2.tone]) / frequencies[n1.tone]);
 				}
 
-				// If there is dissonance, -1/MAX_NOTE points
+				// If there is dissonance, -2 points
 				if (!(	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))	 // 1:1
-					tally--;
+					tally += 2;
 			}
 		}
 	}
 	score -= tally;
+	if(score <= 0) {
+		return 0;
+	}
 
 	return score;
 }
