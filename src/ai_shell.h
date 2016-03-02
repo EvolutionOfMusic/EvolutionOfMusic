@@ -15,6 +15,7 @@
 #include <signal.h>
 #include "python3_to_cpp_converter.h"
 #include "song_structs.h"
+#include "sd.h"
 
 Song ai_shell(int score);
 void init_AI();
