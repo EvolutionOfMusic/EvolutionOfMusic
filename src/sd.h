@@ -9,8 +9,11 @@
 #define SD_H_
 
 #include <vector>
-#include <stdlib.h
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
 #include "song_structs.h"
+using namespace std;
 
 void error(const char* msg);
 void set_sd();
