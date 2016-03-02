@@ -25,7 +25,7 @@ int main() {
 	song = ai_shell(0);
 	for (int i = 0;i < iterations;i++) {
 		score = c_shell(song);
-		song = ai_shell(iterations-i, score);
+		song = ai_shell(score);
 	}
 
 	end_time = time(0);
