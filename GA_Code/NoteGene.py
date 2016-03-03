@@ -1,5 +1,4 @@
 from copy import copy
-from random import SystemRandom
 
 
 class NoteGene:
@@ -14,8 +13,7 @@ class NoteGene:
     True
     """
 
-    def __init__(self, left_pause_time, left_hold_time, tone_val,
-                 right_hold_time, right_pause_time):
+    def __init__(self, *args, max_pause=None, tone_range=None, hold_range=None):
         """
         >>> gene = NoteGene(1,2,3,2,1)
         >>> gene.left_pause_time
@@ -29,13 +27,15 @@ class NoteGene:
         >>> gene.right_pause_time
         1
         """
-        self.left_pause_time = left_pause_time
-        self.left_hold_time = left_hold_time
-        self.tone = tone_val
-        self.right_hold_time = right_hold_time
-        self.right_pause_time = right_pause_time
+        self.left_pause_time = args[0]
+        self.left_hold_time = args[1]
+        self.tone = args[2]
+        self.right_hold_time = args[3]
+        self.right_pause_time = args[4]
 
-        self.randomizer = SystemRandom()
+        self.max_pause_time = max_pause
+        self.tone_range = tone_range
+        self.hold_range = hold_range
 
     @property
     def pause_time(self):
@@ -156,9 +156,25 @@ class NoteGene:
         if len(delta_mask) != 5:
             raise TypeError("expected 5 arguments, got {}".format(len(delta_mask)))
         
-        self.left_pause_time += delta_mask[0]
-        self.left_hold_time += delta_mask[1]
-        self.tone += delta_mask[2]
-        self.right_hold_time += delta_mask[3]
-        self.right_pause_time += delta_mask[4]
+        self.left_pause_time = (self.left_pause_time + delta_mask[0]) % (self.max_pause_time//2 + 1)
+        self.left_hold_time = ((self.left_hold_time + delta_mask[1]) % max(self.hold_range)) + min(self.hold_range) 
+        self.tone = ((self.tone + delta_mask[2]) % (max(self.tone_range) + 1)) + min(self.tone_range)
+        self.right_hold_time = ((self.right_hold_time + delta_mask[3]) % max(self.hold_range)) + min(self.hold_range)
+        self.right_pause_time = (self.right_pause_time + delta_mask[4]) % (self.max_pause_time//2 + 1)
+
+def range_translate(value, range):
+    """
+    Inputs: value, and range 
+    Outputs: a number, derived from value and range, 
+    which is in range
+    """
+    if value in range:
+        return value
+    elif value > max(range):
+        return range_translate(value - len(range), range)
+    else:
+        return range_translate(value + len(range), range)
+
+
+
 

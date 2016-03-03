@@ -30,6 +30,8 @@ class GeneticSong:
     2
     >>> len(song3)
     2
+    >>> song1.min_chromo_length
+    2
     >>> song1
     0
     0
@@ -111,6 +113,11 @@ class GeneticSong:
     @property
     def max_length(self):
         return self._max_length
+
+    @property
+    def min_chromo_length(self):
+        nc = min(self._chromosome_dict.values(), key=lambda v: len(v))
+        return len(nc)
 
     @property
     def _chromosome_list(self):
@@ -414,7 +421,7 @@ class GeneticSong:
             ...
         ValueError: Expecting delta mask of size 21
         """
-        if len(delta_mask) is not (to_gene_index(self.num_genes) + 1):
+        if len(delta_mask) is not (self.num_genes * 5 + 1):
             raise ValueError("Expecting delta mask of size {}".format(self.num_genes * 5 + 1))
 
         self.tempo += delta_mask[0]
@@ -513,5 +520,9 @@ def set_subtract(set1, set2):
     {4}
     """
     return set1.union(set2) - set1.intersection(set2)
+
+def min_nc_length(song1, song2):
+    return min(song1.min_chromo_length,
+               song2.min_chromo_length)
 
 to_gene_index = lambda index: index * 5

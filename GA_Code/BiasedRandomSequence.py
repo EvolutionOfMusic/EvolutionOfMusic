@@ -122,9 +122,10 @@ class BiasedRandomSequence:
         of being chosen from the sequence
         Output: None 
         """
-        self._data_dict[self._prob_to_range(prob)] = value
-        self._index_to_range_dict[self.max_index] = self._prob_to_range(prob)
-        self._max_prob_index += prob
+        if prob > 0:
+            self._data_dict[self._prob_to_range(prob)] = value
+            self._index_to_range_dict[self.max_index] = self._prob_to_range(prob)
+            self._max_prob_index += prob
         
     def random_get(self):
         """
@@ -150,7 +151,7 @@ def sample_pair(seq):
     while rv[1] == rv[0]:
         rv[1] = seq.random_get()
 
-    return rv
+    return rv[0], rv[1]
     
 
 class BRSequenceIterator:
