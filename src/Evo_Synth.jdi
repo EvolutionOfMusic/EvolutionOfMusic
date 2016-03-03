@@ -1,9 +1,9 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="73742e3d20f8c3e2d2e2"/>
+    <hash md5_digest_80b="9aa0067f3742c9dc4dca"/>
   </project>
   <file_info/>
-  <hub_info ir_width="2" node_count="3"/>
+  <hub_info ir_width="2" node_count="2"/>
   <node_info>
     <node hpath="Evo_Synth_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:Evo_Synth_jtag_uart_0_alt_jtag_atlantic" instance_id="0" mfg_id="110" node_id="128" sld_node_info="0xC006E00" version="1">
       <parameters>
@@ -138,6 +138,5 @@
         <port name="jtag.bp.nios2_qsys_0_the_Evo_Synth_nios2_qsys_0_nios2_oci_the_Evo_Synth_nios2_qsys_0_jtag_debug_module_wrapper_Evo_Synth_nios2_qsys_0_jtag_debug_module_phy_sld_virtual_jtag_impl_inst_ir_out_1_"/>
       </outputs>
     </node>
-    <node hpath="pzdyqx:nabboc" instance_id="0" mfg_id="110" node_id="1" sld_node_info="0x86E00" version="0"/>
   </node_info>
 </sld_project_info>

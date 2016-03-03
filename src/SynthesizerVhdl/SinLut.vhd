@@ -558,7 +558,7 @@ rom_select: process (clk)
 begin
   if clk'event and clk = '1' then
 	for i in 0 to 0 loop
-		audioData(i) <= SIN_ROM_0(conv_integer(tone(i))) & "0000";	
+		audioData(i) <= SIN_ROM_0(conv_integer(tone)) & "0000";	
 	end loop;
   end if;
 end process rom_select;
