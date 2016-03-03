@@ -5,21 +5,6 @@
 			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_chipselect_n_out : out   std_logic_vector(0 downto 0);                     -- generic_tristate_controller_0_tcm_chipselect_n_out
 			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_write_n_out      : out   std_logic_vector(0 downto 0);                     -- generic_tristate_controller_0_tcm_write_n_out
 			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_address_out      : out   std_logic_vector(21 downto 0);                    -- generic_tristate_controller_0_tcm_address_out
-			triple_speed_ethernet_0_transmit_data                                            : in    std_logic_vector(31 downto 0) := (others => 'X'); -- data
-			triple_speed_ethernet_0_transmit_endofpacket                                     : in    std_logic                     := 'X';             -- endofpacket
-			triple_speed_ethernet_0_transmit_error                                           : in    std_logic                     := 'X';             -- error
-			triple_speed_ethernet_0_transmit_empty                                           : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- empty
-			triple_speed_ethernet_0_transmit_ready                                           : out   std_logic;                                        -- ready
-			triple_speed_ethernet_0_transmit_startofpacket                                   : in    std_logic                     := 'X';             -- startofpacket
-			triple_speed_ethernet_0_transmit_valid                                           : in    std_logic                     := 'X';             -- valid
-			triple_speed_ethernet_0_receive_data                                             : out   std_logic_vector(31 downto 0);                    -- data
-			triple_speed_ethernet_0_receive_valid                                            : out   std_logic;                                        -- valid
-			triple_speed_ethernet_0_receive_endofpacket                                      : out   std_logic;                                        -- endofpacket
-			triple_speed_ethernet_0_receive_empty                                            : out   std_logic_vector(1 downto 0);                     -- empty
-			triple_speed_ethernet_0_receive_ready                                            : in    std_logic                     := 'X';             -- ready
-			triple_speed_ethernet_0_receive_startofpacket                                    : out   std_logic;                                        -- startofpacket
-			triple_speed_ethernet_0_receive_error                                            : out   std_logic_vector(5 downto 0);                     -- error
-			clk_0_clk_in_clk                                                                 : in    std_logic                     := 'X';             -- clk
 			audio_0_external_interface_ADCDAT                                                : in    std_logic                     := 'X';             -- ADCDAT
 			audio_0_external_interface_ADCLRCK                                               : in    std_logic                     := 'X';             -- ADCLRCK
 			audio_0_external_interface_BCLK                                                  : in    std_logic                     := 'X';             -- BCLK
@@ -27,7 +12,20 @@
 			audio_0_external_interface_DACLRCK                                               : in    std_logic                     := 'X';             -- DACLRCK
 			audio_0_avalon_right_channel_source_ready                                        : in    std_logic                     := 'X';             -- ready
 			audio_0_avalon_right_channel_source_data                                         : out   std_logic_vector(31 downto 0);                    -- data
-			audio_0_avalon_right_channel_source_valid                                        : out   std_logic                                         -- valid
+			audio_0_avalon_right_channel_source_valid                                        : out   std_logic;                                        -- valid
+			audio_0_avalon_right_channel_sink_data                                           : in    std_logic_vector(31 downto 0) := (others => 'X'); -- data
+			audio_0_avalon_right_channel_sink_valid                                          : in    std_logic                     := 'X';             -- valid
+			audio_0_avalon_right_channel_sink_ready                                          : out   std_logic;                                        -- ready
+			audio_0_avalon_left_channel_source_ready                                         : in    std_logic                     := 'X';             -- ready
+			audio_0_avalon_left_channel_source_data                                          : out   std_logic_vector(31 downto 0);                    -- data
+			audio_0_avalon_left_channel_source_valid                                         : out   std_logic;                                        -- valid
+			spi_0_external_MISO                                                              : in    std_logic                     := 'X';             -- MISO
+			spi_0_external_MOSI                                                              : out   std_logic;                                        -- MOSI
+			spi_0_external_SCLK                                                              : out   std_logic;                                        -- SCLK
+			spi_0_external_SS_n                                                              : out   std_logic;                                        -- SS_n
+			button_1_external_connection_export                                              : out   std_logic;                                        -- export
+			button_0_external_connection_export                                              : out   std_logic;                                        -- export
+			clk_clk_in_clk                                                                   : in    std_logic                     := 'X'              -- clk
 		);
 	end component Evo_Synth;
 

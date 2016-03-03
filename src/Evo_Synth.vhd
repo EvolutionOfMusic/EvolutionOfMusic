@@ -66,9 +66,11 @@ library ieee;
 		SRAM_LB_N	:	out	std_logic;
 		SRAM_CE_N	:	out	std_logic;
 		
-		--I2C interface
-		I2C_SCLK	:  out		std_logic;
-		I2C_SDAT	:  inout	std_logic;
+		--SDCard interface
+		SD_CLK		:  in		std_logic;
+		SDC_DAT		:  out		std_logic;
+		SDC_DAT3	:  out		std_logic;
+		SDC_CMD		:  out		std_logic;
 						 
 		--AUDIO 
 		AUD_ADCLRCK :  inout 	std_logic; 
@@ -124,16 +126,22 @@ architecture structure of Evo_Synth is
             character_lcd_0_external_interface_RS   : out   std_logic;                                        -- RS
             character_lcd_0_external_interface_RW   : out   std_logic;
 				
-				audio_and_video_config_0_external_interface_SCLK : out std_logic;
-				audio_and_video_config_0_external_interface_SDAT : inout std_logic;
 				
+--				audio_and_video_config_0_external_interface_SCLK : out std_logic;
+--				audio_and_video_config_0_external_interface_SDAT : inout std_logic;
+--				
 				audio_0_external_interface_ADCDAT 	: in std_logic;
 				audio_0_external_interface_ADCLRCK 	: inout std_logic;
 				audio_0_external_interface_BCLK 		: inout std_logic;	
 				audio_0_external_interface_DACDAT	: out	std_logic;
 				audio_0_external_interface_DACLRCK	: inout std_logic;
-				
-				up_clocks_0_audio_clk_clk					: out std_logic;
+--				
+--				up_clocks_0_audio_clk_clk					: out std_logic;
+
+				spi_0_external_MISO			: in std_logic;
+				spi_0_external_MOSI			: out std_logic;
+				spi_0_external_SCLK			: out std_logic;
+				spi_0_external_SS_N			: out std_logic;
 				
             switch_external_connection_export		 : in    std_logic_vector (7 downto 0);
 				button_0_external_connection_export     : in  	std_logic;
@@ -195,15 +203,21 @@ begin
             character_lcd_0_external_interface_RS   => LCD_RS,   
             character_lcd_0_external_interface_RW   => LCD_RW,
 
-				audio_and_video_config_0_external_interface_SCLK =>I2C_SCLK,
-				audio_and_video_config_0_external_interface_SDAT => I2C_SDAT,
-			
+--				audio_and_video_config_0_external_interface_SCLK =>I2C_SCLK,
+--				audio_and_video_config_0_external_interface_SDAT => I2C_SDAT,
+--			
 				audio_0_external_interface_ADCDAT  	=> AUD_ADCDAT,
 				audio_0_external_interface_ADCLRCK 	=> AUD_ADCLRCK,
 				audio_0_external_interface_BCLK 	  	=> AUD_BCLK,
 				audio_0_external_interface_DACDAT  	=> AUD_DACDAT,
 				audio_0_external_interface_DACLRCK 	=> AUD_DACLRCK,
-				up_clocks_0_audio_clk_clk				=> AUD_XCK,
+--				up_clocks_0_audio_clk_clk				=> AUD_XCK,
+
+				spi_0_external_MISO			=> SD_DAT
+				spi_0_external_MOSI			=> SD_DAT3
+				spi_0_external_SCLK			=> SD_CLK
+				spi_0_external_SS_N			=> SD_CMD
+
 				midiout_0_conduit_end_0_export		=> GPIO_1(9),
 				switch_external_connection_export	=> GPIO_1(7 downto 0),
 				button_0_external_connection_export => KEY(0),

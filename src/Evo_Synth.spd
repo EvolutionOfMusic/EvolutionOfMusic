@@ -49,9 +49,9 @@
    type="VHDL"
    library="rsp_xbar_mux" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_rsp_xbar_demux_011.vho"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_rsp_xbar_demux_013.vho"
    type="VHDL"
-   library="rsp_xbar_demux_011" />
+   library="rsp_xbar_demux_013" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_rsp_xbar_demux.vho"
    type="VHDL"
@@ -81,9 +81,9 @@
    type="VHDL"
    library="burst_adapter" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_id_router_011.vho"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_id_router_013.vho"
    type="VHDL"
-   library="id_router_011" />
+   library="id_router_013" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_id_router_006.vho"
    type="VHDL"
@@ -117,6 +117,18 @@
    type="VHDL"
    library="timer_0_s1_translator_avalon_universal_slave_0_agent" />
  <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_Button_0_s1_translator_avalon_universal_slave_0_agent.vho"
+   type="VHDL"
+   library="Button_0_s1_translator_avalon_universal_slave_0_agent" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_spi_0_spi_control_port_translator_avalon_universal_slave_0_agent.vho"
+   type="VHDL"
+   library="spi_0_spi_control_port_translator_avalon_universal_slave_0_agent" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_Button_1_s1_translator_avalon_universal_slave_0_agent.vho"
+   type="VHDL"
+   library="Button_1_s1_translator_avalon_universal_slave_0_agent" />
+ <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_synthesizer_0_voice_select_translator_avalon_universal_slave_0_agent.vho"
    type="VHDL"
    library="synthesizer_0_voice_select_translator_avalon_universal_slave_0_agent" />
@@ -132,10 +144,6 @@
    path="Evo_Synth/simulation/submodules/Evo_Synth_onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent.vho"
    type="VHDL"
    library="onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_triple_speed_ethernet_0_control_port_translator_avalon_universal_slave_0_agent.vho"
-   type="VHDL"
-   library="triple_speed_ethernet_0_control_port_translator_avalon_universal_slave_0_agent" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_character_lcd_0_avalon_lcd_slave_translator_avalon_universal_slave_0_agent_rsp_fifo.vho"
    type="VHDL"
@@ -221,6 +229,14 @@
    type="VHDL"
    library="nios2_qsys_0_instruction_master_translator" />
  <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_spi_0.vhd"
+   type="VHDL"
+   library="spi_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_Button_1.vhd"
+   type="VHDL"
+   library="Button_1" />
+ <file
    path="Evo_Synth/simulation/submodules/altera_up_audio_bit_counter.v"
    type="VERILOG"
    library="audio_0" />
@@ -257,28 +273,40 @@
    type="VHDL"
    library="tristate_conduit_bridge_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_a.dat"
-   type="DAT"
-   library="nios2_qsys_0" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0.do"
-   type="OTHER"
-   library="nios2_qsys_0" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_ociram_default_contents.mif"
-   type="MIF"
-   library="nios2_qsys_0" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_ociram_default_contents.hex"
-   type="HEX"
-   library="nios2_qsys_0" />
- <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_oci_test_bench.vhd"
    type="VHDL"
    library="nios2_qsys_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_a.hex"
-   type="HEX"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_b.mif"
+   type="MIF"
+   library="nios2_qsys_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_ociram_default_contents.dat"
+   type="DAT"
+   library="nios2_qsys_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_test_bench.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_jtag_debug_module_sysclk.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_jtag_debug_module_wrapper.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_a.dat"
+   type="DAT"
+   library="nios2_qsys_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_a.mif"
+   type="MIF"
+   library="nios2_qsys_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_b.dat"
+   type="DAT"
    library="nios2_qsys_0" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0.sdc"
@@ -289,11 +317,7 @@
    type="VHDL"
    library="nios2_qsys_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_b.dat"
-   type="DAT"
-   library="nios2_qsys_0" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_a.mif"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_ociram_default_contents.mif"
    type="MIF"
    library="nios2_qsys_0" />
  <file
@@ -305,24 +329,16 @@
    type="HEX"
    library="nios2_qsys_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_jtag_debug_module_wrapper.vhd"
-   type="VHDL"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0.do"
+   type="OTHER"
    library="nios2_qsys_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_jtag_debug_module_sysclk.vhd"
-   type="VHDL"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_ociram_default_contents.hex"
+   type="HEX"
    library="nios2_qsys_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_ociram_default_contents.dat"
-   type="DAT"
-   library="nios2_qsys_0" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_test_bench.vhd"
-   type="VHDL"
-   library="nios2_qsys_0" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_b.mif"
-   type="MIF"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_rf_ram_a.hex"
+   type="HEX"
    library="nios2_qsys_0" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_sram_0.vhd"
@@ -357,11 +373,11 @@
    type="VHDL"
    library="jtag_uart_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_jtag_uart_0_input_mutex.dat"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_jtag_uart_0_output_stream.dat"
    type="OTHER"
    library="jtag_uart_0" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_jtag_uart_0_output_stream.dat"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_jtag_uart_0_input_mutex.dat"
    type="OTHER"
    library="jtag_uart_0" />
  <file
@@ -376,10 +392,6 @@
    path="Evo_Synth/simulation/submodules/Evo_Synth_sysid_qsys_0.vho"
    type="VHDL"
    library="sysid_qsys_0" />
- <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_triple_speed_ethernet_0.vho"
-   type="VHDL"
-   library="triple_speed_ethernet_0" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_onchip_memory2_0.hex"
    type="HEX"
@@ -408,9 +420,6 @@
    path="Evo_Synth/simulation/evo_synth_character_lcd_0_avalon_lcd_slave_translator.vhd"
    type="VHDL" />
  <file
-   path="Evo_Synth/simulation/evo_synth_triple_speed_ethernet_0_control_port_translator.vhd"
-   type="VHDL" />
- <file
    path="Evo_Synth/simulation/evo_synth_onchip_memory2_0_s1_translator.vhd"
    type="VHDL" />
  <file
@@ -418,6 +427,9 @@
    type="VHDL" />
  <file
    path="Evo_Synth/simulation/evo_synth_synthesizer_0_voice_select_translator.vhd"
+   type="VHDL" />
+ <file
+   path="Evo_Synth/simulation/evo_synth_spi_0_spi_control_port_translator.vhd"
    type="VHDL" />
  <file
    path="Evo_Synth/simulation/evo_synth_timer_0_s1_translator.vhd"
