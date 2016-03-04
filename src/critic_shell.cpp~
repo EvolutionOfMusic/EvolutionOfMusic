@@ -116,8 +116,3 @@ int manual_override(Song song) {
 
 	return score;
 }
-
-bool override_switch() {
-	info status = get_ethernet();
-	return status.manual_override;
-}
