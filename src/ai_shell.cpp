@@ -8,11 +8,12 @@
 #include "ai_shell.h"
 
 Song ai_shell(int score) {
-	static Song song;
+	static int last_song_id = -1
+	Song song;
 	char * buffer;
 
 	// Init
-	if (song.song_id == -1 &&
+	if (last_song_id == -1 &&
 		score == 0) {
 		// Prepare the signal handler
 		init_AI();
@@ -27,6 +28,8 @@ Song ai_shell(int score) {
 	// Pass the song & score to the AI
 	song = start_AI(score);
 
+	last_song_id = song.song_id;
+	
 	return song;
 }
 
