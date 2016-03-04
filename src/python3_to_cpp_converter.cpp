@@ -50,11 +50,12 @@ std::vector<Song> parse_song(ifstream &file){
 				
 				for (int k = 0;k < NUM_NOTES;k++) {
 					// Pause Time, Tone, Hold Time
+					int a, b, c;
 					file.getline(file_line, 20);
-					sscanf(file_line, "%d %d %d", 
-						&song.tunes[j].channel[k].pause_time, 
-						&song.tunes[j].channel[k].tone, 
-						&song.tunes[j].channel[k].hold_time);
+					sscanf(file_line, "%d %d %d", &a, &b, &c);
+					song.tunes[j].channel[k].pause_time = a; 
+					song.tunes[j].channel[k].tone = b;
+					song.tunes[j].channel[k].hold_time = c;
 				}
 			}
 			// Add it to the list
