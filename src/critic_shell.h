@@ -10,11 +10,11 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <omp.h>
 #include "frequencies.h"
 #include "song_structs.h"
 
 int c_shell(Song song);
-bool override_switch();
 int supervisor(Song song);
 int manual_override(Song song);
 
