@@ -8,7 +8,7 @@
 #ifndef CRITIC_SHELL_H_
 #define CRITIC_SHELL_H_
 
-#include <cmath>
+#include <stdlib>
 #include <stdio.h>
 #include <omp.h>
 #include "frequencies.h"
