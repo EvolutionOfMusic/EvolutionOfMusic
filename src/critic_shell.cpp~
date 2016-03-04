@@ -6,7 +6,6 @@
  */
 
 #include "critic_shell.h"
-#include <omp.h>
 
 int c_shell(Song song) {
 	int score = 100;
@@ -24,7 +23,6 @@ int supervisor(Song song) {
 	//JUDGE IT
 	int score = 100;
 	int tally = 0;
-	int i, j, k;
 
 	/* A Song holds Tracks; A Track holds Notes
 	//TODO: Finish
@@ -46,9 +44,8 @@ int supervisor(Song song) {
 	Note a1, a2, a3, n1, n2;
 
 	// Parallelize on i, evaluates for errors within each track
-#pragma omp parallel for num_threads(4) collapse(2) private(i, k)
-	for (i = 0;i < instruments;i++) {
-		for (k = 0;k < track_length;k++) {
+	for (int i = 0;i < instruments;i++) {
+		for (int k = 0;k < track_length;k++) {
 	    		if(score <= 0) {
 				return 0;
 			}
@@ -79,10 +76,9 @@ int supervisor(Song song) {
 	}
 	
 	// Parallelize k; evaluates for dissonance between tracks
-#pragma omp parallel for num_threads(4) collapse(3) private(i, j, k) reduction(+:tally)
-	for (k = 0;k < track_length;k++) {
-		for (i = 0;i < instruments;i++) {
-			for (j = 0;j < instruments;j++) {
+	for (int k = 0;k < track_length;k++) {
+		for (int i = 0;i < instruments;i++) {
+			for (int j = 0;j < instruments;j++) {
 				if(score <= 0) return 0;
 				
 				n1 = song.tunes[i].channel[k]; // Pick One Moment in Time
