@@ -10,7 +10,7 @@
 int c_shell(Song song) {
 	int score = 100;
 
-	if (override_switch()) {
+	if (true) {
 		score = supervisor(song);
 	} else {
 		score = manual_override(song);
