@@ -54,7 +54,7 @@ std::vector<Song> parse_song(ifstream &file){
 					sscanf(file_line, "%d %d %d", 
 						&song.tunes[j].channel[k].pause_time, 
 						&song.tunes[j].channel[k].tone, 
-						&song.tunes[j].channel[k].hold_time)
+						&song.tunes[j].channel[k].hold_time);
 				}
 			}
 			// Add it to the list
