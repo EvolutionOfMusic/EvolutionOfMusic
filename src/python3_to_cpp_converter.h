@@ -14,6 +14,6 @@
 #include <vector>
 #include "song_structs.h"
 
-std::vector<Song> parse_song(ifstream &file);
+std::vector<Song> parse_song(std::ifstream &file);
 
 #endif /* PYTHON_CONV_H_ */
