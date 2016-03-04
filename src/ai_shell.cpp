@@ -8,16 +8,16 @@
 #include "ai_shell.h"
 
 Song ai_shell(int score) {
-	static Song song = null;
+	static Song song = 0;
 	char * buffer;
 
 	// Init
-	if (song == null &&
+	if (song == 0 &&
 		score == 0) {
 		// Prepare the signal handler
 		init_AI();
 		
-		sprintf(buffer, 25, "python3 main.py -n -p %d -s %d", getpid(), rand())
+		sprintf(buffer, "python3 main.py -n -p %d -s %d", getpid(), rand());
 		system(buffer);
 		
 		// Wait for python's init to complete
@@ -55,7 +55,7 @@ Song start_AI(int score) {
 		char * buffer;
 
 		// DO YOUR STUFF
-		sprintf(buffer, 25, "python3 main.py");
+		sprintf(buffer, "python3 main.py");
 		system(buffer);
 		
 		// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
