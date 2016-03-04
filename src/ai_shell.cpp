@@ -8,7 +8,7 @@
 #include "ai_shell.h"
 
 Song ai_shell(int score) {
-	static int last_song_id = -1
+	static int last_song_id = -1;
 	Song song;
 	char * buffer;
 
