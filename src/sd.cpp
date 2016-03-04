@@ -20,7 +20,7 @@ void init_sd() {
 	if (toSD.is_open()) toSD.close();
 }
 
-void set_sd(vector<Song> song_list) {
+void set_sd(std::vector<Song> song_list) {
 	ofstream toSD;
 	toSD.open("music");
 	if (toSD.is_open()) {
