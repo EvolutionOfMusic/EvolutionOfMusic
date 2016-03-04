@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include <omp.h>
 #include "frequencies.h"
 #include "song_structs.h"
