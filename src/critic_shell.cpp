@@ -6,7 +6,6 @@
  */
 
 #include "critic_shell.h"
-#include <omp.h>
 
 int c_shell(Song song) {
 	int score = 100;
@@ -46,12 +45,10 @@ int supervisor(Song song) {
 	Note a1, a2, a3, n1, n2;
 
 	// Parallelize on i, evaluates for errors within each track
-#pragma omp parallel for num_threads(4) collapse(2) private(i, k)
+	#pragma omp parallel for num_threads(4) collapse(2) private(i, k)
 	for (i = 0;i < instruments;i++) {
 		for (k = 0;k < track_length;k++) {
-	    		if(score <= 0) {
-				return 0;
-			}
+	    		if(score <= 0) return 0;
 	    		if(i == 0) {
 				a1 = song.tunes[i].channel[0];
 				a2 = song.tunes[i].channel[0];
@@ -71,15 +68,15 @@ int supervisor(Song song) {
 				score -= 10;
 
 	    		// Must be within an octave of the past two notes, not counting rests
-	    		if(	((abs(a3-a2) >= 8) && (a2 != 0)) || 
-	    			((abs(a3-a1) >= 8)&& (a2 != 0))  )
+	    		if(	((abs(a3.tone - a2.tone) >= 8) && (a2.tone != 0)) || 
+	    			((abs(a3.tone - a1.tone) >= 8)&& (a2.tone != 0))  )
 				score -= 2;
 	    	    
 		}
 	}
 	
 	// Parallelize k; evaluates for dissonance between tracks
-#pragma omp parallel for num_threads(4) collapse(3) private(i, j, k) reduction(+:tally)
+	#pragma omp parallel for num_threads(4) collapse(3) private(i, j, k) reduction(+:tally)
 	for (k = 0;k < track_length;k++) {
 		for (i = 0;i < instruments;i++) {
 			for (j = 0;j < instruments;j++) {
@@ -119,9 +116,4 @@ int manual_override(Song song) {
 	//TODO
 
 	return score;
-}
-
-bool override_switch() {
-	info status = get_ethernet();
-	return status.manual_override;
 }
