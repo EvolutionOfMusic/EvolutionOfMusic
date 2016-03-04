@@ -40,8 +40,8 @@ typedef struct{
 } Track;
 
 typedef struct{
-	int   song_id,
-	      tempo;
+	static int song_id = -1,
+	int tempo;
 	Track tunes[MAX_INSTRUMENTS+1];
 } Song;
 
