@@ -49,9 +49,9 @@
    type="VHDL"
    library="rsp_xbar_mux" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_rsp_xbar_demux_013.vho"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_rsp_xbar_demux_014.vho"
    type="VHDL"
-   library="rsp_xbar_demux_013" />
+   library="rsp_xbar_demux_014" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_rsp_xbar_demux.vho"
    type="VHDL"
@@ -81,9 +81,9 @@
    type="VHDL"
    library="burst_adapter" />
  <file
-   path="Evo_Synth/simulation/submodules/Evo_Synth_id_router_013.vho"
+   path="Evo_Synth/simulation/submodules/Evo_Synth_id_router_014.vho"
    type="VHDL"
-   library="id_router_013" />
+   library="id_router_014" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_id_router_006.vho"
    type="VHDL"
@@ -116,6 +116,10 @@
    path="Evo_Synth/simulation/submodules/Evo_Synth_timer_0_s1_translator_avalon_universal_slave_0_agent.vho"
    type="VHDL"
    library="timer_0_s1_translator_avalon_universal_slave_0_agent" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_audio_and_video_config_0_avalon_av_config_slave_translator_avalon_universal_slave_0_agent.vho"
+   type="VHDL"
+   library="audio_and_video_config_0_avalon_av_config_slave_translator_avalon_universal_slave_0_agent" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_Button_0_s1_translator_avalon_universal_slave_0_agent.vho"
    type="VHDL"
@@ -228,6 +232,62 @@
    path="Evo_Synth/simulation/submodules/Evo_Synth_nios2_qsys_0_instruction_master_translator.vho"
    type="VHDL"
    library="nios2_qsys_0_instruction_master_translator" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_serial_bus_controller.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_slow_clock_generator.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_dc2.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_d5m.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_lcm.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_ltm.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_ob_de2_35.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_ob_adv7181.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_ob_de2_70.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_ob_de2_115.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_ob_audio.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/altera_up_av_config_auto_init_ob_adv7180.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="Evo_Synth/simulation/submodules/Evo_Synth_audio_and_video_config_0.vhd"
+   type="VHDL"
+   library="audio_and_video_config_0" />
  <file
    path="Evo_Synth/simulation/submodules/Evo_Synth_spi_0.vhd"
    type="VHDL"

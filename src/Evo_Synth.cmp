@@ -25,7 +25,9 @@
 			spi_0_external_SS_n                                                              : out   std_logic;                                        -- SS_n
 			button_1_external_connection_export                                              : out   std_logic;                                        -- export
 			button_0_external_connection_export                                              : out   std_logic;                                        -- export
-			clk_clk_in_clk                                                                   : in    std_logic                     := 'X'              -- clk
+			clk_clk_in_clk                                                                   : in    std_logic                     := 'X';             -- clk
+			audio_and_video_config_0_external_interface_SDAT                                 : inout std_logic                     := 'X';             -- SDAT
+			audio_and_video_config_0_external_interface_SCLK                                 : out   std_logic                                         -- SCLK
 		);
 	end component Evo_Synth;
 
