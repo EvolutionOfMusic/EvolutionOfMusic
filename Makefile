@@ -19,6 +19,7 @@ Overhead.o: Overhead.h critic_shell.h ai_shell.h
 ai_shell.o: python3_to_cpp_converter.h sd.h song_structs.h
 critic_shell.o: song_structs.h frequencies.h
 sd.o: song_structs.h
+python3_to_cpp_converter.o: song_structs.h
 song_structs.o: frequencies.h
 #frequencies.o: NOTHING
 
