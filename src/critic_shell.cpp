@@ -48,7 +48,7 @@ int supervisor(Song song) {
 	#pragma omp parallel for num_threads(4) collapse(2) private(i, k)
 	for (i = 0;i < instruments;i++) {
 		for (k = 0;k < track_length;k++) {
-	    		if(score <= 0) break;
+	    		//if(score <= 0) break; // DNW
 	    		if(i == 0) {
 				a1 = song.tunes[i].channel[0];
 				a2 = song.tunes[i].channel[0];
@@ -80,7 +80,7 @@ int supervisor(Song song) {
 	for (k = 0;k < track_length;k++) {
 		for (i = 0;i < instruments;i++) {
 			for (j = 0;j < instruments;j++) {
-				if(score <= 0) break;
+				//if(score <= 0) break; // DNW
 				
 				n1 = song.tunes[i].channel[k]; // Pick One Moment in Time
 				n2 = song.tunes[j].channel[k]; // Compare to Different Instrument
