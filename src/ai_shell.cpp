@@ -18,7 +18,7 @@ Song ai_shell(int score) {
 		// Prepare the signal handler
 		init_AI();
 		
-		sprintf(buffer, "python3 main.py -n -p %d -s %d", getpid(), rand());
+		sprintf(buffer, "../GA_Code/python3 main.py -n -p %d -s %d", getpid(), rand());
 		system(buffer);
 		
 		// Wait for python's init to complete
@@ -38,7 +38,7 @@ void init_AI() {
 	sig_handler(0);
 	
 	// Clear the file
-	ofstream file("main_py_input", std::ofstream::out | std::ofstream::trunc);
+	ofstream file("../GA_Code/main_py_input", std::ofstream::out | std::ofstream::trunc);
 	if (file.is_open())	file.close();
 }
 
@@ -46,7 +46,7 @@ Song start_AI(int score) {
 	static std::vector<Song> song_list;
 	static int song_index = -1;
 	
-	ofstream file("main_py_input", std::ios_base::app);
+	ofstream file("../GA_Code/main_py_input", std::ios_base::app);
 	if (file.is_open()) {
 		file << score << "\n";
 		file.close();
@@ -58,14 +58,14 @@ Song start_AI(int score) {
 		char buffer[100];
 
 		// DO YOUR STUFF
-		sprintf(buffer, "python3 main.py");
+		sprintf(buffer, "python3 ../GA_Code/main.py");
 		system(buffer);
 		
 		// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
 		pause();
 		
 		// READ OUTPUT
-		ifstream file("main_py_output");
+		ifstream file("../GA_Code/main_py_output");
 		song_list = parse_song(file);
 		
 		// Index Change
