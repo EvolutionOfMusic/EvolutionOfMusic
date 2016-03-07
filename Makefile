@@ -13,7 +13,7 @@ OBJ = ai_shell.o critic_shell.o sd.o python3_to_cpp_converter.o song_structs.o f
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 EvoMusic: $(DIR)$(OBJ)
-	g++ $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean: 
 	rm -rf *.o
