@@ -10,7 +10,7 @@
 Song ai_shell(int score) {
 	static int last_song_id = -1;
 	Song song;
-	char * buffer;
+	char buffer[100];
 
 	// Init
 	if (last_song_id == -1 &&
@@ -55,7 +55,7 @@ Song start_AI(int score) {
 	if (song_index == song_list.size() ||
 		song_index == -1) {
 		if (song_index != -1) set_sd(song_list);
-		char * buffer;
+		char buffer[100];
 
 		// DO YOUR STUFF
 		sprintf(buffer, "python3 main.py");
