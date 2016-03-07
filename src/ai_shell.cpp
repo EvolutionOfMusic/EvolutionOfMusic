@@ -18,7 +18,7 @@ Song ai_shell(int score) {
 		// Prepare the signal handler
 		init_AI();
 		
-		sprintf(buffer, "GA_Code/python3 main.py -n -p %d -s %d", getpid(), rand());
+		sprintf(buffer, "python3 GA_Code/main.py -n -p %d -s %d", getpid(), rand());
 		system(buffer);
 		
 		// Wait for python's init to complete
