@@ -22,7 +22,7 @@ library ieee;
 	
 	use work.DE2_CONSTANTS.all;
 	
-	entity Evo_Synth is
+	entity Evo_Synth_Top is
 	
 	port
 	(
@@ -67,8 +67,8 @@ library ieee;
 		SRAM_CE_N	:	out	std_logic;
 		
 		--SDCard interface
-		SD_CLK		:  in		std_logic;
-		SDC_DAT		:  out		std_logic;
+		SD_CLK		:  out		std_logic;
+		SDC_DAT		:  in		std_logic;
 		SDC_DAT3	:  out		std_logic;
 		SDC_CMD		:  out		std_logic;
 						 
@@ -90,10 +90,10 @@ library ieee;
 		
 	);
 	
-end Evo_Synth;
+end Evo_Synth_Top;
 
 
-architecture structure of Evo_Synth is
+architecture structure of Evo_Synth_Top is
 
 	-- Declarations (optional)
 	
@@ -213,10 +213,10 @@ begin
 				audio_0_external_interface_DACLRCK 	=> AUD_DACLRCK,
 --				up_clocks_0_audio_clk_clk				=> AUD_XCK,
 
-				spi_0_external_MISO			=> SD_DAT
-				spi_0_external_MOSI			=> SD_DAT3
-				spi_0_external_SCLK			=> SD_CLK
-				spi_0_external_SS_N			=> SD_CMD
+				spi_0_external_MISO			=> SDC_DAT,
+				spi_0_external_MOSI			=> SDC_DAT3,
+				spi_0_external_SCLK			=> SD_CLK,
+				spi_0_external_SS_N			=> SDC_CMD,
 
 				midiout_0_conduit_end_0_export		=> GPIO_1(9),
 				switch_external_connection_export	=> GPIO_1(7 downto 0),
