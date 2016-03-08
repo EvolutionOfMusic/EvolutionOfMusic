@@ -1,10 +1,10 @@
 from copy import copy, deepcopy
-from math import inf
 
 from NoteGene import NoteGene
 #implement fill with zeros functionality
 #add song length to save_songs in main
 
+INF = float("inf")
 
 class NoteChromosome:
     """
@@ -43,7 +43,7 @@ class NoteChromosome:
     [2, 2, 2, 2, 2]
     """
     
-    def __init__(self, *genes, track_id=None, volume=None, max_len=inf):
+    def __init__(self, *genes, track_id=None, volume=None, max_len=INF):
         """
         >>> gene1 = NoteGene(1,1,1,1,1)
         >>> gene2 = NoteGene(2,2,2,2,2)
@@ -56,7 +56,7 @@ class NoteChromosome:
         """
         self._gene_list = []
 
-        if max_len is inf:
+        if max_len is INF:
             self._gene_list = list(genes)
         else:
             self._gene_list = NoteChromosome._trim_gene_list(genes, max_len)

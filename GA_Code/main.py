@@ -7,13 +7,13 @@ from GeneticSong import min_nc_length
 
 from random import SystemRandom, seed, randrange
 from argparse import ArgumentParser
-from math import inf, sqrt
+from math import sqrt
 import sys
 from os import system, path
 import logging
 
-CONFIG_FILE_PATH = "pyth_main.config"
-LOG_FILE_PATH = "main_log.txt"
+CONFIG_FILE_PATH = "GA_Code/pyth_main.config"
+LOG_FILE_PATH = "GA_Code/main_log.txt"
 
 NUM_THREADS = 4
 
@@ -35,6 +35,7 @@ def get_commandline_args():
     return init_arg_parser().parse_args()
 
 def alert_parent_program(pid):
+    print("pid is: ", pid)
     if pid is not None:
         system("kill -CONT -" + str(pid))
 

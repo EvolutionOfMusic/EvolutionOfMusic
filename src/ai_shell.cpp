@@ -7,6 +7,8 @@
 
 #include "ai_shell.h"
 
+bool sig_flag = false;
+
 Song ai_shell(int score) {
 	static int last_song_id = -1;
 	Song song;
@@ -20,13 +22,24 @@ Song ai_shell(int score) {
 		
 		sprintf(buffer, "python3 GA_Code/main.py -n -p %d -s %d", getpid(), rand());
 		system(buffer);
-		
+	       	printf("PAUSING\n");
 		// Wait for python's init to complete
-		pause();
+		if (!sig_flag)
+		    pause();
+		sig_flag = false;
+		
+		
+		printf("THE WAIT IS OVER!\n");
 	}
 
 	// Pass the song & score to the AI
-	song = start_AI(score);
+	printf("AI INPUT\n");
+	ofstream file("./GA_Code/main_py_input", std::ios_base::app);
+	if (file.is_open() && last_song_id != -1) {
+		file << score << "\n";
+		file.close();
+	}
+	song = start_AI();
 
 	last_song_id = song.song_id;
 	
@@ -42,19 +55,19 @@ void init_AI() {
 	if (file.is_open())	file.close();
 }
 
-Song start_AI(int score) {
+Song start_AI() {
 	static std::vector<Song> song_list;
 	static int song_index = -1;
-	
-	ofstream file("./GA_Code/main_py_input", std::ios_base::app);
-	if (file.is_open()) {
-		file << score << "\n";
-		file.close();
+	printf("START AI\n");
+	if (song_index == -1){
+	    // READ OUTPUT
+	    ifstream file("./GA_Code/main_py_output");
+	    song_list = parse_song(file);
+	    song_index++;
 	}
 	
-	if (song_index == song_list.size() ||
-		song_index == -1) {
-		if (song_index != -1) set_sd(song_list);
+	if (song_index == song_list.size()) {
+	        if (song_index != -1) set_sd(song_list);
 		char buffer[100];
 
 		// DO YOUR STUFF
@@ -62,7 +75,9 @@ Song start_AI(int score) {
 		system(buffer);
 		
 		// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
-		pause();
+		if (!sig_flag)
+		    pause();
+		sig_flag = false;
 		
 		// READ OUTPUT
 		ifstream file("./GA_Code/main_py_output");
@@ -73,7 +88,7 @@ Song start_AI(int score) {
 	} else {
 		song_index++;
 	}
-	
+	printf("END AI\n");
 	return song_list.at(song_index);
 }
 
@@ -81,5 +96,6 @@ void sig_handler(int sig) {
 	// We have resumed.
 	// Re-init signal handler
 	signal(SIGCONT, sig_handler);
+	sig_flag = true;
 	return;
 }

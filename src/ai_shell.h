@@ -19,7 +19,7 @@
 
 Song ai_shell(int score);
 void init_AI();
-Song start_AI(int score);
+Song start_AI();
 void sig_handler(int sig);
 
 #endif /* AI_SHELL_H_ */
