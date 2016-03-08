@@ -1,4 +1,4 @@
-from copy import copy
+from copy import copy, deepcopy
 from random import randint, seed
 
 from NoteGene import NoteGene
@@ -106,10 +106,19 @@ class GeneticSong:
         self.crossover_chance = 0
         self.score = 0
 
-        self.song_id = type(self)._song_count
+        self._song_id = type(self)._song_count
         type(self)._song_count += 1
 
-
+    @property
+    def song_id(self):
+        return self._song_id
+        
+        
+    @song_id.setter
+    def song_id(self, new_id):
+        self._song_id = new_id
+        type(self)._song_count = new_id + 1
+        
     @property
     def max_length(self):
         return self._max_length
@@ -356,9 +365,9 @@ class GeneticSong:
 
         for track_id in individual_track_ids:
             try:
-                new_chromosome_list.append(self[track_id])
+                new_chromosome_list.append(deepcopy(self[track_id]))
             except KeyError:
-                new_chromosome_list.append(song[track_id])
+                new_chromosome_list.append(deepcopy(song[track_id]))
                 
         return GeneticSong(*new_chromosome_list, max_len=self.max_length)
 
@@ -421,8 +430,9 @@ class GeneticSong:
             ...
         ValueError: Expecting delta mask of size 21
         """
-        if len(delta_mask) is not (self.num_genes * 5 + 1):
-            raise ValueError("Expecting delta mask of size {}".format(self.num_genes * 5 + 1))
+        if len(delta_mask) != (self.num_genes * 5 + 1):
+            raise ValueError("Expecting delta mask of size {}, got {}"
+                             .format(self.num_genes * 5 + 1, len(delta_mask)))
 
         self.tempo += delta_mask[0]
         
@@ -504,7 +514,25 @@ class GeneticSong:
             raise IndexError("max song length has been reached")
 
         self._chromosome_dict[chromosome.track_id] = chromosome
-        
+
+    def flatten(self):
+        """
+        Input: None
+        Output: a list of flattened NoteChromosomes
+
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> gene3 = NoteGene(3,3,3,3,3)
+        >>> nc1 = NoteChromosome(gene1, gene2, track_id=1)
+        >>> nc2 = NoteChromosome(gene3, track_id=2)
+        >>> song = GeneticSong(nc1, nc2)
+        >>> song.flatten()
+        [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3]
+        """
+        rv = []
+        for nc in self._chromosome_dict.values():
+            rv.extend(nc.flatten())
+        return rv
             
 def set_subtract(set1, set2):
     """

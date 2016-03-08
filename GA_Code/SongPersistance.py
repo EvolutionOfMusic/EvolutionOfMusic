@@ -28,7 +28,7 @@ def gene_from_string(gene_string, config_file):
     h_range = range(config_file.min_hold_time, config_file.max_hold_time + 1)
     
     return NoteGene(*param_list, max_pause=config_file.max_pause_time, tone_range=t_range,
-                    hold_range=h_range)
+                    hold_range=h_range, safe_mutation=True)
 
 def chromosome_from_string(chromo_string, config_file):
     """

@@ -1,5 +1,6 @@
 from threading import Thread, Lock
 from random import randrange, seed
+from multiprocessing import Pool
 
 from ConfigFile import ConfigFile
 from NoteGene import NoteGene
@@ -16,15 +17,16 @@ def random_gene(config_obj):
     tone_range = range(config_obj.min_note, config_obj.max_note + 1)
     hold_range = range(config_obj.min_hold_time, config_obj.max_hold_time + 1)
     
-    return NoteGene(right_pause_time, right_hold_time, tone,
+    rv = NoteGene(right_pause_time, right_hold_time, tone,
                     left_hold_time, left_pause_time,
                     max_pause=config_obj.max_pause_time,
-                    tone_range=tone_range, hold_range=hold_range)
+                    tone_range=tone_range, hold_range=hold_range,
+                    safe_mutation=True)
+    return rv
 
 def random_chromosome(config_obj):
     volume = randrange(0,config_obj.max_volume)
-    #track_id = randrange(0,config_obj.max_track_id)
-    track_id = 1
+    track_id = randrange(0,config_obj.max_track_id)
     gene_list = []
     for i in range(config_obj.chromo_length):
         gene_list.append(random_gene(config_obj))
@@ -41,6 +43,28 @@ def random_song(config_obj):
                        tempo=random_tempo(config_obj.min_tempo, config_obj.max_tempo))
 
 
+class BatchGen:
+
+    def __init__(self, config_obj):
+        self.config = config_obj
+
+    def __call__(self, batch_size):
+        """
+        Inputs: the number of songs to be created, and the object
+        containing all of the data that controls the random genetation
+        of songs
+        Outputs: a list of size batch_size
+        """
+        return [random_song(self.config) for i in range(batch_size)]
+
+class BatchMerger:
+
+    def __init__(self):
+        self._master_list = []
+            
+    def __call__(self, batch):
+        self._master_list.extend(batch)
+        
 class ParallelSongGen(Thread):
 
     def __init__(self, config_file, lock, shared_list):
@@ -60,6 +84,28 @@ class ParallelSongGen(Thread):
         self._shared_list.append(song)
         self._lock.release()
 
+
+def random_song_improved(p_num, config_obj):
+    with Pool(processes=p_num) as pool:
+       result = pool.map_async(BatchGen(config_obj),
+                               get_batches(config_obj.song_count),
+                               callback=BatchMerger()).get()
+    return result[0]
+        
+def get_batches(total_amount):
+    """
+    >>> get_batches(599)
+    [100, 100, 100, 100, 100, 99]
+    >>> get_batches(100)
+    [100]
+    >>> get_batches(99)
+    [99]
+    """
+    rv = [100] * (total_amount // 100)
+    if total_amount - sum(rv) > 0:
+        rv.append(total_amount - sum(rv))
+    return rv
+    
 
 def random_song_parallel(config_file):
     my_lock = Lock()

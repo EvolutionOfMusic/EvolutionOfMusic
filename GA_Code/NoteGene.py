@@ -13,7 +13,7 @@ class NoteGene:
     True
     """
 
-    def __init__(self, *args, max_pause=None, tone_range=None, hold_range=None):
+    def __init__(self, *args, max_pause=None, tone_range=None, hold_range=None, safe_mutation=False):
         """
         >>> gene = NoteGene(1,2,3,2,1)
         >>> gene.left_pause_time
@@ -36,6 +36,8 @@ class NoteGene:
         self.max_pause_time = max_pause
         self.tone_range = tone_range
         self.hold_range = hold_range
+
+        self.safe_mutation_on = safe_mutation
 
     @property
     def pause_time(self):
@@ -138,12 +140,12 @@ class NoteGene:
                 (self.tone == gene2.tone))
     
     
-    def mutate(self, *delta_mask):
+    def _safe_mutate(self, *delta_mask):
         """
         >>> gene = NoteGene(1, 2, 3, 2, 1)
         >>> gene.mutate(2, 0, -2, 0, 2)
         >>> gene
-        [3, 2, 1, 2, 3]
+        [1, 2, 3, 2, 1]
         >>> gene.mutate(2)
         Traceback (most recent call last):
             ...
@@ -162,18 +164,39 @@ class NoteGene:
         self.right_hold_time = ((self.right_hold_time + delta_mask[3]) % max(self.hold_range)) + min(self.hold_range)
         self.right_pause_time = (self.right_pause_time + delta_mask[4]) % (self.max_pause_time//2 + 1)
 
-def range_translate(value, range):
-    """
-    Inputs: value, and range 
-    Outputs: a number, derived from value and range, 
-    which is in range
-    """
-    if value in range:
-        return value
-    elif value > max(range):
-        return range_translate(value - len(range), range)
-    else:
-        return range_translate(value + len(range), range)
+    def _unsafe_mutate(self, *delta_mask):
+        if len(delta_mask) != 5:
+            raise TypeError("expected 5 arguments, got {}".format(len(delta_mask)))
+        
+        self.left_pause_time += delta_mask[0]
+        self.left_hold_time += delta_mask[1] 
+        self.tone += delta_mask[2]
+        self.right_hold_time += delta_mask[3]
+        self.right_pause_time += delta_mask[4]
+
+    def mutate(self, *delta_mask):
+        if self.safe_mutation_on:
+            self._safe_mutate(*delta_mask)
+        else:
+            self._unsafe_mutate(*delta_mask)
+
+
+    def flatten(self):
+        """
+        Inputs: None
+        Outputs: a list containing a gene's attributes
+        in the order detailed in __repr__
+
+        >>> gene = NoteGene(1,1,1,1,1)
+        >>> gene.flatten()
+        [1, 1, 1, 1, 1]
+        >>> type(gene.flatten()) is list
+        True
+        """
+        return [self.left_pause_time, self.left_hold_time, self.tone,
+                self.right_hold_time, self.right_pause_time]
+
+        
 
 
 

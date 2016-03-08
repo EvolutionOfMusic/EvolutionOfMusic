@@ -1,4 +1,4 @@
-from copy import copy
+from copy import copy, deepcopy
 from math import inf
 
 from NoteGene import NoteGene
@@ -274,8 +274,11 @@ class NoteChromosome:
 
         if type(nchromo) is not NoteChromosome:
             raise TypeError("only arguments of type NoteChromosome accepted")
-    
-        gene_list = self[:crossover_point] + nchromo[crossover_point:]
+
+        nc1 = deepcopy(self)
+        nc2 = deepcopy(nchromo)
+        
+        gene_list = nc1[:crossover_point] + nc2[crossover_point:]
 
         gene_list = NoteChromosome._trim_gene_list(gene_list, self.max_length)
         
@@ -319,4 +322,20 @@ class NoteChromosome:
         for i in range(len(self)):
             j = i * 5
             self[i].mutate(*delta_mask[j:j + 5])
+
+    def flatten(self):
+        """
+        Input: None
+        Output: a list of flattened genes
+
+        >>> gene1 = NoteGene(1,1,1,1,1)
+        >>> gene2 = NoteGene(2,2,2,2,2)
+        >>> nc = NoteChromosome(gene1, gene2)
+        >>> nc.flatten()
+        [1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
+        """
+        rv = []
+        for gene in self._gene_list:
+            rv.extend(gene.flatten())
+        return rv
 
