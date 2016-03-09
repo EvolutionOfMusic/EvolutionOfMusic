@@ -18,5 +18,6 @@
 int c_shell(Song song);
 int supervisor(Song song);
 int manual_override(Song song);
+Note getNoteAtBeat(Track track, int beat);
 
 #endif /* CRITIC_SHELL_H_ */

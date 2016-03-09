@@ -14,12 +14,12 @@ std::vector<Song> parse_song(ifstream &file){
 	
 	std::vector<Song> song_list;
 	
-	int NUM_SONGS, NUM_TRACKS, NUM_NOTES;
-	
+	short int NUM_SONGS, NUM_TRACKS, NUM_NOTES;
+	printf("start song list\n");
 	if (file.is_open()) {
 		// Number of Songs
 		file.getline(file_line, 20);
-		sscanf(file_line, "%d", &NUM_SONGS);
+		sscanf(file_line, "%hd", &NUM_SONGS);
 		
 		for (int i = 0;i < NUM_SONGS;i++) {
 			// Make a new song
@@ -27,8 +27,10 @@ std::vector<Song> parse_song(ifstream &file){
 			
 			// Number of Tracks
 			file.getline(file_line, 20);
-			sscanf(file_line, "%d", &NUM_TRACKS);
-			
+			sscanf(file_line, "%hd", &NUM_TRACKS);
+			song.track_num = NUM_TRACKS;
+			printf("TN In Song: %hd\n", song.track_num);
+
 			// Tempo
 			file.getline(file_line, 20);
 			sscanf(file_line, "%d", &song.tempo);
@@ -40,19 +42,22 @@ std::vector<Song> parse_song(ifstream &file){
 			for (int j = 0;j < NUM_TRACKS;j++) {
 				// Number of Notes
 				file.getline(file_line, 20);
-				sscanf(file_line, "%d", &NUM_NOTES);
-			
+				sscanf(file_line, "%hd", 
+				       &NUM_NOTES);
+				song.tunes[j].track_length = NUM_NOTES;
+				//printf("TL In Song: %hd\n", song.tunes[j].track_length);
+				
 				// Instrument ID, Volume
 				file.getline(file_line, 20);
-				sscanf(file_line, "%d %d", 
-					&song.tunes[j].instrument_id, 
-					&song.tunes[j].volume);
+				sscanf(file_line, "%hd %hd", 
+				       &(song.tunes[j].instrument_id), 
+				       &(song.tunes[j].volume));
 				
 				for (int k = 0;k < NUM_NOTES;k++) {
 					// Pause Time, Tone, Hold Time
-					int a, b, c;
+					short int a, b, c;
 					file.getline(file_line, 20);
-					sscanf(file_line, "%d %d %d", &a, &b, &c);
+					sscanf(file_line, "%hd %hd %hd", &a, &b, &c);
 					song.tunes[j].channel[k].pause_time = a; 
 					song.tunes[j].channel[k].tone = b;
 					song.tunes[j].channel[k].hold_time = c;
@@ -62,7 +67,7 @@ std::vector<Song> parse_song(ifstream &file){
 			song_list.push_back(song);
 		}
 	}
-	
+	printf("finished song_list\n");
 	return song_list;
 }
 

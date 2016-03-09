@@ -11,11 +11,13 @@ int c_shell(Song song) {
 	int score = 100;
 
 	if (true) {
+	        printf("SUPERVISOR START\n");
+	        printf("Song track 0 length in Supervisor = %hd\n", song.tunes[0].track_length);
 		score = supervisor(song);
 	} else {
 		score = manual_override(song);
 	}
-
+	  printf("SUPERVISOR END\n");
 	return score;
 }
 
@@ -23,7 +25,6 @@ int supervisor(Song song) {
 	//JUDGE IT
 	int score = 100;
 	int tally = 0;
-	int i, j, k;
 
 	/* A Song holds Tracks; A Track holds Notes
 	//TODO: Finish
@@ -39,21 +40,24 @@ int supervisor(Song song) {
 	 * Length
 	 *
 	 */
-	int instruments = sizeof(song.tunes)/sizeof(Track),
-		track_length = sizeof(song.tunes[0].channel)/sizeof(Note),
-		freq_ratio;
-	Note a1, a2, a3, n1, n2;
+	int instruments = song.track_num, 
+	    freq_ratio,
+	    beat;
+	Note a1, a2, a3, a4;
 
+	printf("OMP START\n");
+	printf("track_num is %d\n", instruments);
 	// Parallelize on i, evaluates for errors within each track
-	#pragma omp parallel for num_threads(4) collapse(2) private(i, k)
-	for (i = 0;i < instruments;i++) {
-		for (k = 0;k < track_length;k++) {
-	    		//if(score <= 0) break; // DNW
-	    		if(i == 0) {
+        //#pragma omp parallel for num_threads(4) collapse(2) private(i, k, a1, a2, a3) reduction(+:tally)
+	for (int i = 0;i < instruments;i++) {
+	        beat = 0;
+		for (int k = 0;k < song.tunes[i].track_length;k++) {
+		        if(score <= tally) continue;
+			if(k == 0) {
 				a1 = song.tunes[i].channel[0];
 				a2 = song.tunes[i].channel[0];
 				a3 = song.tunes[i].channel[0];
-	    		} else if(i == 1) {
+	    		} else if(k == 1) {
 				a1 = song.tunes[i].channel[0];
 				a2 = song.tunes[i].channel[0];
 				a3 = song.tunes[i].channel[1];
@@ -62,50 +66,56 @@ int supervisor(Song song) {
 				a2 = song.tunes[i].channel[k-1];
 				a3 = song.tunes[i].channel[k];
 			}
-			
-			// TODO: FIX THIS ;Not allowing two rests in a row
+			printf("tally %d\n", tally);
 			if((a3.tone == 0) && (a2.tone == 0))
-				score -= 10;
+				tally += 10;
 
 	    		// Must be within an octave of the past two notes, not counting rests
 	    		if(	((abs(a3.tone - a2.tone) >= 8) && (a2.tone != 0)) || 
-	    			((abs(a3.tone - a1.tone) >= 8)&& (a2.tone != 0))  )
-				score -= 2;
-	    	    
-		}
-	}
-	
-	// Parallelize k; evaluates for dissonance between tracks
-	#pragma omp parallel for num_threads(4) collapse(3) private(i, j, k) reduction(+:tally)
-	for (k = 0;k < track_length;k++) {
-		for (i = 0;i < instruments;i++) {
-			for (j = 0;j < instruments;j++) {
-				//if(score <= 0) break; // DNW
+	    			((abs(a3.tone - a1.tone) >= 8) && (a2.tone != 0))  )
+				tally += 2;
+			
+			for (int j = 0;j < instruments;j++) {
+			    if (j == i) continue;
+			    for (int l = 0;l < a3.hold_time; l++) {
+			        if(score <= tally) continue;
 				
-				n1 = song.tunes[i].channel[k]; // Pick One Moment in Time
-				n2 = song.tunes[j].channel[k]; // Compare to Different Instrument
+				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				
-				if (frequencies[n1.tone] > frequencies[n2.tone]) {
-					freq_ratio = floor((100*frequencies[n1.tone]) / frequencies[n2.tone]);
+				if (a4.tone == -1) continue;// This channel has already ended
+				
+				if (frequencies[a3.tone] > frequencies[a4.tone]) {
+				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
 				} else {
-					freq_ratio = floor((100*frequencies[n2.tone]) / frequencies[n1.tone]);
+				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
-
+				
 				// If there is dissonance, -2 points
 				if (!(	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
 					freq_ratio == 133 || // 4:3
-					freq_ratio == 100))	 // 1:1
-					tally += 2;
+					freq_ratio == 100))  // 1:1
+				  tally += 2;
+			    }
 			}
+			beat += a3.hold_time;
 		}
 	}
+	printf("OMP END\n");
 	score -= tally;
-	if(score <= 0) {
-		return 0;
-	}
-
+	printf("Score should be : %d / tally is %d\n", score, tally);
+	if(score <= 0) return 0;
 	return score;
+}
+
+Note getNoteAtBeat(Track track, int beat) {
+        int o = -1, temp_beat = 0;
+       	while (temp_beat < beat && o < track.track_length) {
+       	    o++;
+	    temp_beat += track.channel[o].hold_time;
+       	}
+	if (o == track.track_length) {Note n;n.tone = -1;return n;} 
+	return track.channel[o];
 }
 
 int manual_override(Song song) {

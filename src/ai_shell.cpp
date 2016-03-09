@@ -9,7 +9,7 @@
 
 bool sig_flag = false;
 
-Song ai_shell(int score) {
+Song ai_shell(int * iteration, int score) {
 	static int last_song_id = -1;
 	Song song;
 	char buffer[100];
@@ -20,7 +20,9 @@ Song ai_shell(int score) {
 		// Prepare the signal handler
 		init_AI();
 		
-		sprintf(buffer, "python3 GA_Code/main.py -n -p %d -s %d", getpid(), rand());
+		sprintf(buffer, 
+			"python3 GA_Code/main.py -n -p %d -s %d", 
+			getpid(), rand());
 		system(buffer);
 	       	printf("PAUSING\n");
 		// Wait for python's init to complete
@@ -34,12 +36,12 @@ Song ai_shell(int score) {
 
 	// Pass the song & score to the AI
 	printf("AI INPUT\n");
-	ofstream file("./GA_Code/main_py_input", std::ios_base::app);
+	ofstream file("main_py_input", std::ios_base::app);
 	if (file.is_open() && last_song_id != -1) {
 		file << score << "\n";
 		file.close();
 	}
-	song = start_AI();
+	song = start_AI(iteration);
 
 	last_song_id = song.song_id;
 	
@@ -51,11 +53,11 @@ void init_AI() {
 	sig_handler(0);
 	
 	// Clear the file
-	ofstream file("./GA_Code/main_py_input", std::ofstream::out | std::ofstream::trunc);
+	ofstream file("main_py_input", std::ofstream::out | std::ofstream::trunc);
 	if (file.is_open())	file.close();
 }
 
-Song start_AI() {
+Song start_AI(int * iteration) {
 	static std::vector<Song> song_list;
 	static int song_index = -1;
 	printf("START AI\n");
@@ -66,12 +68,12 @@ Song start_AI() {
 	    song_index++;
 	}
 	
-	if (song_index == song_list.size()) {
+	if (song_index == song_list.size()-1) {
 	        if (song_index != -1) set_sd(song_list);
 		char buffer[100];
 
 		// DO YOUR STUFF
-		sprintf(buffer, "python3 GA_Code/main.py");
+		sprintf(buffer, "python3 GA_Code/main.py -p %d", getpid());
 		system(buffer);
 		
 		// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
@@ -85,10 +87,22 @@ Song start_AI() {
 		
 		// Index Change
 		song_index = 0;
+		//New Iteration
+		(*iteration)++;
 	} else {
 		song_index++;
 	}
 	printf("END AI\n");
+	printf("Song track_num in AI = %hd\n", 
+	       song_list.at(song_index).track_num);
+	printf("Track_length Before Leaving AI for Song %hd = %hu\n", 
+	       song_list.at(song_index).song_id, 
+	       song_list.at(song_index).tunes[0].track_length);
+	printf("TO ENSURE THAT TRACKS ARE DIFFERENT\n");
+	printf("TRACK 0, 1st Note: %d\n", 
+	       song_list.at(song_index).tunes[0].channel[0].tone);	
+	printf("TRACK 1, 1st Note: %d\n", 
+	       song_list.at(song_index).tunes[0].channel[1].tone);
 	return song_list.at(song_index);
 }
 
