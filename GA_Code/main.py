@@ -1,7 +1,7 @@
 from SongPersistance import load_songs, save_songs
 from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 from ConfigFile import ConfigFile
-from RandomSongGen import random_song_improved, tempo_gen
+from RandomSongGen import random_song_improved, tempo_gen, random_chromosome
 from GeneticRandomizer import GeneticRandomizer
 from GeneticSong import min_nc_length
 
@@ -12,8 +12,8 @@ import sys
 from os import system, path
 import logging
 
-CONFIG_FILE_PATH = "GA_Code/pyth_main.config"
-LOG_FILE_PATH = "GA_Code/main_log.txt"
+CONFIG_FILE_PATH = "pyth_main.config"
+LOG_FILE_PATH = "main_log.txt"
 
 NUM_THREADS = 4
 
@@ -86,10 +86,19 @@ if __name__ == "__main__":
                          .format(song1.song_id, song2.song_id, song1.score, song2.score))
         
         if randomizer.get_prob() <= config_file.mutation_chance:
-            meta_data = tempo_gen(config_file)
-            delta_mask = randomizer.get_delta_mask(config_file.max_step_size, song3, meta_data)
-            song3.mutate(*delta_mask)
-            logging.info("song {}, was mutated".format(song3.song_id))
+            if randomizer.get_prob() <= config_file.chromo_delete_prob and len(song3) > 1:
+                del_track_id = randomizer.sample_one_item(song3.track_ids)
+                song3.chromosome_delete(del_track_id)
+                logging.info("song {}, was mutated (chromo delete)".format(song3.song_id))
+            elif randomizer.get_prob() <= config_file.chromo_add_prob:
+                song3.chromosome_add(random_chromosome(config_file))
+                logging.info("song {}, was mutated (chromo add)".format(song3.song_id))
+            else:
+                meta_data = tempo_gen(config_file)
+                delta_mask = randomizer.get_delta_mask(config_file.max_step_size, song3, meta_data)
+                song3.mutate(*delta_mask)
+                logging.info("song {}, was mutated".format(song3.song_id))
+
         new_song_list.append(song3)
         
     song_list = new_song_list
