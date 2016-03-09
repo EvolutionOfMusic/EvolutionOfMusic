@@ -14,3 +14,6 @@ class GeneticRandomizer:
     def get_delta_mask(self, max_step_size, pheno, meta_data):
         return meta_data + [self.randomizer.randrange(-max_step_size, max_step_size + 1)
                                 for i in range(pheno.num_genes * 5)]
+
+    def sample_one_item(self, arg):
+        return self.randomizer.sample(arg, 1)[0]
