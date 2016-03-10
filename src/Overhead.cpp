@@ -23,7 +23,7 @@ int main() {
 	// Timing is everything
 	gettimeofday(&start_time, NULL);
 
-	song = ai_shell(&temp, 0);
+	song = ai_shell(&temp, temp);
 	for (int i = 0;i < iterations;) {
                 if (temp != i) {
 		  printf("ITERATION %d\n", i);
