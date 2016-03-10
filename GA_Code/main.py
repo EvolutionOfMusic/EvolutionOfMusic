@@ -12,8 +12,8 @@ import sys
 from os import system, path
 import logging
 
-CONFIG_FILE_PATH = "pyth_main.config"
-LOG_FILE_PATH = "main_log.txt"
+CONFIG_FILE_PATH = "GA_Code/pyth_main.config"
+LOG_FILE_PATH = "GA_Code/main_log.txt"
 
 NUM_THREADS = 4
 
