@@ -34,14 +34,16 @@ typedef struct{
 } Note;
 
 typedef struct{
-	int  instrument_id,
-	     volume;
+	short int  instrument_id,
+	     volume,
+	     track_length;
 	Note channel[MAX_NOTES+1];
 } Track;
 
 typedef struct{
-	int 	song_id,
-		tempo;
+	short int song_id,
+	          tempo,
+	          track_num;
 	Track tunes[MAX_INSTRUMENTS+1];
 } Song;
 

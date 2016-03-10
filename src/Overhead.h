@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/time.h>
 #include "critic_shell.h"
 #include "ai_shell.h"
 
