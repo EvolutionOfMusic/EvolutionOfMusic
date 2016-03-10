@@ -39,8 +39,10 @@ def random_song(config_obj):
     chromo_list = []
     for i in range(config_obj.song_length):
         chromo_list.append(random_chromosome(config_obj))
+
     return GeneticSong(*chromo_list, max_len=config_obj.song_length,
-                       tempo=random_tempo(config_obj.min_tempo, config_obj.max_tempo))
+                       tempo=tempo_gen(config_obj)[0])
+    
 
 
 class BatchGen:
