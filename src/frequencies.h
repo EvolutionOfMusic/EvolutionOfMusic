@@ -96,7 +96,7 @@
 #define NOTE_B7  3951
 // END OF IMPORTANT DEFINITIONS
 
-#define NUM_FREQ (12 * 7)
+#define NUM_FREQ (12 * 7)+1
 #define MAX_SCALE_SIZE 12
 
 extern const int frequencies[NUM_FREQ];
