@@ -81,9 +81,9 @@ int supervisor(Song song) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time; l++) {
 			        if(score <= tally) continue;
-				
+				printf("GET NOTE AT BEAT\n");
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
-				
+				printf("NOTE BEATING COMPLETE\n");
 				if (a4.tone == -1 || a4.tone == 0) continue;// This channel has already ended
 				
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
@@ -91,7 +91,7 @@ int supervisor(Song song) {
 				} else {
 				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
-				
+				printf("FREQ_RATIO DONE\n");
 				// If there is dissonance, -2 points
 				if (!(	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
