@@ -50,6 +50,7 @@ int supervisor(Song song) {
 	// Parallelize on i, evaluates for errors within each track
         //#pragma omp parallel for num_threads(4) collapse(2) private(i, k, a1, a2, a3) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
+		printf("JON's STUFF\n");
 	        beat = 0;
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
 		        if(score <= tally) continue;
@@ -75,6 +76,7 @@ int supervisor(Song song) {
 	    			((abs(a3.tone - a1.tone) >= 8) && (a2.tone != 0))  )
 				tally += 2;
 			
+			printf("STEPHEN's STUFF\n");
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time; l++) {
