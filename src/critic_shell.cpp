@@ -41,8 +41,8 @@ int supervisor(Song song) {
 	 *
 	 */
 	int instruments = song.track_num, 
-	    freq_ratio,
 	    beat;
+	float freq_ratio;
 	Note a1, a2, a3, a4;
 
 	printf("OMP START\n");
