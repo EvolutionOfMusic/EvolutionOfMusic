@@ -25,20 +25,18 @@ int main() {
 
 	song = ai_shell(&temp, temp);
 	for (int i = 0;i < iterations;) {
-                if (temp != i) {
+		score = c_shell(song);
+		printf("Score of %d for Song %d\n", score, song.song_id);
+		if (temp != i) {
 		  printf("ITERATION %d\n", i);
 		  temp = i;
 		}
-		score = c_shell(song);
-		printf("Score of %d\n", score);
 		song = ai_shell(&i, score);
-		printf("Song track_num in Overhead = %hd\n", song.track_num);
 	}
 
 	gettimeofday(&end_time, NULL);
 
 	cout << "Generation " << iterations << " Complete in " << 
-	       (end_time.tv_sec - start_time.tv_sec) << "." << 
-	       (end_time.tv_usec - start_time.tv_usec) << " seconds" << '\n';
+	       (end_time.tv_sec - start_time.tv_sec) << " seconds" << '\n';
 }
 
