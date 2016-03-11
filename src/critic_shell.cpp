@@ -82,7 +82,7 @@ int supervisor(Song song) {
 				
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				
-				if (a4.tone == -1) continue;// This channel has already ended
+				if (a4.tone == -1 || a4.tone == 0) continue;// This channel has already ended
 				
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
