@@ -52,7 +52,6 @@ int supervisor(Song song) {
 		//printf("JON's STUFF\n");
 	        beat = 0;
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
-		        if(score <= tally) continue;
 			if(k == 0) {
 				a1 = song.tunes[i].channel[0];
 				a2 = song.tunes[i].channel[0];
@@ -80,7 +79,6 @@ int supervisor(Song song) {
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time; l++) {
-			        if(score <= tally) continue;
 				//printf("GET NOTE AT BEAT\n");
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				//printf("NOTE BEATING COMPLETE\n");
@@ -106,7 +104,6 @@ int supervisor(Song song) {
 	}
 	printf("OMP END\n");
 	score += tally;
-	if(score <= 0) return 0;
 	return score;
 }
 
