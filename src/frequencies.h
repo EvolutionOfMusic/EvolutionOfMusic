@@ -92,6 +92,8 @@
 #define NOTE_G7  3136
 #define NOTE_GS7 3322
 #define NOTE_A7  3520
+#define NOTE_AS7 3729
+#define NOTE_B7  3951
 // END OF IMPORTANT DEFINITIONS
 
 #define NUM_FREQ (12 * 7)
