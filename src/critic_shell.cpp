@@ -45,8 +45,7 @@ int supervisor(Song song) {
 	float freq_ratio;
 	Note a1, a2, a3, a4;
 
-	printf("OMP START\n");
-	//printf("track_num is %d\n", instruments);
+	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
         //#pragma omp parallel for num_threads(4) collapse(2) private(i, k, a1, a2, a3) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
@@ -68,8 +67,8 @@ int supervisor(Song song) {
 				a3 = song.tunes[i].channel[k];
 			}
 			//printf("tally %d\n", tally);
-			/*if((a3.tone == 0) && (a2.tone == 0))
-				tally += 10;*/
+			if((a3.tone == 0) && (a2.tone == 0))
+				tally += 1;
 
 	    		// Must be within an octave of the past two notes, not counting rests
 	    		if(	((abs(a3.tone - a2.tone) <= 8) && (a2.tone != 0) && (a3.tone != 0)) || 
@@ -107,7 +106,6 @@ int supervisor(Song song) {
 	}
 	printf("OMP END\n");
 	score += tally;
-	//printf("Score should be : %d / tally is %d\n", score, tally);
 	if(score <= 0) return 0;
 	return score;
 }
