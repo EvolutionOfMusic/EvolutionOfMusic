@@ -23,7 +23,7 @@ int c_shell(Song song) {
 
 int supervisor(Song song) {
 	//JUDGE IT
-	int score = 100;
+	int score = 0;
 	int tally = 0;
 
 	/* A Song holds Tracks; A Track holds Notes
@@ -68,12 +68,12 @@ int supervisor(Song song) {
 				a3 = song.tunes[i].channel[k];
 			}
 			//printf("tally %d\n", tally);
-			if((a3.tone == 0) && (a2.tone == 0))
-				tally += 10;
+			/*if((a3.tone == 0) && (a2.tone == 0))
+				tally += 10;*/
 
 	    		// Must be within an octave of the past two notes, not counting rests
-	    		if(	((abs(a3.tone - a2.tone) >= 8) && (a2.tone != 0)) || 
-	    			((abs(a3.tone - a1.tone) >= 8) && (a2.tone != 0))  )
+	    		if(	((abs(a3.tone - a2.tone) <= 8) && (a2.tone != 0) && (a3.tone != 0)) || 
+	    			((abs(a3.tone - a1.tone) <= 8) && (a2.tone != 0) && (a3.tone != 0))  )
 				tally += 2;
 			
 			//printf("STEPHEN's STUFF\n");
@@ -95,7 +95,7 @@ int supervisor(Song song) {
 				}
 				//printf("FREQ_RATIO DONE\n");
 				// If there is dissonance, -2 points
-				if (!(	freq_ratio == 200 || // 2:1
+				if ((	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))  // 1:1
@@ -106,7 +106,7 @@ int supervisor(Song song) {
 		}
 	}
 	printf("OMP END\n");
-	score -= tally;
+	score += tally;
 	//printf("Score should be : %d / tally is %d\n", score, tally);
 	if(score <= 0) return 0;
 	return score;
