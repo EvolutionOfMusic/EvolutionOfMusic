@@ -77,6 +77,7 @@ int supervisor(Song song) {
 				tally += 2;
 			
 			printf("STEPHEN's STUFF\n");
+			if (a3.tone == 0) continue;
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time; l++) {
