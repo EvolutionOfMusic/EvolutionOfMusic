@@ -92,16 +92,6 @@ Song start_AI(int * iteration) {
 		song_index++;
 	}
 	printf("END AI\n");
-	printf("Song track_num in AI = %hd\n", 
-	       song_list.at(song_index).track_num);
-	printf("Track_length Before Leaving AI for Song %hd = %hu\n", 
-	       song_list.at(song_index).song_id, 
-	       song_list.at(song_index).tunes[0].track_length);
-	printf("TO ENSURE THAT TRACKS ARE DIFFERENT\n");
-	printf("TRACK 0, 1st Note: %d\n", 
-	       song_list.at(song_index).tunes[0].channel[0].tone);	
-	printf("TRACK 1, 1st Note: %d\n", 
-	       song_list.at(song_index).tunes[0].channel[1].tone);
 	return song_list.at(song_index);
 }
 
