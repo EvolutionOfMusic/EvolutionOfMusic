@@ -29,8 +29,7 @@ std::vector<Song> parse_song(ifstream &file){
 			file.getline(file_line, 20);
 			sscanf(file_line, "%hd", &NUM_TRACKS);
 			song.track_num = NUM_TRACKS;
-			printf("TN In Song: %hd\n", song.track_num);
-
+			
 			// Tempo
 			file.getline(file_line, 20);
 			sscanf(file_line, "%hd", &song.tempo);
@@ -45,7 +44,6 @@ std::vector<Song> parse_song(ifstream &file){
 				sscanf(file_line, "%hd", 
 				       &NUM_NOTES);
 				song.tunes[j].track_length = NUM_NOTES;
-				//printf("TL In Song: %hd\n", song.tunes[j].track_length);
 				
 				// Instrument ID, Volume
 				file.getline(file_line, 20);
