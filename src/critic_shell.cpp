@@ -50,7 +50,7 @@ int supervisor(Song song) {
 	// Parallelize on i, evaluates for errors within each track
         //#pragma omp parallel for num_threads(4) collapse(2) private(i, k, a1, a2, a3) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
-		printf("JON's STUFF\n");
+		//printf("JON's STUFF\n");
 	        beat = 0;
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
 		        if(score <= tally) continue;
@@ -67,7 +67,7 @@ int supervisor(Song song) {
 				a2 = song.tunes[i].channel[k-1];
 				a3 = song.tunes[i].channel[k];
 			}
-			printf("tally %d\n", tally);
+			//printf("tally %d\n", tally);
 			if((a3.tone == 0) && (a2.tone == 0))
 				tally += 10;
 
@@ -76,7 +76,7 @@ int supervisor(Song song) {
 	    			((abs(a3.tone - a1.tone) >= 8) && (a2.tone != 0))  )
 				tally += 2;
 			
-			printf("STEPHEN's STUFF\n");
+			//printf("STEPHEN's STUFF\n");
 			if (a3.tone == 0) continue;
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
@@ -86,14 +86,14 @@ int supervisor(Song song) {
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				//printf("NOTE BEATING COMPLETE\n");
 				if (a4.tone == -1 || a4.tone == 0) continue;// This channel has already ended
-				printf("FREQ_RATIO for %d and %d\n", a3.tone, a4.tone);
-				printf("FREQS are %d and %d\n", frequencies[a3.tone], frequencies[a4.tone]);
+				//printf("FREQ_RATIO for %d and %d\n", a3.tone, a4.tone);
+				//printf("FREQS are %d and %d\n", frequencies[a3.tone], frequencies[a4.tone]);
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
 				} else {
 				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
-				printf("FREQ_RATIO DONE\n");
+				//printf("FREQ_RATIO DONE\n");
 				// If there is dissonance, -2 points
 				if (!(	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
@@ -107,7 +107,7 @@ int supervisor(Song song) {
 	}
 	printf("OMP END\n");
 	score -= tally;
-	printf("Score should be : %d / tally is %d\n", score, tally);
+	//printf("Score should be : %d / tally is %d\n", score, tally);
 	if(score <= 0) return 0;
 	return score;
 }
