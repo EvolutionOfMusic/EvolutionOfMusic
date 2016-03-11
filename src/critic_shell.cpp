@@ -86,6 +86,7 @@ int supervisor(Song song) {
 				//printf("NOTE BEATING COMPLETE\n");
 				if (a4.tone == -1 || a4.tone == 0) continue;// This channel has already ended
 				printf("FREQ_RATIO for %d and %d\n", a3.tone, a4.tone);
+				printf("FREQS are %d and %d\n", frequencies[a3.tone], frequencies[a4.tone]);
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
 				} else {
