@@ -81,11 +81,11 @@ int supervisor(Song song) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time; l++) {
 			        if(score <= tally) continue;
-				printf("GET NOTE AT BEAT\n");
+				//printf("GET NOTE AT BEAT\n");
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
-				printf("NOTE BEATING COMPLETE\n");
+				//printf("NOTE BEATING COMPLETE\n");
 				if (a4.tone == -1 || a4.tone == 0) continue;// This channel has already ended
-				
+				printf("FREQ_RATIO for %d and %d\n", a3.tone, a4.tone);
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
 				} else {
