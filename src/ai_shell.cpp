@@ -63,7 +63,7 @@ Song start_AI(int * iteration) {
 	printf("START AI\n");
 	if (song_index == -1){
 	    // READ OUTPUT
-	    ifstream file("./GA_Code/main_py_output");
+	    ifstream file("./main_py_output");
 	    song_list = parse_song(file);
 	    song_index++;
 	}
@@ -82,7 +82,7 @@ Song start_AI(int * iteration) {
 		sig_flag = false;
 		
 		// READ OUTPUT
-		ifstream file("./GA_Code/main_py_output");
+		ifstream file("./main_py_output");
 		song_list = parse_song(file);
 		
 		// Index Change
