@@ -9,6 +9,7 @@
 #define FREQ_H_
 
 // IMPORTANT DEFINITIONS
+#define REST 0
 #define NOTE_C1  33
 #define NOTE_CS1 35
 #define NOTE_D1  37
