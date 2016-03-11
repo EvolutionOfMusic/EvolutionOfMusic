@@ -12,7 +12,7 @@ int c_shell(Song song) {
 
 	if (true) {
 	        printf("SUPERVISOR START\n");
-	        printf("Song track 0 length in Supervisor = %hd\n", song.tunes[0].track_length);
+	        //printf("Song track 0 length in Supervisor = %hd\n", song.tunes[0].track_length);
 		score = supervisor(song);
 	} else {
 		score = manual_override(song);
@@ -46,7 +46,7 @@ int supervisor(Song song) {
 	Note a1, a2, a3, a4;
 
 	printf("OMP START\n");
-	printf("track_num is %d\n", instruments);
+	//printf("track_num is %d\n", instruments);
 	// Parallelize on i, evaluates for errors within each track
         //#pragma omp parallel for num_threads(4) collapse(2) private(i, k, a1, a2, a3) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
