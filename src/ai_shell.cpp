@@ -65,7 +65,6 @@ Song start_AI(int * iteration) {
 	    // READ OUTPUT
 	    ifstream file("./main_py_output");
 	    song_list = parse_song(file);
-	    song_index++;
 	}
 	
 	if (song_index == song_list.size()-1) {
