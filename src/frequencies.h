@@ -93,7 +93,7 @@
 #define NOTE_A7  3520
 // END OF IMPORTANT DEFINITIONS
 
-#define NUM_FREQ (12 * 7) - 1
+#define NUM_FREQ (12 * 7)
 #define MAX_SCALE_SIZE 12
 
 extern const int frequencies[NUM_FREQ];
