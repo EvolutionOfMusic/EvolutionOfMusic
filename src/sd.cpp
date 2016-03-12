@@ -38,7 +38,7 @@ void set_sd(std::vector<Song> song_list) {
 			toSD << (*it).song_id << "\n";
 			
 			for (int i = 0;i < NUM_TRACKS;i++) {
-				int NUM_NOTES = (*it).track_length;//sizeof((*it).tunes[i])/sizeof(Note);
+				int NUM_NOTES = (*it)tunes[i].track_length;//sizeof((*it).tunes[i])/sizeof(Note);
 				//NUM_NOTES
 				toSD << NUM_NOTES << "\n";
 				//INSTRUMENT_ID, VOLUME
