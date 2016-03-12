@@ -35,7 +35,6 @@ def get_commandline_args():
     return init_arg_parser().parse_args()
 
 def alert_parent_program(pid):
-    print("pid is: ", pid)
     if pid is not None:
         system("kill -CONT -" + str(pid))
 
@@ -43,7 +42,13 @@ def write_to_output_file(output_file_name, *songs):
      with open(output_file_name, 'w') as save:
         save.write(str(len(songs)) + '\n')
         for song in songs:
-            save.write(str(song) + '\n')
+            save.write(str(song) + '\n') 
+
+def get_population_sample(config_obj, *songs):
+    gen_num = songs[0].song_id//config_obj.song_count
+    write_to_output_file(config_obj.sample_file + "_generation_{}"
+                         .format(gen_num), *(songs[:config_obj.sample_size + 1]))
+    
             
 if __name__ == "__main__":
     args = get_commandline_args()
@@ -71,12 +76,14 @@ if __name__ == "__main__":
         with open(config_file.input_file) as save:
             for song in song_list:
                 song.score = int(save.readline())
-            song_list.sort(key=lambda v: v.score, reverse=True)
+            song_list.sort(key=lambda v: v.score, reverse=False)
             for i in range(len(song_list)):
                 song_list[i].crossover_chance = get_crossover_prob(i)
                 
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     new_song_list = []
+
+    get_population_sample(config_file, *song_list)
 
     for i in range(config_file.song_count):
         song1, song2 = sample_pair(song_list)

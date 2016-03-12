@@ -31,7 +31,7 @@ class NoteChromosome:
     >>> len(nc1)
     3
     >>> len(nc2)
-    2
+    3
     >>> nc2 = copy(nc1)
     >>> nc1 == nc2
     True
@@ -78,9 +78,9 @@ class NoteChromosome:
         >>> gene_list4 = [NoteGene(1,20,1,20,1),
         ...               NoteGene(1,20,1,20,1),
         ...               NoteGene(1,20,1,20,1),
-        ...               NoteGene(1,20,1,20,1)]
+        ...               NoteGene(1,20,1,21,1)]
         >>> NoteChromosome._trim_gene_list(gene_list1, max_len)
-        []
+        [[1, 80, 1, 80, 1]]
         >>> NoteChromosome._trim_gene_list(gene_list2, max_len)
         [[1, 80, 1, 79, 1]]
         >>> NoteChromosome._trim_gene_list(gene_list3, max_len) == gene_list3

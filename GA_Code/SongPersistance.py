@@ -4,7 +4,7 @@ from GeneticSong import GeneticSong
 
 
 def save_songs(save_file, *songs, delimeter='*'):
-    with open("genetic_" + save_file, 'w+') as sav_file:
+    with open(save_file + "_genetic", 'w+') as sav_file:
         song_string = ''
         for song in songs:
             song_string += (song.__repr__() + '\n{}\n'.format(delimeter))
@@ -13,14 +13,6 @@ def save_songs(save_file, *songs, delimeter='*'):
         sav_file.write(song_string)
 
 def gene_from_string(gene_string, config_file):
-    """
-    >>> gene1 = NoteGene(1,2,3,2,1)
-    >>> gene1
-    [1, 2, 3, 2, 1]
-    >>> gene2 = gene_from_string("[1, 2, 3, 2, 1]")
-    >>> gene1 == gene2
-    True
-    """
     param_list = gene_string.replace('[', '').replace(']', '').split(',')
     param_list = map(int, param_list)
 
@@ -31,14 +23,6 @@ def gene_from_string(gene_string, config_file):
                     hold_range=h_range, safe_mutation=True)
 
 def chromosome_from_string(chromo_string, config_file):
-    """
-    >>> gene1 = NoteGene(1,1,1,1,1)
-    >>> gene2 = NoteGene(2,2,2,2,2)
-    >>> nc1 = NoteChromosome(gene1, gene2, track_id=0, volume=1)
-    >>> nc2 = chromosome_from_string("0\\n1\\n[1, 1, 1, 1, 1]\\n[2, 2, 2, 2, 2]")
-    >>> nc1 == nc2
-    True
-    """
     track_id, volume = map(int, chromo_string.split('\n')[:2])
     
     param_list = chromo_string.split('\n')[2:]
@@ -48,32 +32,19 @@ def chromosome_from_string(chromo_string, config_file):
     return NoteChromosome(*gene_list, track_id=track_id, volume=volume)
 
 def song_from_string(song_string, config_file):
-    """
-    >>> gene1 = NoteGene(1,1,1,1,1)
-    >>> gene2 = NoteGene(2,2,2,2,2)
-    >>> gene3 = NoteGene(3,3,3,3,3)
-    >>> gene4 = NoteGene(4,4,4,4,4)
-    >>> nc1 = NoteChromosome(gene1,gene2,track_id=0,volume=1)
-    >>> nc2 = NoteChromosome(gene3,gene4,track_id=2,volume=3)
-    >>> song1 = GeneticSong(nc1, nc2)
-    >>> song2 = song_from_string(song1.__repr__())
-    >>> song1 == song2
-    True
-    """
     meta_data_list = song_string.split('\n')[0:2]  
     song_id, tempo = map(int, meta_data_list)
     chromo_strings = song_string.split('\n', 2)[-1].replace('\n\n', '*').split('*')
 
     chromo_list = [chromosome_from_string(string, config_file) for string in chromo_strings]
-
-    rv = GeneticSong(*chromo_list)
+    t_range = range(config_file.min_tempo, config_file.max_tempo + 1)
+    rv = GeneticSong(*chromo_list, tempo=tempo, tempo_range=t_range)
     rv.song_id = song_id
-    rv.tempo = tempo
     
     return rv
 
 def load_songs(load_file, config_file, delimeter='*'):
-    with open("genetic_" + load_file) as file_obj:
+    with open(load_file + "_genetic") as file_obj:
         rv = []
         file_contents = file_obj.read().split('\n{}\n'.format(delimeter))
 

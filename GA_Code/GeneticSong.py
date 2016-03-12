@@ -3,7 +3,7 @@ from random import randint, seed
 
 from NoteGene import NoteGene
 from NoteChromosome import NoteChromosome
-
+from to_range import to_range
        
 class GeneticSong:
     """
@@ -79,7 +79,7 @@ class GeneticSong:
     
     _song_count = 0
     
-    def __init__(self, *nchromos, tempo=0, max_len=None):
+    def __init__(self, *nchromos, tempo=0, max_len=None, tempo_range=None):
         """
         >>> gene = NoteGene(1,1,1,1,1)
         >>> chromosome = NoteChromosome(gene)
@@ -100,8 +100,11 @@ class GeneticSong:
         self._chromosome_dict = {nc.track_id:nc for nc in nchromos[:max_len]}
         
         self._max_length = max_len
+        self.tempo_range = tempo_range
         self.tempo = tempo
-            
+        if tempo_range is not None:
+            self.tempo = to_range(self.tempo, tempo_range)
+
         self.mutation_chance = 0
         self.crossover_chance = 0
         self.score = 0
@@ -428,14 +431,15 @@ class GeneticSong:
         >>> song2.mutate(1,1,1)
         Traceback (most recent call last):
             ...
-        ValueError: Expecting delta mask of size 21
+        ValueError: Expecting delta mask of size 21, got 3
         """
         if len(delta_mask) != (self.num_genes * 5 + 1):
             raise ValueError("Expecting delta mask of size {}, got {}"
                              .format(self.num_genes * 5 + 1, len(delta_mask)))
-
         self.tempo += delta_mask[0]
-        
+        if self.tempo_range is not None:
+            self.tempo = to_range(self.tempo, self.tempo_range)
+
         start_index = 1
         for nc in self._chromosome_dict.values():
             end_index = to_gene_index(len(nc)) + start_index

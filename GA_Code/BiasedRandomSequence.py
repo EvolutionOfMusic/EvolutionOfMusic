@@ -31,8 +31,8 @@ class BiasedRandomSequence:
     [3, 6]
     >>> len(my_list)
     2
-    >>> my_list.random_get() in [3, 6]
-    True 
+    >>> my_list.random_get() in [3, 6] 
+    True
     """
     def __init__(self, *new_items, insert_key=None):
         """
