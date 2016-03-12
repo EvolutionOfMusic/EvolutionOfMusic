@@ -23,10 +23,6 @@ int main() {
 	gettimeofday(&start_time, NULL);
 
 	for (int i = 0;i < iterations;) {
-		if (temp != i) {
-		  printf("ITERATION %d\n", i);
-		  temp = i;
-		}
 		song = ai_shell(&i, score);
 		score = c_shell(song);
 		printf("Score of %d for Song %d\n", score, song.song_id);
