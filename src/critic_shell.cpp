@@ -6,8 +6,8 @@
  */
 
 #include "critic_shell.h"
-#define NOTES_PER_OCTAVE 12;
 
+const int NOTES_PER_OCTAVE 12;
 const int C7_INDEX = 6 * NOTES_PER_OCTAVE + 1;
 
 int c_shell(Song song) {
