@@ -17,6 +17,7 @@ Song ai_shell(int * iteration, int score) {
 	// Init
 	if (last_song_id == -1 &&
 		score == 0) {
+		printf("ITERATION 0\n");
 		// Prepare the signal handler
 		init_AI();
 		
@@ -70,6 +71,8 @@ Song start_AI(int * iteration) {
 	if (song_index == song_list.size()-1) {
 	        if (song_index != -1) set_sd(song_list);
 		char buffer[100];
+		
+		printf("ITERATION %d\n", (*iteration));
 
 		// DO YOUR STUFF
 		sprintf(buffer, "python3 GA_Code/main.py -p %d", getpid());
