@@ -107,7 +107,7 @@ int supervisor(Song song) {
 				//printf("GET NOTE AT BEAT\n");
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				//printf("NOTE BEATING COMPLETE\n");
-				if (a4.tone == REST) continue;// This channel has already ended
+				if (a4.ton == -1 || a4.tone == REST) continue;// This channel has already ended or is at rest
 				//printf("FREQ_RATIO for %d and %d\n", a3.tone, a4.tone);
 				//printf("FREQS are %d and %d\n", frequencies[a3.tone], frequencies[a4.tone]);
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
