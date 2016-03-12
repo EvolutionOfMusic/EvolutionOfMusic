@@ -11,8 +11,7 @@ int main() {
 	using namespace std;
 	// cin & cout
 
-	int seed, iterations, score;
-	int temp = 0;
+	int seed, iterations, score = 0, temp = 0;
 	struct timeval start_time, end_time;
 	Song song;
 
@@ -28,11 +27,7 @@ int main() {
 		  printf("ITERATION %d\n", i);
 		  temp = i;
 		}
-		if (i == 0) {
-			song = ai_shell(&temp, temp);
-		} else {
-			song = ai_shell(&i, score);
-		}
+		song = ai_shell(&i, score);
 		score = c_shell(song);
 		printf("Score of %d for Song %d\n", score, song.song_id);
 	}
