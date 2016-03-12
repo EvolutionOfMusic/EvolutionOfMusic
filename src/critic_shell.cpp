@@ -6,6 +6,9 @@
  */
 
 #include "critic_shell.h"
+#define NOTES_PER_OCTAVE 12;
+
+const int C7_INDEX = 6 * NOTES_PER_OCTAVE + 1;
 
 int c_shell(Song song) {
 	int score = 100;
@@ -66,23 +69,45 @@ int supervisor(Song song) {
 				a3 = song.tunes[i].channel[k];
 			}
 			
-			if((a3.tone == 0) && (a2.tone == 0))
+			// Repeating Rests
+			if((a3.tone == REST) && (a2.tone == REST))
 				tally += 1;
 
+			// If a note is high, we don't want it to repeat
+			if (a3.tone > C7_INDEX && a3.tone == a2.tone)
+				tally += 1;
+	    		
 	    		// Must be within an octave of the past two notes, not counting rests
-	    		if(	((abs(a3.tone - a2.tone) >= 8) && (a2.tone != 0) && (a3.tone != 0)) || 
-	    			((abs(a3.tone - a1.tone) >= 8) && (a2.tone != 0) && (a3.tone != 0))  )
-				tally += 2;
+	    		if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a2.tone != REST) && (a3.tone != REST))
+	    			tally += 2*abs(a3.tone - a2.tone)/NOTES_PER_OCTAVE;
+	    		if ((abs(a3.tone - a1.tone) >= NOTES_PER_OCTAVE) && (a2.tone != REST) && (a1.tone != REST))
+				tally += 2*abs(a3.tone - a1.tone)/NOTES_PER_OCTAVE;
+			
+			// Hold Time must stay approx. the same size as for prev notes
+			if (!(	a3.hold_time >= a2.hold_time - (NOTES_PER_OCTAVE/2) &&
+				a3.hold_time <= a2.hold_time + (NOTES_PER_OCTAVE/2)))
+	    			tally += 1;
+	    		if (!(	a3.hold_time >= a1.hold_time - (NOTES_PER_OCTAVE/2) &&
+				a3.hold_time <= a1.hold_time + (NOTES_PER_OCTAVE/2)))
+				tally += 1;
+			
+			// Song is silent at the beginning...
+			if (k == 0 && a3.tone == REST)
+				tally += 10;
+			
+			// Song has poor ending, last note should be lower than 2nd last
+			if (k == song.tunes[i].track_length-1 && a2.tone < a3.tone)
+				tally += 10;
 			
 			//printf("STEPHEN's STUFF\n");
 			if (a3.tone == 0) continue;
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
-			    for (int l = 0;l < a3.hold_time; l++) {
+			    for (int l = 0;l < a3.hold_time;l++) {
 				//printf("GET NOTE AT BEAT\n");
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				//printf("NOTE BEATING COMPLETE\n");
-				if (a4.tone == -1 || a4.tone == 0) continue;// This channel has already ended
+				if (a4.tone == REST) continue;// This channel has already ended
 				//printf("FREQ_RATIO for %d and %d\n", a3.tone, a4.tone);
 				//printf("FREQS are %d and %d\n", frequencies[a3.tone], frequencies[a4.tone]);
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
