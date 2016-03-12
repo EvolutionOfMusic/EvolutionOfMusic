@@ -29,7 +29,7 @@ void set_sd(std::vector<Song> song_list) {
 		for(std::vector<Song>::iterator it = song_list.begin();
 			it != song_list.end();
 			it++) {
-			int NUM_TRACKS = sizeof((*it).tunes)/sizeof(Track);
+			int NUM_TRACKS = (*it).track_num;//sizeof((*it).tunes)/sizeof(Track);
 			//NUM_TRACKS
 			toSD << NUM_TRACKS << "\n";
 			//TEMPO
@@ -38,7 +38,7 @@ void set_sd(std::vector<Song> song_list) {
 			toSD << (*it).song_id << "\n";
 			
 			for (int i = 0;i < NUM_TRACKS;i++) {
-				int NUM_NOTES = sizeof((*it).tunes[i])/sizeof(Note);
+				int NUM_NOTES = (*it).track_length;//sizeof((*it).tunes[i])/sizeof(Note);
 				//NUM_NOTES
 				toSD << NUM_NOTES << "\n";
 				//INSTRUMENT_ID, VOLUME
