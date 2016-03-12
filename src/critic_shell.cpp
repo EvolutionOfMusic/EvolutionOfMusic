@@ -65,13 +65,13 @@ int supervisor(Song song) {
 				a2 = song.tunes[i].channel[k-1];
 				a3 = song.tunes[i].channel[k];
 			}
-			//printf("tally %d\n", tally);
+			
 			if((a3.tone == 0) && (a2.tone == 0))
 				tally += 1;
 
 	    		// Must be within an octave of the past two notes, not counting rests
-	    		if(	((abs(a3.tone - a2.tone) <= 8) && (a2.tone != 0) && (a3.tone != 0)) || 
-	    			((abs(a3.tone - a1.tone) <= 8) && (a2.tone != 0) && (a3.tone != 0))  )
+	    		if(	((abs(a3.tone - a2.tone) >= 8) && (a2.tone != 0) && (a3.tone != 0)) || 
+	    			((abs(a3.tone - a1.tone) >= 8) && (a2.tone != 0) && (a3.tone != 0))  )
 				tally += 2;
 			
 			//printf("STEPHEN's STUFF\n");
@@ -91,8 +91,8 @@ int supervisor(Song song) {
 				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
 				//printf("FREQ_RATIO DONE\n");
-				// If there is dissonance, -2 points
-				if ((	freq_ratio == 200 || // 2:1
+				// If there is dissonance, +2 demerits
+				if (!(	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))  // 1:1
