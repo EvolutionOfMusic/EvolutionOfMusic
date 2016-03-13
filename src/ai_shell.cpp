@@ -72,7 +72,7 @@ Song start_AI(int * iteration) {
 	        if (song_index != -1) set_sd(song_list);
 		char buffer[100];
 		
-		printf("ITERATION %d\n", (*iteration));
+		printf("ITERATION %d\n", (*iteration)+1);
 
 		// DO YOUR STUFF
 		sprintf(buffer, "python3 GA_Code/main.py -p %d", getpid());
