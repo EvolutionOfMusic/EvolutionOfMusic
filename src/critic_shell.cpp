@@ -63,7 +63,7 @@ int supervisor(Song song) {
 	        
 	        // Song is silent at the beginning...
 			if (n1.tone == REST)
-				tally += 10;
+				tally += 10*song.tunes[i].track_length;
 	        
 	        // Track has poor ending, last note should be lower than 2nd last
 		if( n2.tone < n3.tone){
