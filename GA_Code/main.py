@@ -13,7 +13,8 @@ from os import system, path
 import logging
 
 CONFIG_FILE_PATH = "GA_Code/pyth_main.config"
-LOG_FILE_PATH = "GA_Code/main_log.txt"
+LOG_FILE_PATH = "main_log.txt"
+GRAPH_FILE_PATH = "ave_fitness_graph"
 
 NUM_THREADS = 4
 
