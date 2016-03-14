@@ -66,7 +66,7 @@ int supervisor(Song song) {
 			tally += 10;
 		}
 		
-		resolution_diff = abs(n2.tone - n3.tone)
+		resolution_diff = abs(n2.tone - n3.tone);
 		// Track should resolve on a major step
 		// ie. the step size should be one of four options,
 		// a major third, a perfect fifth, a major seventh, or an octave 
