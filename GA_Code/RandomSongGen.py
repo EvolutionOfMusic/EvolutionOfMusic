@@ -90,7 +90,7 @@ class ParallelSongGen(Thread):
 def random_song_improved(p_num, config_obj):
     with Pool(processes=p_num) as pool:
        result = pool.map_async(BatchGen(config_obj),
-                               get_batches(config_obj.song_count),
+                               *get_batches(config_obj.song_count),
                                callback=BatchMerger()).get()
     return result[0]
         

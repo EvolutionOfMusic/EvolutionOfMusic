@@ -1,7 +1,7 @@
 from SongPersistance import load_songs, save_songs
 from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 from ConfigFile import ConfigFile
-from RandomSongGen import random_song_improved, tempo_gen, random_chromosome
+from RandomSongGen import random_song, tempo_gen, random_chromosome
 from GeneticRandomizer import GeneticRandomizer
 from GeneticSong import min_nc_length
 
@@ -13,7 +13,7 @@ from os import system, path
 import logging
 
 CONFIG_FILE_PATH = "GA_Code/pyth_main.config"
-LOG_FILE_PATH = "GA_Code/main_log.txt"
+LOG_FILE_PATH = "main_log.txt"
 
 NUM_THREADS = 4
 
@@ -48,7 +48,9 @@ def get_population_sample(config_obj, *songs):
     gen_num = songs[0].song_id//config_obj.song_count
     write_to_output_file(config_obj.sample_file + "_generation_{}"
                          .format(gen_num), *(songs[:config_obj.sample_size + 1]))
-    
+
+def get_avg_fitness(*songs):
+    return sum([song.score for song in songs])/len(songs)
             
 if __name__ == "__main__":
     args = get_commandline_args()
@@ -63,8 +65,7 @@ if __name__ == "__main__":
 
     if args.new:
         seed(args.seed)
-        song_list = random_song_improved(NUM_THREADS, config_file)
-        
+        song_list = [random_song(config_file) for i in range(config_file.song_count)]
         save_songs(config_file.save_file, *song_list)
         write_to_output_file(config_file.save_file, *song_list)
         alert_parent_program(args.pid)       
@@ -79,11 +80,16 @@ if __name__ == "__main__":
             song_list.sort(key=lambda v: v.score, reverse=False)
             for i in range(len(song_list)):
                 song_list[i].crossover_chance = get_crossover_prob(i)
-                
+    
+    logging.debug("song count: {}".format(len(song_list)))
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     new_song_list = []
 
     get_population_sample(config_file, *song_list)
+    logging.info("avg fitness: {}, max fitness: {}, min fitness: {}".format( 
+                 get_avg_fitness(*song_list), 
+                 max(song_list, key=lambda v: v.score).score,
+                 min(song_list, key=lambda v: v.score).score))
 
     for i in range(config_file.song_count):
         song1, song2 = sample_pair(song_list)
@@ -109,7 +115,7 @@ if __name__ == "__main__":
         new_song_list.append(song3)
         
     song_list = new_song_list
-    
+    logging.debug("song count: {}".format(len(song_list)))
     write_to_output_file(config_file.save_file, *song_list)
     save_songs(config_file.save_file, *song_list)
     alert_parent_program(args.pid)
