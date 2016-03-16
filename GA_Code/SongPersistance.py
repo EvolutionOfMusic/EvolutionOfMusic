@@ -44,7 +44,7 @@ def song_from_string(song_string, config_file):
     return rv
 
 def load_songs(load_file, config_file, delimeter='*'):
-    with open(load_file + "_genetic") as file_obj:
+    with open(load_file + "_genetic", 'r') as file_obj:
         rv = []
         file_contents = file_obj.read().split('\n{}\n'.format(delimeter))
 

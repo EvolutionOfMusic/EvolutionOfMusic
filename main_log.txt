@@ -1,0 +1,1259 @@
+INFO:root:avg fitness: 156.72, max fitness: 1012, min fitness: 111
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:song 10002, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:song 10004, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:song 10005, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:song 10013, was mutated (chromo add)
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 14
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:song 10018, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:song 10019, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:song 10025, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:song 10029, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:song 10032, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 1
+INFO:root:song 10036, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9507 and 9928 with fitnesses 119 117, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:song 10041, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:song 10042, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10050, was mutated
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 16
+INFO:root:song 10051, was mutated
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 11
+INFO:root:songs 9862 and 9507 with fitnesses 119 119, crossed over, at 3
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:song 10054, was mutated
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 12
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:song 10057, was mutated
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 6
+INFO:root:song 10058, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 8
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:song 10064, was mutated
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:song 10066, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 2
+INFO:root:song 10068, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 17
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 11
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10075, was mutated (chromo add)
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 16
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 4
+INFO:root:song 10077, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10083, was mutated (chromo add)
+INFO:root:songs 9862 and 9507 with fitnesses 119 119, crossed over, at 6
+INFO:root:song 10084, was mutated (chromo add)
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:song 10086, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10087, was mutated
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 18
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 13
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 8
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 7
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 14
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 6
+INFO:root:song 10096, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:song 10098, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 13
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 3
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 4
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 5
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:song 10115, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:song 10116, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:song 10119, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:song 10120, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 4
+INFO:root:song 10124, was mutated
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 3
+INFO:root:song 10131, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:song 10132, was mutated
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:song 10134, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 18
+INFO:root:song 10136, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 14
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:song 10139, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 6
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 12
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10145, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 4
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 17
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 14
+INFO:root:song 10152, was mutated
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 18
+INFO:root:song 10153, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:song 10155, was mutated
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 18
+INFO:root:song 10156, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10157, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 7
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 10
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 12
+INFO:root:song 10163, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:song 10164, was mutated
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 3
+INFO:root:song 10169, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:song 10173, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:song 10174, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 13
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 16
+INFO:root:song 10177, was mutated
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 9
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 17
+INFO:root:songs 9928 and 9862 with fitnesses 117 119, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 1
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 0
+INFO:root:song 10189, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:song 10194, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:song 10195, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:song 10202, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:song 10206, was mutated
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 0
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 0
+INFO:root:song 10217, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:song 10218, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:song 10222, was mutated
+INFO:root:songs 9862 and 9507 with fitnesses 119 119, crossed over, at 10
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 6
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:song 10234, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:song 10242, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:song 10246, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:song 10247, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:song 10249, was mutated
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 4
+INFO:root:song 10250, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:song 10252, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:song 10253, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10254, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:song 10257, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 16
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 3
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 14
+INFO:root:song 10262, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:song 10264, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 2
+INFO:root:song 10271, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:song 10275, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 17
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:song 10283, was mutated
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 9
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 2
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:song 10286, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 13
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 11
+INFO:root:song 10290, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:song 10295, was mutated
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 11
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 0
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:song 10299, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:song 10304, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 10
+INFO:root:song 10305, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9862 and 9216 with fitnesses 119 116, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 4
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 0
+INFO:root:song 10313, was mutated
+INFO:root:songs 9928 and 9862 with fitnesses 117 119, crossed over, at 13
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:song 10319, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 15
+INFO:root:songs 9928 and 9507 with fitnesses 117 119, crossed over, at 18
+INFO:root:song 10323, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:song 10324, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 13
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 4
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 0
+INFO:root:song 10328, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:song 10331, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:song 10333, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:song 10335, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 3
+INFO:root:song 10338, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 2
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 6
+INFO:root:song 10341, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 5
+INFO:root:song 10345, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 4
+INFO:root:song 10348, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 0
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 5
+INFO:root:song 10355, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:song 10358, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 4
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:song 10362, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 14
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:song 10364, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 10
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 0
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 14
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:song 10370, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:song 10376, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 15
+INFO:root:song 10377, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 0
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 18
+INFO:root:song 10382, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:song 10384, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:song 10388, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 3
+INFO:root:song 10391, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 1
+INFO:root:song 10396, was mutated
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 7
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 4
+INFO:root:song 10398, was mutated
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:song 10406, was mutated
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 9
+INFO:root:song 10407, was mutated (chromo add)
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:song 10409, was mutated (chromo add)
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 17
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:song 10412, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:song 10413, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 0
+INFO:root:song 10414, was mutated
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:song 10416, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:song 10417, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 8
+INFO:root:song 10418, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:song 10425, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:song 10427, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 3
+INFO:root:song 10428, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:song 10432, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 14
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 5
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 17
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 5
+INFO:root:song 10442, was mutated
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 7
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 12
+INFO:root:song 10448, was mutated
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 14
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 13
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 8
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 9
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 3
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10459, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10460, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:song 10466, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 8
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:song 10472, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:song 10480, was mutated
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 14
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 16
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 17
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:song 10485, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:song 10487, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 18
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 0
+INFO:root:song 10493, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:song 10501, was mutated
+INFO:root:songs 9862 and 9216 with fitnesses 119 116, crossed over, at 10
+INFO:root:song 10502, was mutated
+INFO:root:songs 9216 and 9862 with fitnesses 116 119, crossed over, at 5
+INFO:root:song 10503, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10504, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 0
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 8
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:song 10511, was mutated (chromo add)
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 9
+INFO:root:song 10515, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 0
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 5
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:song 10523, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 17
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 10
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:song 10530, was mutated (chromo add)
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:song 10532, was mutated
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 17
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:song 10537, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:song 10541, was mutated
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 8
+INFO:root:song 10542, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 7
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10552, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:song 10553, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:song 10555, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:song 10557, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 15
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 3
+INFO:root:song 10560, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 15
+INFO:root:song 10563, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:song 10564, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10568, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 2
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 7
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 5
+INFO:root:song 10576, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:song 10577, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:song 10584, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 14
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 16
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 10
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 3
+INFO:root:song 10591, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 15
+INFO:root:song 10592, was mutated (chromo add)
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 15
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 10
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 11
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 18
+INFO:root:song 10601, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:song 10607, was mutated (chromo add)
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 5
+INFO:root:song 10608, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 8
+INFO:root:song 10609, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 6
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:song 10616, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 3
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:song 10624, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 16
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:song 10627, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:song 10628, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 8
+INFO:root:song 10630, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:song 10631, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:song 10632, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9507 and 9928 with fitnesses 119 117, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 9
+INFO:root:song 10635, was mutated
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 0
+INFO:root:song 10636, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:song 10637, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 10
+INFO:root:song 10644, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 13
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 10
+INFO:root:song 10649, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:song 10650, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 2
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:song 10657, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:song 10658, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:song 10670, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:song 10672, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:song 10676, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:song 10678, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 0
+INFO:root:song 10684, was mutated (chromo add)
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 0
+INFO:root:song 10687, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:song 10688, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:song 10689, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:song 10690, was mutated
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 3
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:song 10692, was mutated (chromo add)
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 10
+INFO:root:song 10693, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 17
+INFO:root:song 10699, was mutated
+INFO:root:songs 9507 and 9928 with fitnesses 119 117, crossed over, at 7
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 4
+INFO:root:song 10701, was mutated (chromo add)
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 13
+INFO:root:song 10707, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:song 10708, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:song 10709, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:song 10713, was mutated
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:song 10721, was mutated
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 17
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 4
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:song 10728, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 15
+INFO:root:song 10734, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 14
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 9
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 8
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 3
+INFO:root:songs 9862 and 9216 with fitnesses 119 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 6
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 4
+INFO:root:song 10746, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 0
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:song 10755, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:song 10756, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 14
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 18
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10763, was mutated
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 10
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 6
+INFO:root:song 10766, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:song 10767, was mutated
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 17
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 17
+INFO:root:song 10771, was mutated
+INFO:root:songs 9928 and 9507 with fitnesses 117 119, crossed over, at 3
+INFO:root:song 10772, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 16
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 13
+INFO:root:song 10774, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:song 10775, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10778, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:song 10780, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 17
+INFO:root:song 10783, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 8
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:song 10788, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 12
+INFO:root:song 10796, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 3
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 16
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 6
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 18
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 8
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:song 10809, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:song 10811, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:song 10813, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 1
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 6
+INFO:root:song 10819, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 18
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 0
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:song 10832, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:song 10838, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:song 10840, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 10
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 4
+INFO:root:song 10846, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 15
+INFO:root:song 10847, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 0
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 17
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 9
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 14
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:song 10857, was mutated
+INFO:root:songs 9928 and 9216 with fitnesses 117 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:song 10861, was mutated
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 1
+INFO:root:song 10862, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 12
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 15
+INFO:root:song 10872, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 16
+INFO:root:song 10875, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 2
+INFO:root:song 10877, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 13
+INFO:root:song 10878, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 6
+INFO:root:song 10880, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:song 10881, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 8
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 3
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 6
+INFO:root:song 10886, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 15
+INFO:root:song 10887, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10891, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 13
+INFO:root:song 10892, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 13
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:song 10898, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:song 10900, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 5
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 14
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 10
+INFO:root:song 10904, was mutated (chromo add)
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 14
+INFO:root:song 10905, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:song 10907, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:song 10908, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 13
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 2
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 5
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 11
+INFO:root:song 10913, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:song 10914, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 18
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 4
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 11
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:song 10924, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 7
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 10
+INFO:root:songs 9216 and 9862 with fitnesses 116 119, crossed over, at 13
+INFO:root:song 10928, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:song 10929, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:song 10930, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 0
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 7
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 5
+INFO:root:song 10933, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 1
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:song 10939, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:song 10940, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 18
+INFO:root:song 10941, was mutated
+INFO:root:songs 9862 and 9086 with fitnesses 119 111, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 0
+INFO:root:song 10944, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 0
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 6
+INFO:root:song 10947, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 10
+INFO:root:songs 9928 and 9507 with fitnesses 117 119, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 3
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 6
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:song 10952, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 7
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 17
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:song 10957, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 11
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 1
+INFO:root:songs 9507 and 9216 with fitnesses 119 116, crossed over, at 6
+INFO:root:songs 9507 and 9086 with fitnesses 119 111, crossed over, at 12
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 8
+INFO:root:song 10963, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 15
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:songs 9086 and 9862 with fitnesses 111 119, crossed over, at 4
+INFO:root:song 10970, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 13
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 11
+INFO:root:song 10972, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 12
+INFO:root:song 10973, was mutated
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 15
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 17
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 12
+INFO:root:song 10976, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 18
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 4
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 16
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 2
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 14
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 14
+INFO:root:songs 9216 and 9507 with fitnesses 116 119, crossed over, at 10
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 5
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 8
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 9
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 5
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 13
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 17
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 17
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 2
+INFO:root:song 10991, was mutated
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 9
+INFO:root:song 10992, was mutated
+INFO:root:songs 9928 and 9086 with fitnesses 117 111, crossed over, at 14
+INFO:root:songs 9216 and 9928 with fitnesses 116 117, crossed over, at 7
+INFO:root:songs 9086 and 9928 with fitnesses 111 117, crossed over, at 1
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 12
+INFO:root:song 10996, was mutated
+INFO:root:songs 9086 and 9216 with fitnesses 111 116, crossed over, at 2
+INFO:root:song 10997, was mutated
+INFO:root:songs 9086 and 9507 with fitnesses 111 119, crossed over, at 3
+INFO:root:songs 9216 and 9086 with fitnesses 116 111, crossed over, at 18
+DEBUG:root:song count: 1000

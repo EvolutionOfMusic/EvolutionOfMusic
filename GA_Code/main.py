@@ -13,13 +13,8 @@ import sys
 from os import system, path
 import logging
 
-CONFIG_FILE_PATH = "pyth_main.config"
+CONFIG_FILE_PATH = "GA_Code/pyth_main.config"
 LOG_FILE_PATH = "main_log.txt"
-
-#GRAPH_FILE_PATH = "ave_fitness_graph"
-
-
-#NUM_THREADS = 4
 
 random_track_id = lambda song, randomizer: randomizer.sample(song.track_ids, 1)[0]
 
@@ -33,7 +28,6 @@ def init_arg_parser():
     parser.add_argument('-n', "--new", help="creates new genome", action="store_true")
     parser.add_argument('-s', "--seed", help="specifies seed for new genome", type=int)
     parser.add_argument('-p', "--pid", help="pid for calling code", type=int) 
-    parser.add_argument('-g',"--enable_graph", help="-n => new graph, else append to graph", action="store_true")
     return parser.parse_args() 
 
 def alert_parent_program(pid):
@@ -46,27 +40,39 @@ def write_to_output_file(output_file_name, *songs):
         for song in songs:
             save.write(str(song) + '\n') 
 
+get_gen_num = lambda song_id, song_count: song_id//song_count
+
 def get_population_sample(config_obj, *songs):
-    gen_num = songs[0].song_id//config_obj.song_count
+    gen_num = get_gen_num(songs[0].song_id, config_obj.song_count)
     write_to_output_file(config_obj.sample_file + "_generation_{}"
                          .format(gen_num), *(songs[:config_obj.sample_size + 1]))
 
 def get_avg_fitness(*songs):
     return sum([song.score for song in songs])/len(songs) 
 
-def append_to_graph_file(file_name, value):
+def append_to_graph_file(file_name, gen_num, value):
     with open(file_name, 'a') as graph:
-        graph.write(str(value))
+        graph.write(str(gen_num) + " " + str(int(value)) + '\n')
 
-def overwrite_graph_file(file_name, new_start_value):
+def clear_file(file_name):
     with open(file_name, 'w') as graph:
-        graph.write(str(value))
+        graph.write(str(''))
+
+get_distance = lambda v: (v[0] - v[1])**2
 
 
+def get_diversity(song, *song_list):
+    pass
+
+    
 if __name__ == "__main__":
     args = init_arg_parser()
     
     randomizer = GeneticRandomizer(SystemRandom())
+    
+    if path.exists(LOG_FILE_PATH) and path.isfile(LOG_FILE_PATH):
+        clear_file(LOG_FILE_PATH)
+
     logging.basicConfig(filename=LOG_FILE_PATH, level=logging.DEBUG)
     
     if path.exists(CONFIG_FILE_PATH) and path.isfile(CONFIG_FILE_PATH):
@@ -75,44 +81,41 @@ if __name__ == "__main__":
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
     if args.new: 
-        if args.enable_graph:
-            overwrite_graph_file(config_file.graph_file, 0)
+        clear_file(config_file.graph_file)
         seed(args.seed)
         song_list = [random_song(config_file) for i in range(config_file.song_count)]
         save_songs(config_file.save_file, *song_list)
         write_to_output_file(config_file.save_file, *song_list)
         alert_parent_program(args.pid)       
-        raise SystemExit
-    
+        raise SystemExit  
     else:
         song_list = load_songs(config_file.save_file, config_file)
-
         with open(config_file.input_file) as save:
             for song in song_list:
                 song.score = int(save.readline())
             song_list.sort(key=lambda v: v.score, reverse=False)
             for i in range(len(song_list)):
                 song_list[i].crossover_chance = get_crossover_prob(i)
+            clear_file(config_file.input_file)
     
-    logging.debug("song count: {}".format(len(song_list)))
-    song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
-    new_song_list = []
 
     get_population_sample(config_file, *song_list)
     logging.info("avg fitness: {}, max fitness: {}, min fitness: {}".format( 
                  get_avg_fitness(*song_list), 
                  max(song_list, key=lambda v: v.score).score,
                  min(song_list, key=lambda v: v.score).score))
+    append_to_graph_file(config_file.graph_file, get_gen_num(song_list[0].song_id, config_file.song_count), get_avg_fitness(*song_list))
 
-    if args.enable_graph:
-        append_to_graph_file(config_file.graph_file, get_avg_fitness(*song_list))
+
+    song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
+    new_song_list = []
 
     for i in range(config_file.song_count):
         song1, song2 = sample_pair(song_list)
-        
-        song3 = song1.crossover(song2, randomizer.get_crossover_point(song1, song2))
-        logging.info("songs {} and {} with fitnesses {} {}, crossed over"
-                         .format(song1.song_id, song2.song_id, song1.score, song2.score))
+        c_over_point = randomizer.get_crossover_point(song1, song2)
+        song3 = song1.crossover(song2, c_over_point)
+        logging.info("songs {} and {} with fitnesses {} {}, crossed over, at {}"
+                         .format(song1.song_id, song2.song_id, song1.score, song2.score, c_over_point))
         
         if randomizer.get_prob() <= config_file.mutation_chance:
             if randomizer.get_prob() <= config_file.chromo_delete_prob and len(song3) > 1:
