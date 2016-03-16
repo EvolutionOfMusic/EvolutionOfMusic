@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 	struct timeval start_time, end_time;
 	Song song;
 
-	if (argc == 2) {
+	if (argc == 3) {
 		seed = atoi(argv[0]);
 		iterations = atoi(argv[1]);
 	} else {
