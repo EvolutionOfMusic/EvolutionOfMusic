@@ -12,7 +12,7 @@ OBJ = Overhead.o ai_shell.o critic_shell.o sd.o python3_to_cpp_converter.o frequ
 %.o: $(DIR)%.cpp #$(DIR)$(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-EvoMusic: $(DIR)$(OBJ)
+EvoMusic: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean: 
