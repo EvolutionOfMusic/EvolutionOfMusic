@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
 	using namespace std;
 	// cin & cout
 
-	int seed, iterations, score = 0, temp = 0;
+	int seed, iterations, score = 0;
 	struct timeval start_time, end_time;
 	Song song;
 
