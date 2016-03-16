@@ -8,6 +8,7 @@
 #include "critic_shell.h"
 
 const int NOTES_PER_OCTAVE = 12;
+const int BEATS_PER_MEASURE = 16;
 const int C7_INDEX = 6 * NOTES_PER_OCTAVE + 1;
 
 int c_shell(Song song) {
@@ -46,7 +47,8 @@ int supervisor(Song song) {
 	int instruments = song.track_num, 
 	    beat;
 	float freq_ratio;
-	Note a1, a2, a3, a4;
+	int resolution_diff;
+	Note a1, a2, a3, a4, n1, n2, n3;
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
@@ -54,6 +56,40 @@ int supervisor(Song song) {
 	for (int i = 0;i < instruments;i++) {
 		//printf("JON's STUFF\n");
 	        beat = 0;
+	        
+	        n1 = song.tunes[i].channel[0];
+		n2 = song.tunes[i].channel[song.tunes[i].track_length -2];
+		n3 = song.tunes[i].channel[song.tunes[i].track_length -1];
+	        
+	        // Song is silent at the beginning...
+			if (n1.tone == REST)
+				tally += 10*song.tunes[i].track_length;
+	        
+	        // Track has poor ending, last note should be lower than 2nd last
+		if( n2.tone < n3.tone){
+			tally += 5*song.tunes[i].track_length;
+		}
+		
+		resolution_diff = abs(n2.tone - n3.tone);
+		// Track should resolve on a major step
+		// ie. the step size should be one of four options,
+		// a major third, a perfect fifth, a major seventh, or an octave 
+		if(resolution_diff != 4 ||
+		  resolution_diff != 7 || 
+		  resolution_diff != 11 ||
+		  resolution_diff != 12){
+			tally += 3*song.tunes[i].track_length;
+		}
+		// Last note should be held for half a measure or longer
+		if(n3.hold_time < (BEATS_PER_MEASURE/2)){
+			tally += 3*song.tunes[i].track_length;
+		}
+		
+		// Song should end within the same octave that it began
+		if(abs(n1.tone - n3.tone) > (NOTES_PER_OCTAVE/2)){
+			tally += 5*song.tunes[i].track_length;
+		}
+		
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
 			if(k == 0) {
 				a1 = song.tunes[i].channel[0];
@@ -90,14 +126,6 @@ int supervisor(Song song) {
 	    		if (!(	a3.hold_time >= a1.hold_time - (NOTES_PER_OCTAVE/2) &&
 				a3.hold_time <= a1.hold_time + (NOTES_PER_OCTAVE/2)))
 				tally += 1;
-			
-			// Song is silent at the beginning...
-			if (k == 0 && a3.tone == REST)
-				tally += 10;
-			
-			// Song has poor ending, last note should be lower than 2nd last
-			if (k == song.tunes[i].track_length-1 && a2.tone < a3.tone)
-				tally += 10;
 			
 			//printf("STEPHEN's STUFF\n");
 			if (a3.tone == 0) continue;

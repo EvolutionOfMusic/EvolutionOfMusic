@@ -3,6 +3,7 @@ from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 from ConfigFile import ConfigFile
 from RandomSongGen import random_song, tempo_gen, random_chromosome
 from GeneticRandomizer import GeneticRandomizer
+from SongPersistance import load_songs, save_songs
 from GeneticSong import min_nc_length
 
 from random import SystemRandom, seed, randrange
@@ -12,10 +13,13 @@ import sys
 from os import system, path
 import logging
 
-CONFIG_FILE_PATH = "GA_Code/pyth_main.config"
+CONFIG_FILE_PATH = "pyth_main.config"
 LOG_FILE_PATH = "main_log.txt"
 
-NUM_THREADS = 4
+#GRAPH_FILE_PATH = "ave_fitness_graph"
+
+
+#NUM_THREADS = 4
 
 random_track_id = lambda song, randomizer: randomizer.sample(song.track_ids, 1)[0]
 
@@ -28,11 +32,9 @@ def init_arg_parser():
     parser = ArgumentParser()
     parser.add_argument('-n', "--new", help="creates new genome", action="store_true")
     parser.add_argument('-s', "--seed", help="specifies seed for new genome", type=int)
-    parser.add_argument('-p', "--pid", help="pid for calling code", type=int)
-    return parser 
-
-def get_commandline_args():
-    return init_arg_parser().parse_args()
+    parser.add_argument('-p', "--pid", help="pid for calling code", type=int) 
+    parser.add_argument('-g',"--enable_graph", help="-n => new graph, else append to graph", action="store_true")
+    return parser.parse_args() 
 
 def alert_parent_program(pid):
     if pid is not None:
@@ -50,10 +52,19 @@ def get_population_sample(config_obj, *songs):
                          .format(gen_num), *(songs[:config_obj.sample_size + 1]))
 
 def get_avg_fitness(*songs):
-    return sum([song.score for song in songs])/len(songs)
-            
+    return sum([song.score for song in songs])/len(songs) 
+
+def append_to_graph_file(file_name, value):
+    with open(file_name, 'a') as graph:
+        graph.write(str(value))
+
+def overwrite_graph_file(file_name, new_start_value):
+    with open(file_name, 'w') as graph:
+        graph.write(str(value))
+
+
 if __name__ == "__main__":
-    args = get_commandline_args()
+    args = init_arg_parser()
     
     randomizer = GeneticRandomizer(SystemRandom())
     logging.basicConfig(filename=LOG_FILE_PATH, level=logging.DEBUG)
@@ -63,7 +74,9 @@ if __name__ == "__main__":
     else:
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
-    if args.new:
+    if args.new: 
+        if args.enable_graph:
+            overwrite_graph_file(config_file.graph_file, 0)
         seed(args.seed)
         song_list = [random_song(config_file) for i in range(config_file.song_count)]
         save_songs(config_file.save_file, *song_list)
@@ -90,6 +103,9 @@ if __name__ == "__main__":
                  get_avg_fitness(*song_list), 
                  max(song_list, key=lambda v: v.score).score,
                  min(song_list, key=lambda v: v.score).score))
+
+    if args.enable_graph:
+        append_to_graph_file(config_file.graph_file, get_avg_fitness(*song_list))
 
     for i in range(config_file.song_count):
         song1, song2 = sample_pair(song_list)
