@@ -7,7 +7,7 @@
 
 #include "Overhead.h"
 
-int main() {
+int main(int argc, char *argv[]) {
 	using namespace std;
 	// cin & cout
 
@@ -15,7 +15,13 @@ int main() {
 	struct timeval start_time, end_time;
 	Song song;
 
-	cin >> seed >> iterations;
+	if (argc == 3) {
+		seed = atoi(argv[0]);
+		iterations = atoi(argv[1]);
+	} else {
+		cout << "Seed, # iterations\n";
+		cin >> seed >> iterations;
+	}
 
 	srand(seed);
 
