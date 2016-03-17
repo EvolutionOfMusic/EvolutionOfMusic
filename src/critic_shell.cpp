@@ -49,6 +49,10 @@ int supervisor(Song song) {
 	float freq_ratio;
 	int resolution_diff;
 	Note a1, a2, a3, a4, n1, n2, n3;
+	
+	// We want songs with more tracks
+	if (instruments < 3)
+		tally += instruments*100;
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
