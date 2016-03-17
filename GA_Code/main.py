@@ -70,9 +70,6 @@ if __name__ == "__main__":
     
     randomizer = GeneticRandomizer(SystemRandom())
     
-    if path.exists(LOG_FILE_PATH) and path.isfile(LOG_FILE_PATH):
-        clear_file(LOG_FILE_PATH)
-
     logging.basicConfig(filename=LOG_FILE_PATH, level=logging.DEBUG)
     
     if path.exists(CONFIG_FILE_PATH) and path.isfile(CONFIG_FILE_PATH):
@@ -81,6 +78,7 @@ if __name__ == "__main__":
         raise OSError("config file: {}, not found".format(CONFIG_FILE_PATH))
 
     if args.new: 
+        clear_file(LOG_FILE_PATH)
         clear_file(config_file.graph_file)
         seed(args.seed)
         song_list = [random_song(config_file) for i in range(config_file.song_count)]
