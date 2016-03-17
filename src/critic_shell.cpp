@@ -52,7 +52,7 @@ int supervisor(Song song) {
 	
 	// We want songs with more tracks
 	if (instruments < 3)
-		tally += instruments*100;
+		tally += (3-instruments)*100;
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
