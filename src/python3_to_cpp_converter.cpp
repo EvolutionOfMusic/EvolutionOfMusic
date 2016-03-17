@@ -21,10 +21,12 @@ std::vector<Song> parse_song(ifstream &file){
 		file.getline(file_line, 20);
 		sscanf(file_line, "%hd", &NUM_SONGS);
 		
+		song_list.reserve(NUM_SONGS);
+		
 		for (int i = 0;i < NUM_SONGS;i++) {
 			// Make a new song
 			Song song;
-			
+			//printf("%d\ntracks", i);
 			// Number of Tracks
 			file.getline(file_line, 20);
 			sscanf(file_line, "%hd", &NUM_TRACKS);
@@ -33,7 +35,7 @@ std::vector<Song> parse_song(ifstream &file){
 			// Tempo
 			file.getline(file_line, 20);
 			sscanf(file_line, "%hd", &song.tempo);
-			
+		       	
 			// SongID
 			file.getline(file_line, 20);
 			sscanf(file_line, "%d", &song.song_id);
@@ -61,6 +63,7 @@ std::vector<Song> parse_song(ifstream &file){
 					song.tunes[j].channel[k].hold_time = c;
 				}
 			}
+			//printf("pushing\n");
 			// Add it to the list
 			song_list.push_back(song);
 		}
