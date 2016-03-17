@@ -21,6 +21,7 @@ clean:
 delete: clean
 	rm -rf EvoMusic
 	rm -rf *~
+	rm -rf main_py_samples_generation_*
 
 help: 
 	@echo 'RULES: EvoMusic, clean, delete'
