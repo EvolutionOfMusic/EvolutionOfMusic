@@ -36,7 +36,7 @@ std::vector<Song> parse_song(ifstream &file){
 			
 			// SongID
 			file.getline(file_line, 20);
-			sscanf(file_line, "%hd", &song.song_id);
+			sscanf(file_line, "%d", &song.song_id);
 			
 			for (int j = 0;j < NUM_TRACKS;j++) {
 				// Number of Notes
