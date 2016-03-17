@@ -27,8 +27,9 @@ void set_sd(std::vector<Song> song_list) {
 		// NUM_SONGS
 		toSD << song_list.size() << "\n";
 		for(std::vector<Song>::iterator it = song_list.begin();
-			it != song_list.end();
+			it <= song_list.end();
 			it++) {
+		  //printf("%d", it);
 			int NUM_TRACKS = (*it).track_num;//sizeof((*it).tunes)/sizeof(Track);
 			//NUM_TRACKS
 			toSD << NUM_TRACKS << "\n";

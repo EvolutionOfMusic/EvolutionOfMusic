@@ -86,7 +86,7 @@ Song start_AI(int * iteration) {
 		// READ OUTPUT
 		ifstream file("./main_py_output");
 		song_list = parse_song(file);
-		
+		printf("GOT SONGS\n");
 		// Index Change
 		song_index = 0;
 		//New Iteration

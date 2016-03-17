@@ -51,8 +51,11 @@ int supervisor(Song song) {
 	Note a1, a2, a3, a4, n1, n2, n3;
 	
 	// We want songs with more tracks
-	if (instruments < 3)
-		tally += (3-instruments)*100;
+	if (instruments < 8) {
+		tally += (8-instruments)*400;
+	} else {
+		tally -= (instruments-8)*100;
+	}
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
@@ -161,6 +164,7 @@ int supervisor(Song song) {
 	}
 	printf("OMP END\n");
 	score += tally;
+	if (score < 0) score = 0;
 	return score;
 }
 
