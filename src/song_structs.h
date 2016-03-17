@@ -41,8 +41,8 @@ typedef struct{
 } Track;
 
 typedef struct{
-	short int song_id,
-	          tempo,
+	int song_id;
+	short int tempo,
 	          track_num;
 	Track tunes[MAX_INSTRUMENTS+1];
 } Song;
