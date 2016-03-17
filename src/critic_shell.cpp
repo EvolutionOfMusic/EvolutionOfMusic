@@ -164,6 +164,7 @@ int supervisor(Song song) {
 	}
 	printf("OMP END\n");
 	score += tally;
+	if (score < 0) score = 0;
 	return score;
 }
 
