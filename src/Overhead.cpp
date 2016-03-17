@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
 	Song song;
 
 	if (argc == 3) {
-		seed = atoi(argv[0]);
-		iterations = atoi(argv[1]);
+		seed = atoi(argv[1]);
+		iterations = atoi(argv[2]);
 	} else {
 		cout << "Seed, # iterations\n";
 		cin >> seed >> iterations;
