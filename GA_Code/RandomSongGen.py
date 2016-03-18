@@ -6,6 +6,8 @@ from ConfigFile import ConfigFile
 from NoteGene import NoteGene
 from NoteChromosome import NoteChromosome
 from GeneticSong import GeneticSong
+from MusicalInstrument import Instrument
+ 
 
 def random_gene(config_obj):
     right_pause_time = randrange(0, config_obj.max_pause_time//2 + 1)
