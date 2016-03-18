@@ -19,24 +19,26 @@ Generations of Songs shall be born; Only the Best Shall Survive...
 
 ###Makefile
 Run
-   [make]
+   'make'
 to make the C++ executable
 
 ###UI
 You can run the UI with
-    [java -jar UI.jar]
+    'java -jar UI.jar'
     
 ###Overhead(Actual Program)
 Then run
-    [./EvoMusic RandomSeed NumGenerations]
+    './EvoMusic RandomSeed NumGenerations'
     
 And watch it go.
 
 ###Alternates
 Alternatively, you can run the ./EvoMusic first and then run
-    [java -jar UI.jar [-r|r|RUNNING]]
+    'java -jar UI.jar [-r|r|RUNNING]'
 (The non-destructive graphing UI)
 
 You can also run
-      [./EvoMusic]
-      [RandomSeed NumGenerations]
+      '''
+      ./EvoMusic
+      RandomSeed NumGenerations
+      '''
