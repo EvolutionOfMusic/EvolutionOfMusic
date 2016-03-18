@@ -38,7 +38,4 @@ Alternatively, you can run the ./EvoMusic first and then run
 (The non-destructive graphing UI)
 
 You can also run
-      ```
-      ./EvoMusic
-      RandomSeed NumGenerations
-      ```
+      `./EvoMusic` and it's arguments `RandomSeed` and `NumGenerations` with newlines in between.
