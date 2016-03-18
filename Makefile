@@ -23,5 +23,9 @@ delete: clean
 	rm -rf *~
 	rm -rf main_py_samples_generation_*
 
+run:	java -jar UI.jar
+	make
+	./EvoMusic
+
 help: 
 	@echo 'RULES: EvoMusic, clean, delete'
