@@ -52,9 +52,9 @@ int supervisor(Song song) {
 	
 	// We want songs with more tracks
 	if (instruments < 8) {
-		tally += (8-instruments)*400;
+		tally += (8-instruments)*500;
 	} else {
-		tally -= (instruments-8)*100;
+		tally -= (instruments-8)*150;
 	}
 
 	//printf("OMP START\n");
