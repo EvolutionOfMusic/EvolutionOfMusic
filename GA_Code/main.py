@@ -32,7 +32,7 @@ def init_arg_parser():
 
 def alert_parent_program(pid):
     if pid is not None:
-        system("kill -CONT -" + str(pid))
+        system("kill -CONT " + str(pid))
 
 def write_to_output_file(output_file_name, *songs):
      with open(output_file_name, 'w') as save:
