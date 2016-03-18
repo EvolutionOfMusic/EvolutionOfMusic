@@ -39,10 +39,10 @@ int supervisor(Song song) {
 	 * http://hyperphysics.phy-astr.gsu.edu/hbase/music/mussca.html
 	 *
 	 * Rhythm
-	 *
+	 * - Being on the same beat is good
 	 *
 	 * Length
-	 *
+	 * 
 	 */
 	int instruments = song.track_num, 
 	    beat;
@@ -59,7 +59,7 @@ int supervisor(Song song) {
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
-        //#pragma omp parallel for num_threads(4) collapse(2) private(i, k, a1, a2, a3) reduction(+:tally)
+        //#pragma omp parallel for num_threads(4) private(n1. n2. n3, a1, a2, a3, a4, beat, float_freq, resolution_diff) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
 		//printf("JON's STUFF\n");
 	        beat = 0;
