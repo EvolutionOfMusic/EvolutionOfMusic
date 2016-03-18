@@ -44,24 +44,32 @@ int supervisor(Song song) {
 	 * Length
 	 * 
 	 */
-	int instruments = song.track_num, 
-	    beat;
+	int instruments = song.track_num, beat;
 	float freq_ratio;
 	int resolution_diff;
 	Note a1, a2, a3, a4, n1, n2, n3;
 	
 	// We want songs with more tracks
 	if (instruments < 8) {
-		tally += (8-instruments)*500;
+		tally += (8-instruments)*1000;
 	} else {
-		tally -= (instruments-8)*150;
+		tally -= (instruments-8)*200;
+	}
+	
+	int tempo_alt = 0;
+	if (song.tempo > 100) {
+		//We want slow notes with faster songs
+		tempo_alt = song.tempo - 100;
+		
+	} else if (song.tempo < 60) {
+		// And fast notes with slower songs
+		tempo_alt = song.tempo - 60;
 	}
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
-        //#pragma omp parallel for num_threads(4) private(n1. n2. n3, a1, a2, a3, a4, beat, float_freq, resolution_diff) reduction(+:tally)
+# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, tempo_alt, freq_ratio, resolution_diff) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
-		//printf("JON's STUFF\n");
 	        beat = 0;
 	        
 	        n1 = song.tunes[i].channel[0];
@@ -69,13 +77,12 @@ int supervisor(Song song) {
 		n3 = song.tunes[i].channel[song.tunes[i].track_length -1];
 	        
 	        // Song is silent at the beginning...
-			if (n1.tone == REST)
-				tally += 10*song.tunes[i].track_length;
+		if (n1.tone == REST)
+			tally += 10*song.tunes[i].track_length;
 	        
 	        // Track has poor ending, last note should be lower than 2nd last
-		if( n2.tone < n3.tone){
+		if( n2.tone < n3.tone)
 			tally += 5*song.tunes[i].track_length;
-		}
 		
 		resolution_diff = abs(n2.tone - n3.tone);
 		// Track should resolve on a major step
@@ -84,18 +91,17 @@ int supervisor(Song song) {
 		if(resolution_diff != 4 ||
 		  resolution_diff != 7 || 
 		  resolution_diff != 11 ||
-		  resolution_diff != 12){
+		  resolution_diff != 12)
 			tally += 3*song.tunes[i].track_length;
-		}
+		
+		
 		// Last note should be held for half a measure or longer
-		if(n3.hold_time < (BEATS_PER_MEASURE/2)){
+		if(n3.hold_time < (BEATS_PER_MEASURE/2))
 			tally += 3*song.tunes[i].track_length;
-		}
 		
 		// Song should end within the same octave that it began
-		if(abs(n1.tone - n3.tone) > (NOTES_PER_OCTAVE/2)){
+		if(abs(n1.tone - n3.tone) > (NOTES_PER_OCTAVE/2))
 			tally += 5*song.tunes[i].track_length;
-		}
 		
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
 			if(k == 0) {
@@ -110,6 +116,13 @@ int supervisor(Song song) {
 				a1 = song.tunes[i].channel[k-2];
 				a2 = song.tunes[i].channel[k-1];
 				a3 = song.tunes[i].channel[k];
+			}
+			
+			// tempo_alt is at most 20 at least 0
+			if (tempo_alt > 0) {
+			  //Fast
+			} else if (tempo_alt < 0) {
+			  //Slow
 			}
 			
 			// Repeating Rests
@@ -134,23 +147,19 @@ int supervisor(Song song) {
 				a3.hold_time <= a1.hold_time + (NOTES_PER_OCTAVE/2)))
 				tally += 1;
 			
-			//printf("STEPHEN's STUFF\n");
 			if (a3.tone == 0) continue;
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time;l++) {
-				//printf("GET NOTE AT BEAT\n");
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
-				//printf("NOTE BEATING COMPLETE\n");
 				if (a4.tone == -1 || a4.tone == REST) continue;// This channel has already ended or is at rest
-				//printf("FREQ_RATIO for %d and %d\n", a3.tone, a4.tone);
-				//printf("FREQS are %d and %d\n", frequencies[a3.tone], frequencies[a4.tone]);
+
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
 				} else {
 				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
-				//printf("FREQ_RATIO DONE\n");
+
 				// If there is dissonance, +2 demerits
 				if (!(	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
@@ -172,7 +181,7 @@ Note getNoteAtBeat(Track track, int beat) {
         int o = -1, temp_beat = 0;
        	while (temp_beat < beat && o < track.track_length) {
        	    o++;
-	    temp_beat += track.channel[o].hold_time;
+			temp_beat += track.channel[o].hold_time;
        	}
 	if (o == track.track_length) {Note n;n.tone = -1;return n;} 
 	return track.channel[o];
