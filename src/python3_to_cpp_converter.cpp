@@ -15,7 +15,6 @@ std::vector<Song> parse_song(ifstream &file){
 	std::vector<Song> song_list;
 	
 	short int NUM_SONGS, NUM_TRACKS, NUM_NOTES;
-	printf("start song list\n");
 	if (file.is_open()) {
 		// Number of Songs
 		file.getline(file_line, 20);
@@ -26,7 +25,7 @@ std::vector<Song> parse_song(ifstream &file){
 		for (int i = 0;i < NUM_SONGS;i++) {
 			// Make a new song
 			Song song;
-			//printf("%d\ntracks", i);
+			
 			// Number of Tracks
 			file.getline(file_line, 20);
 			sscanf(file_line, "%hd", &NUM_TRACKS);
@@ -68,7 +67,6 @@ std::vector<Song> parse_song(ifstream &file){
 			song_list.push_back(song);
 		}
 	}
-	printf("finished song_list\n");
 	return song_list;
 }
 

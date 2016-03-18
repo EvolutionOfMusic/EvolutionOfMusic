@@ -13,15 +13,7 @@ const int C7_INDEX = 6 * NOTES_PER_OCTAVE + 1;
 
 int c_shell(Song song) {
 	int score = 100;
-
-	if (true) {
-	        printf("SUPERVISOR START\n");
-	        //printf("Song track 0 length in Supervisor = %hd\n", song.tunes[0].track_length);
-		score = supervisor(song);
-	} else {
-		score = manual_override(song);
-	}
-	  printf("SUPERVISOR END\n");
+       	score = supervisor(song);
 	return score;
 }
 
@@ -51,9 +43,9 @@ int supervisor(Song song) {
 	
 	// We want songs with more tracks
 	if (instruments < 8) {
-		tally += (8-instruments)*1000;
+		tally += (8-instruments)*song.tunes[0].track_length*1400;
 	} else {
-		tally -= (instruments-8)*200;
+		tally -= (instruments-8)*song.tunes[0].track_length*1000;
 	}
 	
 	int tempo_alt = 0;
@@ -165,13 +157,12 @@ int supervisor(Song song) {
 					freq_ratio == 150 || // 3:2
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))  // 1:1
-				  tally += 2;
+				  tally += 10;
 			    }
 			}
 			beat += a3.hold_time;
 		}
 	}
-	printf("OMP END\n");
 	score += tally;
 	if (score < 0) score = 0;
 	return score;
@@ -181,7 +172,7 @@ Note getNoteAtBeat(Track track, int beat) {
         int o = -1, temp_beat = 0;
        	while (temp_beat < beat && o < track.track_length) {
        	    o++;
-			temp_beat += track.channel[o].hold_time;
+	    temp_beat += track.channel[o].hold_time;
        	}
 	if (o == track.track_length) {Note n;n.tone = -1;return n;} 
 	return track.channel[o];
