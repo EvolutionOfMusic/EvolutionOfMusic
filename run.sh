@@ -5,7 +5,7 @@
 echo "make"
 make -f Makefile
 
-if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ] || [ "$1" = "-c" ]; then
+if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ] || [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
   echo "UI"
   java -jar UI.jar $1 &
   
