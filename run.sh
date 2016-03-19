@@ -11,6 +11,9 @@ if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ]; then
   
   echo "./EvoMusic"
   scl enable python33 "./EvoMusic $1 $2 $3"
+elif [ "$1" = "-s" ] || [ "$1" = "s" ] || [ "$1" = "supress" ]; then
+  echo "./EvoMusic"
+  scl enable python33 "./EvoMusic $2 $3"
 elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
   echo "UI"
   java -jar UI.jar -r &
