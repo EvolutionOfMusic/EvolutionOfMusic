@@ -16,8 +16,7 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 
 	// Init
 	if (continuing && last_song_id == -1 && score == 0) {
-		// Read in the score
-		//TODO
+		// Generation of songs is already done
 	} else if (last_song_id == -1 && score == 0) {
 		//Normal Initialization
 		if (displayText)
@@ -46,7 +45,7 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 		file << score << "\n";
 		file.close();
 	}
-	song = start_AI(displayText, iteration);
+	song = start_AI(continuing, displayText, iteration);
 
 	last_song_id = song.song_id;
 	
