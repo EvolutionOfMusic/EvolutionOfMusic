@@ -13,26 +13,25 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 	static int last_song_id = -1;
 	Song song;
 	char buffer[100];
-
-	// Init
-	if (continuing && last_song_id == -1 && score == 0) {
-		// Generation of songs is already done
-	} else if (last_song_id == -1 && score == 0) {
+	
+	if (last_song_id == -1 && score == 0) {
 		//Normal Initialization
 		if (displayText)
 			printf("ITERATION 0\n");
 		// Prepare the signal handler
 		init_AI();
 		
-		sprintf(buffer, 
-			"python3 GA_Code/main.py -n -p %d -s %d", 
-			getpid(), rand());
-		system(buffer);
-		
-		// Wait for python's init to complete
-		if (!sig_flag)
-		    pause();
-		sig_flag = false;
+		if (!continuing) {
+			sprintf(buffer, 
+				"python3 GA_Code/main.py -n -p %d -s %d", 
+				getpid(), rand());
+			system(buffer);
+			
+			// Wait for python's init to complete
+			if (!sig_flag)
+			    pause();
+			sig_flag = false;
+		}
 	}
 
 	// Pass the song & score to the AI
