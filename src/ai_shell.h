@@ -17,7 +17,7 @@
 #include "song_structs.h"
 #include "sd.h"
 
-Song ai_shell(bool displayText, int * iteration, int score);
+Song ai_shell(bool continuing, bool displayText, int * iteration, int score);
 void init_AI();
 Song start_AI(bool displayText, int * iteration);
 void sig_handler(int sig);
