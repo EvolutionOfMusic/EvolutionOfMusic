@@ -9,7 +9,7 @@
 
 bool sig_flag = false;
 
-Song ai_shell(int * iteration, int score) {
+Song ai_shell(bool displayText, int * iteration, int score) {
 	static int last_song_id = -1;
 	Song song;
 	char buffer[100];
@@ -17,7 +17,8 @@ Song ai_shell(int * iteration, int score) {
 	// Init
 	if (last_song_id == -1 &&
 		score == 0) {
-		printf("ITERATION 0\n");
+		if (displayText)
+			printf("ITERATION 0\n");
 		// Prepare the signal handler
 		init_AI();
 		
@@ -42,7 +43,7 @@ Song ai_shell(int * iteration, int score) {
 		file << score << "\n";
 		file.close();
 	}
-	song = start_AI(iteration);
+	song = start_AI(displayText, iteration);
 
 	last_song_id = song.song_id;
 	
@@ -58,7 +59,7 @@ void init_AI() {
 	if (file.is_open())	file.close();
 }
 
-Song start_AI(int * iteration) {
+Song start_AI(bool displayText, int * iteration) {
 	static std::vector<Song> song_list;
 	static int song_index = -1;
 	//printf("START AI\n");
@@ -72,7 +73,8 @@ Song start_AI(int * iteration) {
 	        if (song_index != -1) set_sd(song_list);
 		char buffer[100];
 		
-		printf("ITERATION %d\n", (*iteration)+1);
+		if (displayText)
+			printf("ITERATION %d\n", (*iteration)+1);
 
 		// DO YOUR STUFF
 		sprintf(buffer, "python3 GA_Code/main.py -p %d", getpid());
@@ -86,7 +88,7 @@ Song start_AI(int * iteration) {
 		// READ OUTPUT
 		ifstream file("./main_py_output");
 		song_list = parse_song(file);
-		//printf("GOT SONGS\n");
+		
 		// Index Change
 		song_index = 0;
 		//New Iteration
