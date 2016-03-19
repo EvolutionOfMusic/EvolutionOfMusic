@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 	for (int i = 0;i < iterations;) {
 		song = ai_shell(&i, score);
 		score = c_shell(song);
-		printf("Score of %d for Song %d\n", score, song.song_id);
+		printf("Song %d: Score of %d\n", song.song_id, score);
 	}
 	// Currently the last song is not saved
 	//saveLastGen(score);
