@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 			continuing = true;
 		seed = atoi(argv[2]);
 		iterations = atoi(argv[3]);
-	} if (argc == 3) {
+	} else if (argc == 3) {
 		seed = atoi(argv[1]);
 		iterations = atoi(argv[2]);
 	} else {
