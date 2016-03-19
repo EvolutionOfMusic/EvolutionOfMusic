@@ -20,7 +20,6 @@ int main(int argc, char *argv[]) {
 		if (strcmp(argv[1],"p") == 0 || strcmp(argv[1],"-p") == 0 || strcmp(argv[1],"print") == 0) {
 			displayText = true;
 		} else if (strcmp(argv[1],"c") == 0 || strcmp(argv[1],"-c") == 0 || strcmp(argv[1],"continue") == 0)  {
-			cout << "CONTINUING\n";
 			continuing = true;
 		}
 		seed = atoi(argv[2]);
