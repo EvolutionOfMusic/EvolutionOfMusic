@@ -45,7 +45,7 @@ int supervisor(Song song) {
 	if (instruments < 8) {
 		tally += (8-instruments)*song.tunes[0].track_length*1400;
 	} else {
-		tally -= (instruments-8)*song.tunes[0].track_length*1000;
+		tally -= (instruments-8)*song.tunes[0].track_length*2000;
 	}
 	
 	int tempo_alt = 0;
