@@ -9,14 +9,17 @@
 
 bool sig_flag = false;
 
-Song ai_shell(bool displayText, int * iteration, int score) {
+Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 	static int last_song_id = -1;
 	Song song;
 	char buffer[100];
 
 	// Init
-	if (last_song_id == -1 &&
-		score == 0) {
+	if (continuing && last_song_id == -1 && score == 0) {
+		// Read in the score
+		//TODO
+	} else if (last_song_id == -1 && score == 0) {
+		//Normal Initialization
 		if (displayText)
 			printf("ITERATION 0\n");
 		// Prepare the signal handler
