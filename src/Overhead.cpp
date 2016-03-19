@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
 	using namespace std;
 	// cin & cout
 
-	bool displayText = false;
+	bool displayText = false, continuing = false;
 	int seed, iterations, score = 0;
 	struct timeval start_time, end_time;
 	Song song;
@@ -19,6 +19,8 @@ int main(int argc, char *argv[]) {
 	if (argc == 4) {
 		if (strcmp(argv[1],"p") != 0 || strcmp(argv[1],"-p") != 0 || strcmp(argv[1],"print") != 0)
 			displayText = true;
+		if (strcmp(argv[1],"c") != 0 || strcmp(argv[1],"-c") != 0 || strcmp(argv[1],"continue") != 0)
+			continuing = true;
 		seed = atoi(argv[2]);
 		iterations = atoi(argv[3]);
 	} if (argc == 3) {
@@ -35,7 +37,7 @@ int main(int argc, char *argv[]) {
 	gettimeofday(&start_time, NULL);
 
 	for (int i = 0;i < iterations;) {
-		song = ai_shell(displayText, &i, score);
+		song = ai_shell(continuing, displayText, &i, score);
 		score = c_shell(song);
 		if (displayText)
 			printf("Song %d: Score of %d\n", song.song_id, score);
