@@ -11,11 +11,17 @@ int main(int argc, char *argv[]) {
 	using namespace std;
 	// cin & cout
 
+	bool displayText = false;
 	int seed, iterations, score = 0;
 	struct timeval start_time, end_time;
 	Song song;
-
-	if (argc == 3) {
+	
+	if (argc == 4) {
+		if (strcmp(argv[1],"p") != 0 || strcmp(argv[1],"-p") != 0 || strcmp(argv[1],"print") != 0)
+			displayText = true;
+		seed = atoi(argv[2]);
+		iterations = atoi(argv[3]);
+	} if (argc == 3) {
 		seed = atoi(argv[1]);
 		iterations = atoi(argv[2]);
 	} else {
@@ -29,9 +35,10 @@ int main(int argc, char *argv[]) {
 	gettimeofday(&start_time, NULL);
 
 	for (int i = 0;i < iterations;) {
-		song = ai_shell(&i, score);
+		song = ai_shell(displayText, &i, score);
 		score = c_shell(song);
-		printf("Song %d: Score of %d\n", song.song_id, score);
+		if (displayText)
+			printf("Song %d: Score of %d\n", song.song_id, score);
 	}
 	// Currently the last song is not saved
 	//saveLastGen(score);
