@@ -19,7 +19,7 @@
 
 Song ai_shell(bool displayText, int * iteration, int score);
 void init_AI();
-Song start_AI(int * iteration);
+Song start_AI(bool displayText, int * iteration);
 void sig_handler(int sig);
 
 #endif /* AI_SHELL_H_ */
