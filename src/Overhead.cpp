@@ -17,10 +17,11 @@ int main(int argc, char *argv[]) {
 	Song song;
 	
 	if (argc == 4) {
-		if (strcmp(argv[1],"p") != 0 || strcmp(argv[1],"-p") != 0 || strcmp(argv[1],"print") != 0)
+		if (strcmp(argv[1],"p") != 0 || strcmp(argv[1],"-p") != 0 || strcmp(argv[1],"print") != 0) {
 			displayText = true;
-		if (strcmp(argv[1],"c") != 0 || strcmp(argv[1],"-c") != 0 || strcmp(argv[1],"continue") != 0)
+		} else if (strcmp(argv[1],"c") != 0 || strcmp(argv[1],"-c") != 0 || strcmp(argv[1],"continue") != 0) {
 			continuing = true;
+		}
 		seed = atoi(argv[2]);
 		iterations = atoi(argv[3]);
 	} else if (argc == 3) {
