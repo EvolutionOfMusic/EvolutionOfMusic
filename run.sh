@@ -18,7 +18,7 @@ elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
   java -jar UI.jar -r &
   
   echo "./EvoMusic"
-  scl enable python33 "./EvoMusic $1 $2 $3"
+  scl enable python33 "./EvoMusic $1 $2"
 else
   #echo "ELSE"
   echo "UI"
