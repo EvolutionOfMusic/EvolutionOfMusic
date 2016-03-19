@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <sys/time.h>
 #include "critic_shell.h"
 #include "ai_shell.h"
