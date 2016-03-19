@@ -5,9 +5,16 @@
 echo "make"
 make -f Makefile
 
-if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ] || [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
+if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ]; then
   echo "UI"
   java -jar UI.jar $1 &
+  
+  echo "./EvoMusic"
+  #  echo "scl enable python33 bash"
+  scl enable python33 "./EvoMusic $1 $2 $3"
+elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
+  echo "UI"
+  java -jar UI.jar -r &
   
   echo "./EvoMusic"
   #  echo "scl enable python33 bash"
