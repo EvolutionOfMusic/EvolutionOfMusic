@@ -17,9 +17,9 @@ int main(int argc, char *argv[]) {
 	Song song;
 	
 	if (argc == 4) {
-		if (strcmp(argv[1],"p") != 0 || strcmp(argv[1],"-p") != 0 || strcmp(argv[1],"print") != 0) {
+		if (strcmp(argv[1],"p") == 0 || strcmp(argv[1],"-p") == 0 || strcmp(argv[1],"print") == 0) {
 			displayText = true;
-		} else if (strcmp(argv[1],"c") != 0 || strcmp(argv[1],"-c") != 0 || strcmp(argv[1],"continue") != 0)  {
+		} else if (strcmp(argv[1],"c") == 0 || strcmp(argv[1],"-c") == 0 || strcmp(argv[1],"continue") == 0)  {
 			cout << "CONTINUING\n";
 			continuing = true;
 		}
