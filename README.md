@@ -25,7 +25,7 @@ Enables Python
 Run
    `chmod 0700 run.sh`
    `./run.sh [-p] RandomSeed NumIterations`
-The flag 
+
   - `-p | p | print`: Print information into the terminal
 
 ##Separately
@@ -37,7 +37,7 @@ to make the C++ executable `EvoMusic`
 ###UI
 You can run the UI with
     `java -jar UI.jar [-r|r|RUNNING]`
-The flag
+
   - `-r | r | running`: Non-destructively opens graphing UI
     
 ###Overhead(Actual Program)
