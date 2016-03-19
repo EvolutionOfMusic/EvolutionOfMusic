@@ -18,21 +18,27 @@ Generations of Songs shall be born; Only the Best Shall Survive...
     limitations under the License.
 
 ##Setup for the Lab Computers
+Enables Python
    `scl enable python33 bash`
 
 ##All At Once
 Run
    `chmod 0700 run.sh`
-   `./run.sh RandomSeed NumIterations`
+   `./run.sh [-p] RandomSeed NumIterations`
+The flag 
+  - `-p | p | print`: Print information into the terminal
+
 ##Separately
 ###Makefile
 Run
    `make`
-to make the C++ executable
+to make the C++ executable `EvoMusic`
 
 ###UI
 You can run the UI with
-    `java -jar UI.jar`
+    `java -jar UI.jar [-r|r|RUNNING]`
+The flag
+  - `-r | r | running`: Non-destructively opens graphing UI
     
 ###Overhead(Actual Program)
 Then run
@@ -41,9 +47,5 @@ Then run
 And watch it go.
 
 ###Alternates
-Alternatively, you can run the ./EvoMusic first and then run
-    `java -jar UI.jar [-r|r|RUNNING]`
-(The non-destructive graphing UI)
-
 You can also run
       `./EvoMusic` and it's arguments `RandomSeed` and `NumGenerations` with newlines in between.
