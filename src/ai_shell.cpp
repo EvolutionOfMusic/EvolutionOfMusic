@@ -23,8 +23,8 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 		
 		if (!continuing) {
 			sprintf(buffer, 
-				"python3 GA_Code/main.py -n -p %d -s %d", 
-				getpid(), rand());
+				"python3 GA_Code/main.py -n -s %d -p %d", 
+				rand(), getpid());
 			system(buffer);
 			
 			// Wait for python's init to complete
