@@ -48,11 +48,21 @@ def get_population_sample(config_obj, *songs):
                          .format(gen_num), *(songs[:config_obj.sample_size + 1]))
 
 def get_avg_fitness(*songs):
-    return sum([song.score for song in songs])/len(songs) 
+    return round(sum([song.score for song in songs])/len(songs)) 
 
-def append_to_graph_file(file_name, gen_num, value):
+def get_max_fitness(*songs):
+    return max([song.score for song in songs])
+
+def get_min_fitness(*songs):
+    return min([song.score for song in songs])
+
+def append_to_graph_file(file_name, gen_num, *value):
     with open(file_name, 'a') as graph:
-        graph.write(str(gen_num) + " " + str(int(value)) + '\n')
+        #graph.write(str(gen_num) + " " + str(int(value)) + '\n')
+        graph.write(str(gen_num))
+        for i in value:
+            graph.write(" " + str(i)) 
+        graph.write('\n');
 
 def clear_file(file_name):
     with open(file_name, 'w') as graph:
@@ -102,7 +112,7 @@ if __name__ == "__main__":
                  get_avg_fitness(*song_list), 
                  max(song_list, key=lambda v: v.score).score,
                  min(song_list, key=lambda v: v.score).score))
-    append_to_graph_file(config_file.graph_file, get_gen_num(song_list[0].song_id, config_file.song_count), get_avg_fitness(*song_list))
+    append_to_graph_file(config_file.graph_file, get_gen_num(song_list[0].song_id, config_file.song_count), get_avg_fitness(*song_list), get_max_fitness(*song_list), get_min_fitness(*song_list))
 
 
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
