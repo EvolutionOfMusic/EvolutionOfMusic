@@ -17,6 +17,9 @@ Generations of Songs shall be born; Only the Best Shall Survive...
     See the License for the specific language governing permissions and
     limitations under the License.
 
+##Setup for the Lab Computers
+   `scl enable python33 bash`
+
 ##All At Once
 Run
    `chmod 0700 run.sh`
