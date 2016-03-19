@@ -7,7 +7,7 @@ scl enable python33 bash &
 echo "make"
 make -f Makefile
 
-if [ $1 = "-p" ]; then
+if [ $1 = "-p" ] || [ $1 = "-c" ]; then
   echo "UI"
   java -jar UI.jar $1 &
   
