@@ -43,8 +43,6 @@ int main(int argc, char *argv[]) {
 		if (displayText)
 			printf("Song %d: Score of %d\n", song.song_id, score);
 	}
-	// Currently the last song is not saved
-	//saveLastGen(score);
 
 	gettimeofday(&end_time, NULL);
 
