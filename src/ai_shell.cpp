@@ -28,24 +28,22 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 			"python3 GA_Code/main.py -n -p %d -s %d", 
 			getpid(), rand());
 		system(buffer);
-	       	//printf("PAUSING\n");
+		
 		// Wait for python's init to complete
 		if (!sig_flag)
 		    pause();
 		sig_flag = false;
-		
-		
-		//printf("THE WAIT IS OVER!\n");
 	}
 
 	// Pass the song & score to the AI
-	//printf("AI INPUT\n");
-	ofstream file("main_py_input", std::ios_base::app);
-	if (file.is_open() && last_song_id != -1) {
-		file << score << "\n";
-		file.close();
+	if (last_song_id !=  -1) {
+		ofstream file("main_py_input", std::ios_base::app);
+		if (file.is_open()) {
+			file << score << "\n";
+			file.close();
+		}
 	}
-	song = start_AI(continuing, displayText, iteration);
+	song = start_AI(displayText, iteration);
 
 	last_song_id = song.song_id;
 	
@@ -64,7 +62,7 @@ void init_AI() {
 Song start_AI(bool displayText, int * iteration) {
 	static std::vector<Song> song_list;
 	static int song_index = -1;
-	//printf("START AI\n");
+	
 	if (song_index == -1){
 	    // READ OUTPUT
 	    ifstream file("./main_py_output");
@@ -98,7 +96,7 @@ Song start_AI(bool displayText, int * iteration) {
 	} else {
 		song_index++;
 	}
-	//printf("END AI\n");
+	
 	return song_list.at(song_index);
 }
 
