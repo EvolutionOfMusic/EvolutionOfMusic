@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
 	} else if (argc == 3) {
 		if (strcmp(argv[1],"c") == 0 || strcmp(argv[1],"-c") == 0 || strcmp(argv[1],"continue") == 0) {
 			continuing = true;
-			seed = 0;
 			iterations = atoi(argv[2]);
 		} else {
 			seed = atoi(argv[1]);
