@@ -43,7 +43,7 @@ int supervisor(Song song) {
 	
 	// We want songs with more tracks
 	if (instruments < 8) {
-		tally += (8-instruments)*song.tunes[0].track_length*1400;
+		tally += pow(10 - instruments, 10);//(8-instruments)*song.tunes[0].track_length*1400;
 	} else {
 		tally -= (instruments-8)*song.tunes[0].track_length*1000;
 	}
@@ -60,7 +60,7 @@ int supervisor(Song song) {
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
-# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, tempo_alt, freq_ratio, resolution_diff) reduction(+:tally)
+	# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, tempo_alt, freq_ratio, resolution_diff) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
 	        beat = 0;
 	        
