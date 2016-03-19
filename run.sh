@@ -18,13 +18,19 @@ if ["$2" = "-p"] && ["$1" = "-r"]; then
   java -jar UI.jar $1 $2 &
   
   echo "./EvoMusic"
-  ./EvoMusic $1 $3 $4
-elif ["$1" = "-p"] || ["$1" = "-r"];then
+  ./EvoMusic $2 $3 $4
+elif ["$1" = "-p"];then
   echo "UI"
   java -jar UI.jar $1 &
   
   echo "./EvoMusic"
   ./EvoMusic $1 $2 $3
+elif ["$1" = "-r"];then
+  echo "UI"
+  java -jar UI.jar $1 &
+  
+  echo "./EvoMusic"
+  ./EvoMusic $2 $3
 else
     echo "UI"
   java -jar UI.jar &
