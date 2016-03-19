@@ -12,21 +12,24 @@ int main(int argc, char *argv[]) {
 	// cin & cout
 
 	bool displayText = false, continuing = false;
-	int seed, iterations, score = 0;
+	int seed = 0, iterations, score = 0;
 	struct timeval start_time, end_time;
 	Song song;
 	
 	if (argc == 4) {
-		if (strcmp(argv[1],"p") != 0 || strcmp(argv[1],"-p") != 0 || strcmp(argv[1],"print") != 0) {
+		if (strcmp(argv[1],"p") != 0 || strcmp(argv[1],"-p") != 0 || strcmp(argv[1],"print") != 0)
 			displayText = true;
-		} else if (strcmp(argv[1],"c") != 0 || strcmp(argv[1],"-c") != 0 || strcmp(argv[1],"continue") != 0) {
-			continuing = true;
-		}
 		seed = atoi(argv[2]);
 		iterations = atoi(argv[3]);
 	} else if (argc == 3) {
-		seed = atoi(argv[1]);
-		iterations = atoi(argv[2]);
+		if (strcmp(argv[1],"c") != 0 || strcmp(argv[1],"-c") != 0 || strcmp(argv[1],"continue") != 0)  {
+			continuing = true;
+			//Seed was already set
+			iterations = atoi(argv[1]);
+		} else {
+			seed = atoi(argv[1]);
+			iterations = atoi(argv[2]);
+		}
 	} else {
 		cout << "Seed, # iterations\n";
 		cin >> seed >> iterations;
