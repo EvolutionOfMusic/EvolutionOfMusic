@@ -6,8 +6,8 @@ S = 8000;
 % T is the duration of the note
 % f is the frequency in Hertz
 % a is the amplitude or Volume
-note = @(a,f,T) a*sin(2*pi*f*[0:1/S:T]);
-tempo = @(bpm) bpm*16*60; 
+note = @(a,f,T) a*sin(2*pi*f*[0:1/(2*S):T]);
+tempo = @(bpm) bpm; 
 % 16 (1/16 beats) = 1 beat   
 % 1 bpm = 16 (1/16 beats)/min  
 % 60 sec = 1 min  
@@ -30,8 +30,9 @@ for i = 1:num_songs
     for j = 1:num_tracks
         fs = []; ds = [];
         num_notes = sscanf(fgetl(file), '%d'); 
-        [volume, track_id] = sscanf(fgetl(file), '%d %d');
-        clear volume track_id;
+        tuple = sscanf(fgetl(file), '%d %d');
+        volume = tuple(1, 1); track_id = tuple(2, 1);
+        clear track_id;
         for k = 1:num_notes
             temp = sscanf(fgetl(file), '%d %d %d');
             fs = [fs, tone_freq(temp(2))];
@@ -40,24 +41,42 @@ for i = 1:num_songs
         
         new_fs = [];
         for index=1:length(ds)
-            new_fs = [new_fs note(0.9, fs(index), ds(index))]
+            new_fs = [new_fs note(volume/100, fs(index), ds(index))];
         end
         
         [rowsFS columnsFS] = size(FS);
-        [rowsfs columnsfs] = size(fs);
-        delta = abs(columnsfs - columnsFS);
+        [rowsfs columnsfs] = size(new_fs);
         
         %Preparation
-        if (columnsfs > columnsFS)
-            insert = zeros(rowsFS, columnsfs - columnsFS);
-            FS = [FS insert];
-        elseif (columnsFS > columnsfs)
-            new_fs = [new_fs zeros(1, columnsFS - columnsfs)];
+        if (j < num_tracks/2)
+            if (j == 1)
+                FS = new_fs./num_tracks;
+            elseif (columnsfs > columnsFS)
+                FS = [FS zeros(rowsFS, columnsfs - columnsFS)];
+                FS(1:columnsfs) = (FS(1:columnsfs)) + (new_fs./num_tracks);
+            else
+                FS(1:columnsfs) = (FS(1:columnsfs)) + (new_fs./num_tracks);
+            end
+        else
+            if ((mod(num_tracks, 2) == 0 && j == floor(num_tracks/2)) || (mod(num_tracks, 2) == 1 && j == floor(num_tracks/2)+1))
+                if (columnsfs > columnsFS)
+                    FS = [FS zeros(rowsFS, columnsfs - columnsFS)];
+                elseif (columnsFS > columnsfs)
+                    new_fs = [new_fs zeros(1, columnsFS - columnsfs)];
+                end
+                FS = [FS;new_fs./num_tracks];
+            elseif (columnsfs > columnsFS)
+                FS = [FS zeros(rowsFS, columnsfs - columnsFS)];
+                FS(2, 1:columnsfs) = FS(2, 1:columnsfs) + (new_fs./num_tracks);
+            else
+                FS(2, 1:columnsfs) = FS(2, 1:columnsfs) + (new_fs./num_tracks);
+            end
         end
-        % Polymerzation!
-        FS = [FS;new_fs];
-    end 
+    end
+    FS = FS';
     out_file = sprintf('sample_%d.wav', song_id);
-    audiowrite(out_file, FS, S) 
+    audiowrite(out_file, FS, S);
+    audioinfo(out_file)
+    %sound(FS, S);
 end
-fclose(file) 
+fclose(file);
