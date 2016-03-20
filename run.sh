@@ -1,29 +1,37 @@
 #!/bin/bash
 # Runs All Of EvoMusic In One Go
 
+if [ $# -lt 2 ]; then
+  echo "Usages: $0 [print|supress] RandomSeed NumIterations"
+  echo "        $0 [continue] NumIterations"
+  exit
+fi
 
-echo "make"
 make -f Makefile
 
+cnt=`ps -eaflc --sort stime | grep UI.jar |grep -v grep | wc -l`
 if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ]; then
-  echo "UI"
-  java -jar UI.jar $1 &
+  if(test $cnt -ne 3) ; then
+    java -jar UI.jar $1 &
+  fi
   
-  echo "./EvoMusic"
   scl enable python33 "./EvoMusic $1 $2 $3"
+  
 elif [ "$1" = "-s" ] || [ "$1" = "s" ] || [ "$1" = "supress" ]; then
-  echo "./EvoMusic"
   scl enable python33 "./EvoMusic $2 $3"
+  
 elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
-  echo "UI"
-  java -jar UI.jar -r &
+  if(test $cnt -ne 3) ; then
+    java -jar UI.jar -r &
+  fi
   
-  echo "./EvoMusic"
   scl enable python33 "./EvoMusic $1 $2"
+  
 else
-  echo "UI"
-  java -jar UI.jar &
+  if(test $cnt -ne 3) ; then
+    java -jar UI.jar &
+  fi
   
-  echo "./EvoMusic"
   scl enable python33 "./EvoMusic $1 $2"
+  
 fi
