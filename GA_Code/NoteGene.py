@@ -197,6 +197,15 @@ class NoteGene:
         return [self.left_pause_time, self.left_hold_time, self.tone,
                 self.right_hold_time, self.right_pause_time] 
 
+    def __hash__(self):
+        rv = 7
+        rv = 31 * rv ^ self.left_pause_time
+        rv = 31 * rv ^ self.left_hold_time
+        rv = 31 * rv ^ self.tone
+        rv = 31 * rv ^ self.right_hold_time
+        rv = 31 * rv ^ self.right_pause_time
+        return rv
+
 
 def divide_range(r):
     return range(min(r)//2, max(r)//2 + 1)

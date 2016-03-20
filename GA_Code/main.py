@@ -5,6 +5,7 @@ from RandomSongGen import random_song, tempo_gen, random_chromosome
 from GeneticRandomizer import GeneticRandomizer
 from SongPersistance import load_songs, save_songs
 from GeneticSong import min_nc_length
+from DiversityCalc import get_avg_diversity
 
 from random import SystemRandom, seed, randrange
 from argparse import ArgumentParser
@@ -18,10 +19,10 @@ LOG_FILE_PATH = "main_log.txt"
 
 random_track_id = lambda song, randomizer: randomizer.sample(song.track_ids, 1)[0]
 
-def get_crossover_prob(index, pc=60):
+def get_crossover_prob(i, pc=60):
     pc /= 100
-    prob = int(100*pc*(1-pc)**index)
-    return prob
+    prob = (pc*(1 - pc)**i)*100
+    return int(prob)
 
 def init_arg_parser():
     parser = ArgumentParser()
@@ -47,18 +48,11 @@ def get_population_sample(config_obj, *songs):
     write_to_output_file(config_obj.sample_file + "_generation_{}"
                          .format(gen_num), *(songs[:config_obj.sample_size + 1]))
 
-def get_avg_fitness(*songs):
-    return round(sum([song.score for song in songs])/len(songs)) 
-
-def get_max_fitness(*songs):
-    return max([song.score for song in songs])
-
-def get_min_fitness(*songs):
-    return min([song.score for song in songs])
+def get_avg(*scores):
+    return round(sum([score for score in scores])/len(scores)) 
 
 def append_to_graph_file(file_name, gen_num, *value):
     with open(file_name, 'a') as graph:
-        #graph.write(str(gen_num) + " " + str(int(value)) + '\n')
         graph.write(str(gen_num))
         for i in value:
             graph.write(" " + str(i)) 
@@ -68,11 +62,8 @@ def clear_file(file_name):
     with open(file_name, 'w') as graph:
         graph.write(str(''))
 
-get_distance = lambda v: (v[0] - v[1])**2
-
-
-def get_diversity(song, *song_list):
-    pass
+def read_input_file_line(file_obj):
+    return tuple(map(int, file_obj.readline().split()))
 
     
 if __name__ == "__main__":
@@ -98,9 +89,15 @@ if __name__ == "__main__":
         raise SystemExit  
     else:
         song_list = load_songs(config_file.save_file, config_file)
+        flat_song_list = [song.flatten() for song in song_list]
+        score_list = []
+        diversity_list = []
         with open(config_file.input_file) as save:
             for song in song_list:
-                song.score = int(save.readline())
+                score, diversity = read_input_file_line(save)
+                score_list.append(score)
+                diversity_list.append(abs(diversity))
+                song.score = (config_file.score_scale_factor * score) // (config_file.div_scale_factor * abs(diversity) + 1)
             song_list.sort(key=lambda v: v.score, reverse=False)
             for i in range(len(song_list)):
                 song_list[i].crossover_chance = get_crossover_prob(i)
@@ -108,11 +105,10 @@ if __name__ == "__main__":
     
 
     get_population_sample(config_file, *song_list)
-    logging.info("avg fitness: {}, max fitness: {}, min fitness: {}".format( 
-                 get_avg_fitness(*song_list), 
-                 max(song_list, key=lambda v: v.score).score,
-                 min(song_list, key=lambda v: v.score).score))
-    append_to_graph_file(config_file.graph_file, get_gen_num(song_list[0].song_id, config_file.song_count), get_avg_fitness(*song_list), get_max_fitness(*song_list), get_min_fitness(*song_list))
+    logging.info("avg fitness: {}, max fitness: {}, min fitness: {}".format(get_avg(*score_list), max(score_list), min(score_list)))
+    gen_num = get_gen_num(song_list[0].song_id, config_file.song_count)
+    value_list = [get_avg(*score_list), max(score_list), min(score_list), get_avg(*diversity_list)]
+    append_to_graph_file(config_file.graph_file, gen_num, *value_list)
 
 
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
@@ -142,7 +138,6 @@ if __name__ == "__main__":
         new_song_list.append(song3)
         
     song_list = new_song_list
-    logging.debug("song count: {}".format(len(song_list)))
     write_to_output_file(config_file.save_file, *song_list)
     save_songs(config_file.save_file, *song_list)
     alert_parent_program(args.pid)
