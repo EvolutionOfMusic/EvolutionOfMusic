@@ -19,7 +19,8 @@
 
 Song ai_shell(bool continuing, bool displayText, int * iteration, int score);
 void init_AI();
-Song start_AI(bool displayText, int * iteration);
+Song start_AI(bool displayText, int * iteration, int score);
 void sig_handler(int sig);
+int get_diversity(std::vector<Song> song_list, int song_index);
 
 #endif /* AI_SHELL_H_ */
