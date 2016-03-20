@@ -57,7 +57,7 @@ int get_diversity(std::vector<Song> song_list, int song_index) {
 								abs(song.tunes[i].channel[j].pause_time - (*it).tunes[i].channel[j].pause_time) +
 								abs(song.tunes[i].channel[j].hold_time - (*it).tunes[i].channel[j].hold_time);
 					}
-	return diversity;
+	return diversity/song_list.size();
 }
 
 void init_AI() {
