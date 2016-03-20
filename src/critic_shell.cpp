@@ -138,12 +138,14 @@ int supervisor(Song song) {
 				a3.hold_time <= a1.hold_time + (NOTES_PER_OCTAVE/2)))
 				tally += 1;
 			
-			if (a3.tone == 0) continue;
+			if (a3.tone == REST) continue;
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time;l++) {
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
+				
 				if (a4.tone == -1 || a4.tone == REST) continue;// This channel has already ended or is at rest
+				if (l == 0 && a4.pause_time == 3) tally += 1;// Perfect Time is good
 
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
@@ -157,6 +159,8 @@ int supervisor(Song song) {
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))  // 1:1
 				  tally += 10;
+				
+				
 			    }
 			}
 			beat += a3.hold_time;
@@ -174,6 +178,9 @@ Note getNoteAtBeat(Track track, int beat) {
 	    temp_beat += track.channel[o].hold_time;
        	}
 	if (o == track.track_length) {Note n;n.tone = -1;return n;} 
+	Note got = track.channel[o];
+	if (temp_beat - track.channel[o].hold_time == beat)
+		got.pause_time = 3;//Was perfectly timed
 	return track.channel[o];
 }
 
