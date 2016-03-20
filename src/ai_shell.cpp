@@ -81,7 +81,7 @@ Song start_AI(bool displayText, int * iteration, int score) {
 		// Pass the song & score to the AI
 		ofstream file("main_py_input", std::ios_base::app);
 		if (file.is_open()) {
-			file << score << "\n"; // << get_diversity(song_list, song_index) << "\n";
+			file << score << " " << get_diversity(song_list, song_index) << "\n";
 			file.close();
 		}
 	}
