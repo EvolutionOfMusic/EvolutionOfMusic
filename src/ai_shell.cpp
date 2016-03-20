@@ -43,23 +43,20 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 int get_diversity(std::vector<Song> song_list, int song_index) {
 	Song song = song_list.at(song_index);
 	int diversity = 0;
-	//# pragma omp parallel for num_threads(4) reduction(+:diversity)
-	for (int i = 0;i < song.track_num;i++)
-		for (int j = 0;j < song.tunes[i].track_length;j++)
-			diversity += song.tunes[i].channel[j].tone +
-						 song.tunes[i].channel[j].pause_time +
-						 song.tunes[i].channel[j].hold_time;
-	
-	diversity *= (song_list.size()-1); //There are song_list.size() songs including the chosen song
-	
 	//# pragma omp parallel for num_threads(4) reduction(-:diversity)
 	for(std::vector<Song>::iterator it = song_list.begin();it <= song_list.end();it++)
 		if ((*it).song_id != song.song_id)
 			for (int i = 0;i < song.track_num;i++)
-				for (int j = 0;j < song.tunes[i].track_length;j++)
-					diversity -= ((*it).tunes[i].channel[j].tone +
-								  (*it).tunes[i].channel[j].pause_time +
-								  (*it).tunes[i].channel[j].hold_time);
+				for (int j = 0;j < (*it).tunes[i].track_length;j++)
+					if (j >= song.tunes[i].track_length) {
+						diversity += 	(*it).tunes[i].channel[j].tone) +
+								(*it).tunes[i].channel[j].pause_time) + 
+								(*it).tunes[i].channel[j].hold_time);
+					} else {
+						diversity += 	abs(song.tunes[i].channel[j].tone - (*it).tunes[i].channel[j].tone) +
+								abs(song.tunes[i].channel[j].pause_time - (*it).tunes[i].channel[j].pause_time) +
+								abs(song.tunes[i].channel[j].hold_time - (*it).tunes[i].channel[j].hold_time);
+					}
 	return diversity;
 }
 
