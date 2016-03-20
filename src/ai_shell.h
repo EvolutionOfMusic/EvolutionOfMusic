@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <signal.h>
+#include <omp.h>
 #include "python3_to_cpp_converter.h"
 #include "song_structs.h"
 #include "sd.h"
