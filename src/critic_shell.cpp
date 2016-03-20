@@ -145,7 +145,7 @@ int supervisor(Song song) {
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				
 				if (a4.tone == -1 || a4.tone == REST) continue;// This channel has already ended or is at rest
-				if (l == 0 && !(a4.pause_time == 3)) tally += 1;// Perfect Time is good
+				if (l == 0 && !(a4.pause_time == 3)) tally += 5;// Perfect Time is good
 
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
@@ -153,12 +153,12 @@ int supervisor(Song song) {
 				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
 
-				// If there is dissonance, +2 demerits
+				// If there is dissonance, +50 demerits
 				if (!(	freq_ratio == 200 || // 2:1
 					freq_ratio == 150 || // 3:2
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))  // 1:1
-				  tally += 10;
+				  tally += 50;
 				
 				
 			    }
