@@ -49,9 +49,9 @@ int get_diversity(std::vector<Song> song_list, int song_index) {
 			for (int i = 0;i < song.track_num;i++)
 				for (int j = 0;j < (*it).tunes[i].track_length;j++)
 					if (j >= song.tunes[i].track_length) {
-						diversity += 	(*it).tunes[i].channel[j].tone) +
-								(*it).tunes[i].channel[j].pause_time) + 
-								(*it).tunes[i].channel[j].hold_time);
+						diversity += 	(*it).tunes[i].channel[j].tone +
+								(*it).tunes[i].channel[j].pause_time + 
+								(*it).tunes[i].channel[j].hold_time;
 					} else {
 						diversity += 	abs(song.tunes[i].channel[j].tone - (*it).tunes[i].channel[j].tone) +
 								abs(song.tunes[i].channel[j].pause_time - (*it).tunes[i].channel[j].pause_time) +
