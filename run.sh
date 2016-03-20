@@ -11,7 +11,7 @@ make -f Makefile
 
 cnt=`ps -eaflc --sort stime | grep UI.jar |grep -v grep | wc -l`
 if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ]; then
-  if(test $cnt -ne 3) ; then
+  if(test $cnt -lt 1) ; then
     java -jar UI.jar $1 &
   fi
   
@@ -21,14 +21,14 @@ elif [ "$1" = "-s" ] || [ "$1" = "s" ] || [ "$1" = "supress" ]; then
   scl enable python33 "./EvoMusic $2 $3"
   
 elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
-  if(test $cnt -ne 3) ; then
+  if(test $cnt -lt 1) ; then
     java -jar UI.jar -r &
   fi
   
   scl enable python33 "./EvoMusic $1 $2"
   
 else
-  if(test $cnt -ne 3) ; then
+  if(test $cnt -lt 1) ; then
     java -jar UI.jar &
   fi
   
