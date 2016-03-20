@@ -145,7 +145,7 @@ int supervisor(Song song) {
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				
 				if (a4.tone == -1 || a4.tone == REST) continue;// This channel has already ended or is at rest
-				if (l == 0 && a4.pause_time == 3) tally += 1;// Perfect Time is good
+				if (!(l == 0 && a4.pause_time == 3)) tally += 1;// Perfect Time is good
 
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
