@@ -1,11 +1,15 @@
 clear
 clc
 
-S = 8192/2;
-note = @(f,d) 0.9*cos(2*pi*f*[0:1/S:d]);
-tempo = @(bbm) bbm/16;
-time = @(hold, pause, bbm) (hold - pause)/tempo(bbm);
-FS = [];fs = [];ds = [];
+S = 8000;
+% http://www.mathworks.com/matlabcentral/newsreader/view_thread/136160
+% T is the duration of the note
+% f is the frequency in Hertz
+% a is the amplitude or Volume
+note = @(a,f,T) a*sin(2*pi*f*[0:1/S:T]);
+tempo = @(bpm) bpm*16;
+time = @(hold, pause, bpm) 60*((hold - pause)/tempo(bpm));
+%FS = []; fs = []; ds = [];
 
 song_file = input('Enter file name: ');
 
@@ -20,8 +24,7 @@ for i = 1:num_songs
     FS = [];
     
     for j = 1:num_tracks
-        fs = [];
-        ds = [];
+        fs = []; ds = [];
         num_notes = sscanf(fgetl(file), '%d'); 
         [volume, track_id] = sscanf(fgetl(file), '%d %d');
         clear volume track_id;
@@ -32,10 +35,16 @@ for i = 1:num_songs
         end
         
         new_fs = [];
+        beat = 1;
         for index=1:length(ds)
-            new_fs = [new_fs note(fs(index), ds(index))];
+            tempNote = note(0.9, fs(index), ds(index));
+            noteLength = ds(index);
+            if (beat+noteLength > length(new_fs))
+                new_fs = [new_fs zeros(1, beat + noteLength - length(new_fs))]
+            end
+            new_fs(beat:beat+noteLength) = tempNote(1:noteLength);
+            beat = beat + noteLength;
         end
-        %noteReturn = note(fs(1), ds(1));
         [rowsFS columnsFS] = size(FS);
         [rowsfs columnsfs] = size(fs);
         delta = abs(columnsfs - columnsFS);
