@@ -41,11 +41,10 @@ int supervisor(Song song) {
 	int resolution_diff;
 	Note a1, a2, a3, a4, n1, n2, n3;
 	
+	const int INSTR_MEDIAN = 4; 
 	// We want songs with more tracks
-	if (instruments < 8) {
-		tally += pow(10 - instruments, 10);//(8-instruments)*song.tunes[0].track_length*1400;
-	} else {
-		tally -= (instruments-8)*song.tunes[0].track_length*1000;
+	if (instruments < INSTR_MEDIAN) {
+		tally += pow(INSTR_MEDIAN+2 - instruments, 10);
 	}
 	
 	int tempo_alt = 0;
