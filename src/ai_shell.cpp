@@ -34,19 +34,31 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 		}
 	}
 
-	// Pass the song & score to the AI
-	if (last_song_id !=  -1) {
-		ofstream file("main_py_input", std::ios_base::app);
-		if (file.is_open()) {
-			file << score << "\n";
-			file.close();
-		}
-	}
-	song = start_AI(displayText, iteration);
-
+	song = start_AI(displayText, iteration, score);
 	last_song_id = song.song_id;
 	
 	return song;
+}
+
+int get_diversity(std::vector<Song> song_list, int song_index) {
+	Song song = song_list.at(song_index);
+	int diversity = 0;
+	for (int i = 0;i < song.track_num;i++)
+		for (int j = 0;j < song.tunes[i].track_length;j++)
+			diversity += song.tunes[i].channel[j].tone +
+						 song.tunes[i].channel[j].pause_time +
+						 song.tunes[i].channel[j].hold_time;
+	
+	diversity *= (song_list.size()-1); //There are song_list.size() songs including the chosen song
+	
+	for(std::vector<Song>::iterator it = song_list.begin();it <= song_list.end();it++)
+		if ((*it).song_id != song.song_id)
+			for (int i = 0;i < song.track_num;i++)
+				for (int j = 0;j < song.tunes[i].track_length;j++)
+					diversity -= ((*it).tunes[i].channel[j].tone +
+								  (*it).tunes[i].channel[j].pause_time +
+								  (*it).tunes[i].channel[j].hold_time);
+	return diversity;
 }
 
 void init_AI() {
@@ -55,21 +67,28 @@ void init_AI() {
 	
 	// Clear the file
 	ofstream file("main_py_input", std::ofstream::out | std::ofstream::trunc);
-	if (file.is_open())	file.close();
+	if (file.is_open()) file.close();
 }
 
-Song start_AI(bool displayText, int * iteration) {
+Song start_AI(bool displayText, int * iteration, int score) {
 	static std::vector<Song> song_list;
 	static int song_index = -1;
 	
 	if (song_index == -1){
-	    // READ OUTPUT
-	    ifstream file("./main_py_output");
-	    song_list = parse_song(file);
+		// READ OUTPUT
+		ifstream file("./main_py_output");
+		song_list = parse_song(file);
+	} else {
+		// Pass the song & score to the AI
+		ofstream file("main_py_input", std::ios_base::app);
+		if (file.is_open()) {
+			file << score << "\n"; // << get_diversity(song_list, song_index) << "\n";
+			file.close();
+		}
 	}
 	
 	if (song_index == song_list.size()-1) {
-	        if (song_index != -1) set_sd(song_list);
+        if (song_index != -1) set_sd(song_list);
 		char buffer[100];
 		
 		if (displayText)
