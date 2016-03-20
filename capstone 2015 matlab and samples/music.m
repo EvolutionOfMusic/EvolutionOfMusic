@@ -7,8 +7,12 @@ S = 8000;
 % f is the frequency in Hertz
 % a is the amplitude or Volume
 note = @(a,f,T) a*sin(2*pi*f*[0:1/S:T]);
-tempo = @(bpm) bpm*16;
-time = @(hold, pause, bpm) 60*((hold - pause)/tempo(bpm));
+tempo = @(bpm) bpm*16*60; 
+% 16 (1/16 beats) = 1 beat   
+% 1 bpm = 16 (1/16 beats)/min  
+% 60 sec = 1 min  
+% 1 bpm = 60*16 (1/16th beats) / sec
+time = @(hold, pause, bpm) (hold - pause)/tempo(bpm);
 %FS = []; fs = []; ds = [];
 
 song_file = input('Enter file name: ');
@@ -35,16 +39,10 @@ for i = 1:num_songs
         end
         
         new_fs = [];
-        beat = 1;
         for index=1:length(ds)
-            tempNote = note(0.9, fs(index), ds(index));
-            noteLength = ds(index);
-            if (beat+noteLength > length(new_fs))
-                new_fs = [new_fs zeros(1, beat + noteLength - length(new_fs))]
-            end
-            new_fs(beat:beat+noteLength) = tempNote(1:noteLength);
-            beat = beat + noteLength;
+            new_fs = [new_fs note(0.9, fs(index), ds(index))]
         end
+        
         [rowsFS columnsFS] = size(FS);
         [rowsfs columnsfs] = size(fs);
         delta = abs(columnsfs - columnsFS);
