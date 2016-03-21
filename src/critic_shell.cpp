@@ -109,31 +109,32 @@ int supervisor(Song song) {
 			}
 			
 			// 4/4 time; STAY ON BEAT
-			if (beat % 4 != 0) tally += 100;
+			if (beat % 4 != 0 && a3.tone != REST) tally += 100;
 			
 			// Repeating Rests
 			if((a3.tone == REST) && (a2.tone == REST))
-				tally += 1;
+				tally += 2;
 
 			// If a note is high, we don't want it to repeat
 			if (a3.tone > C7_INDEX && a3.tone == a2.tone)
 				tally += 1;
 	    		
 	    		// Must be within an octave of the past two notes, not counting rests
-	    		if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a2.tone != REST) && (a3.tone != REST))
+	    		if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a2.tone != REST))
 	    			tally += 2*abs(a3.tone - a2.tone)/NOTES_PER_OCTAVE;
-	    		if ((abs(a3.tone - a1.tone) >= NOTES_PER_OCTAVE) && (a2.tone != REST) && (a1.tone != REST))
+	    		if ((abs(a3.tone - a1.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a1.tone != REST))
 				tally += 2*abs(a3.tone - a1.tone)/NOTES_PER_OCTAVE;
 			
 			// Hold Time must stay approx. the same size as for prev notes
-			if (!(	a3.hold_time >= a2.hold_time - (NOTES_PER_OCTAVE/2) &&
-				a3.hold_time <= a2.hold_time + (NOTES_PER_OCTAVE/2)))
+			if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
 	    			tally += 1;
-	    		if (!(	a3.hold_time >= a1.hold_time - (NOTES_PER_OCTAVE/2) &&
-				a3.hold_time <= a1.hold_time + (NOTES_PER_OCTAVE/2)))
+	    		if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
 				tally += 1;
 			
-			if (a3.tone == REST) continue;
+			if (a3.tone == REST) {
+				beat += a3.hold_time;
+				continue;
+			}
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time;l++) {
@@ -154,8 +155,6 @@ int supervisor(Song song) {
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))  // 1:1
 				  tally += 60;
-				
-				
 			    }
 			}
 			beat += a3.hold_time;
