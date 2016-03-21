@@ -11,6 +11,50 @@ const int NOTES_PER_OCTAVE = 12;
 const int BEATS_PER_MEASURE = 16;
 const int C7_INDEX = 6 * NOTES_PER_OCTAVE + 1;
 
+/* A Song holds Tracks; A Track holds Notes
+ * Consonance is good; Dissonance is bad
+ * https://en.wikipedia.org/wiki/Consonance_and_dissonance
+ * https://musicmasterworks.com/WhereMathMeetsMusic.html
+ * https://en.wikipedia.org/wiki/Pythagorean_tuning
+ * http://hyperphysics.phy-astr.gsu.edu/hbase/music/mussca.html
+ *
+ */
+const int CONSONANCE = 60;
+/* Rhythm
+ * - Being on the same beat is good
+ * - 4/4 Time is good
+ */
+const int PERFECT_TIME = 20;
+const int FOURFOUR_TIME = 140;
+/* Length
+ * - Slower notes for faster songs
+ * - Faster notes for slower songs
+ * - Less repeating tones
+ * - More repeating hold times
+ * - Stay within the Octave
+ */
+const int FAST_TEMPO_MARKER = 100;
+const int SLOW_TEMPO_MARKER = 60;
+const int TEMPO_SCALING = 10;
+const int REPEATING_NOTES = 2;
+const int OCTAVE_RETENTION = 10;
+ /* START OF SONG
+  * - Don't start Silently
+  */
+const int SILENT_START = 100;
+ /* END OF SONG
+  * - Songs should end around the same time
+  * - Should end with a step down
+  * - Should end with a major step
+  * - Should end on a longer note length
+  */
+const int TRAILING_NOTES = 1;
+const int END_STEP_DOWN = 50;
+const int END_MAJOR_STEP = 10;
+const int END_LONGER = 3;
+// - Less tracks should be discouraged
+const int TRACK_MARKER = 4; 
+
 int c_shell(Song song) {
 	int score = 100;
        	score = supervisor(song);
@@ -19,54 +63,13 @@ int c_shell(Song song) {
 
 int supervisor(Song song) {
 	//JUDGE IT
-	int score = 0;
-	int tally = 0;
-
-	/* A Song holds Tracks; A Track holds Notes
-	//TODO: Finish
-	 * Consonance is good; Dissonance is bad
-	 * https://en.wikipedia.org/wiki/Consonance_and_dissonance
-	 * https://musicmasterworks.com/WhereMathMeetsMusic.html
-	 * https://en.wikipedia.org/wiki/Pythagorean_tuning
-	 * http://hyperphysics.phy-astr.gsu.edu/hbase/music/mussca.html
-	 *
-	 */
-	 const int CONSONANCE = 60;
-	/* Rhythm
-	 * - Being on the same beat is good
-	 * - 4/4 Time is good
-	 */
-	 const int PERFECT_TIME = 20;
-	 const int FOURFOUR_TIME = 140;
-	/* Length
-	 * - Slower notes for faster songs
-	 * - Faster notes for slower songs
-	 */
-	 const int FAST_TEMPO_MARKER = 100;
-	 const int SLOW_TEMPO_MARKER = 60;
-	 const int TEMPO_SCALING = 10;
-	 const int REPEATING_NOTES = 2;
-	 const int OCTAVE_RETENTION = 10;
-	 /* START OF SONG
-	  * 
-	  */
-	  const int SILENT_START = 100;
-	 /* END OF SONG
-	  * - Songs should end around the same time
-	  */
-	  const int TRAILING_NOTES = 1;
-	  const int END_STEP_DOWN = 50;
-	  const int END_MAJOR_STEP = 10;
-	  const int END_LONGER = 3;
-	int instruments = song.track_num, beat;
+	int score = 0, tally = 0, instruments = song.track_num, beat, resolution_diff;
 	float freq_ratio;
-	int resolution_diff;
 	Note a1, a2, a3, a4, n1, n2, n3;
 	
-	const int INSTR_MEDIAN = 4; 
 	// We want songs with more tracks
-	if (instruments < INSTR_MEDIAN)
-		tally += pow(INSTR_MEDIAN+2 - instruments, 10);
+	if (instruments < TRACK_MARKER)
+		tally += pow(TRACK_MARKER+2 - instruments, 10);
 
 	// Parallelize on i, evaluates for errors within each track
 	# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, freq_ratio, resolution_diff) reduction(+:tally)
