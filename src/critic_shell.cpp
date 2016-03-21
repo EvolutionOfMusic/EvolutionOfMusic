@@ -46,20 +46,10 @@ int supervisor(Song song) {
 	if (instruments < INSTR_MEDIAN) {
 		tally += pow(INSTR_MEDIAN+2 - instruments, 10);
 	}
-	
-	int tempo_alt = 0;
-	if (song.tempo > 100) {
-		//We want slow notes with faster songs
-		tempo_alt = song.tempo - 100;
-		
-	} else if (song.tempo < 60) {
-		// And fast notes with slower songs
-		tempo_alt = song.tempo - 60;
-	}
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
-	//# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, tempo_alt, freq_ratio, resolution_diff) reduction(+:tally)
+	//# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, freq_ratio, resolution_diff) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
 	        beat = 0;
 	        
@@ -110,14 +100,12 @@ int supervisor(Song song) {
 			}
 			
 			// tempo_alt is at most 20 at least 0
-			if (tempo_alt > 0) {
-			  //Fast
-			  if (a3.hold_time < BEATS_PER_MEASURE/2)
-				  tally += 10*((BEATS_PER_MEASURE/2)-a3.hold_time);
-			} else if (tempo_alt < 0) {
-			  //Slow
-			  if (a3.hold_time > BEATS_PER_MEASURE/2)
-				  tally += 10*((BEATS_PER_MEASURE)-a3.hold_time);
+			if (song.tempo > 100 && a3.hold_time < BEATS_PER_MEASURE/2)
+				//Fast
+				 tally += 10*((BEATS_PER_MEASURE/2)-a3.hold_time);
+			} else if (song.tempo < 60 && a3.hold_time > BEATS_PER_MEASURE/2)
+				//Slow
+				tally += 10*((BEATS_PER_MEASURE)-a3.hold_time);
 			}
 			
 			// 4/4 time; STAY ON BEAT
