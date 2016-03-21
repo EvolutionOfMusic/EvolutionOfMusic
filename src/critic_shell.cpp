@@ -69,11 +69,11 @@ int supervisor(Song song) {
 	        
 	        // Song is silent at the beginning...
 		if (n1.tone == REST)
-			tally += 10*song.tunes[i].track_length;
+			tally += 100*song.tunes[i].track_length;
 	        
 	        // Track has poor ending, last note should be lower than 2nd last
 		if( n2.tone < n3.tone)
-			tally += 5*song.tunes[i].track_length;
+			tally += 50*song.tunes[i].track_length;
 		
 		resolution_diff = abs(n2.tone - n3.tone);
 		// Track should resolve on a major step
@@ -92,7 +92,7 @@ int supervisor(Song song) {
 		
 		// Song should end within the same octave that it began
 		if(abs(n1.tone - n3.tone) > (NOTES_PER_OCTAVE/2))
-			tally += 5*song.tunes[i].track_length;
+			tally += 10*song.tunes[i].track_length;
 		
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
 			if(k == 0) {
@@ -112,8 +112,12 @@ int supervisor(Song song) {
 			// tempo_alt is at most 20 at least 0
 			if (tempo_alt > 0) {
 			  //Fast
+			  if (a3.hold_time < BEATS_PER_MEASURE/2)
+				  tally += 10*((BEATS_PER_MEASURE/2)-a3.hold_time)
 			} else if (tempo_alt < 0) {
 			  //Slow
+			  if (a3.hold_time > BEATS_PER_MEASURE/2)
+				  tally += 10*((BEATS_PER_MEASURE)-a3.hold_time)
 			}
 			
 			// Repeating Rests
