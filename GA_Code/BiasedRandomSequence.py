@@ -148,7 +148,7 @@ def sample_pair(seq):
     rv.append(seq.random_get())
     rv.append(seq.random_get())
 
-    while rv[1] is rv[0]:
+    while rv[1] is rv[0] or rv[0].score == rv[1].score:
         rv[1] = seq.random_get()
 
     return rv[0], rv[1]
