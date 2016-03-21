@@ -30,12 +30,34 @@ int supervisor(Song song) {
 	 * https://en.wikipedia.org/wiki/Pythagorean_tuning
 	 * http://hyperphysics.phy-astr.gsu.edu/hbase/music/mussca.html
 	 *
-	 * Rhythm
-	 * - Being on the same beat is good
-	 *
-	 * Length
-	 * 
 	 */
+	 const int CONSONANCE = 60;
+	/* Rhythm
+	 * - Being on the same beat is good
+	 * - 4/4 Time is good
+	 */
+	 const int PERFECT_TIME = 20;
+	 const int FOURFOUR_TIME = 140;
+	/* Length
+	 * - Slower notes for faster songs
+	 * - Faster notes for slower songs
+	 */
+	 const int FAST_TEMPO_MARKER = 100;
+	 const int SLOW_TEMPO_MARKER = 60;
+	 const int TEMPO_SCALING = 10;
+	 const int REPEATING_NOTES = 2;
+	 const int OCTAVE_RETENTION = 10;
+	 /* START OF SONG
+	  * 
+	  */
+	  const int SILENT_START = 100;
+	 /* END OF SONG
+	  * - Songs should end around the same time
+	  */
+	  const int TRAILING_NOTES = 1;
+	  const int END_STEP_DOWN = 50;
+	  const int END_MAJOR_STEP = 10;
+	  const int END_LONGER = 3;
 	int instruments = song.track_num, beat;
 	float freq_ratio;
 	int resolution_diff;
@@ -43,11 +65,9 @@ int supervisor(Song song) {
 	
 	const int INSTR_MEDIAN = 4; 
 	// We want songs with more tracks
-	if (instruments < INSTR_MEDIAN) {
+	if (instruments < INSTR_MEDIAN)
 		tally += pow(INSTR_MEDIAN+2 - instruments, 10);
-	}
 
-	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
 	# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, freq_ratio, resolution_diff) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
@@ -59,30 +79,30 @@ int supervisor(Song song) {
 	        
 	        // Song is silent at the beginning...
 		if (n1.tone == REST)
-			tally += 100*song.tunes[i].track_length;
+			tally += SILENT_START*song.tunes[i].track_length;
 	        
 	        // Track has poor ending, last note should be lower than 2nd last
-		if( n2.tone < n3.tone)
-			tally += 50*song.tunes[i].track_length;
+		if (n2.tone < n3.tone)
+			tally += END_STEP_DOWN;
 		
 		resolution_diff = abs(n2.tone - n3.tone);
 		// Track should resolve on a major step
 		// ie. the step size should be one of four options,
 		// a major third, a perfect fifth, a major seventh, or an octave 
-		if(resolution_diff != 4 ||
-		  resolution_diff != 7 || 
-		  resolution_diff != 11 ||
-		  resolution_diff != NOTES_PER_OCTAVE)
-			tally += 3*song.tunes[i].track_length;
+		if (resolution_diff != 4 ||
+		    resolution_diff != 7 || 
+		    resolution_diff != 11 ||
+		    resolution_diff != NOTES_PER_OCTAVE)
+			tally += END_MAJOR_STEP;
 		
 		
 		// Last note should be held for half a measure or longer
 		if(n3.hold_time < (BEATS_PER_MEASURE/2))
-			tally += 3*song.tunes[i].track_length;
+			tally += END_LONGER;
 		
 		// Song should end within the same octave that it began
 		if(abs(n1.tone - n3.tone) > (NOTES_PER_OCTAVE/2))
-			tally += 10*song.tunes[i].track_length;
+			tally += OCTAVE_RETENTION*song.tunes[i].track_length;
 		
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
 			if(k == 0) {
@@ -100,36 +120,37 @@ int supervisor(Song song) {
 			}
 			
 			// tempo_alt is at most 20 at least 0
-			if (song.tempo > 100 && a3.hold_time < BEATS_PER_MEASURE/2) {
+			if (song.tempo > FAST_TEMPO_MARKER && a3.hold_time < BEATS_PER_MEASURE/2) {
 				//Fast
-				 tally += 10*((BEATS_PER_MEASURE/2)-a3.hold_time);
-			} else if (song.tempo < 60 && a3.hold_time > BEATS_PER_MEASURE/2) {
+				tally += TEMPO_SCALING*((BEATS_PER_MEASURE/2)-a3.hold_time);
+			} else if (song.tempo < SLOW_TEMPO_MARKER && a3.hold_time > BEATS_PER_MEASURE/2) {
 				//Slow
-				tally += 10*((BEATS_PER_MEASURE)-a3.hold_time);
+				tally += TEMPO_SCALING*((BEATS_PER_MEASURE)-a3.hold_time);
 			}
 			
 			// 4/4 time; STAY ON BEAT
-			if (beat % 4 != 0 && a3.tone != REST) tally += 100;
+			if (beat % 4 != 0 && a3.tone != REST) 
+				tally += FOURFOUR_TIME;
 			
 			// Repeating Rests
 			if((a3.tone == REST) && (a2.tone == REST))
-				tally += 2;
+				tally += REPEATING_NOTES;
 
 			// If a note is high, we don't want it to repeat
 			if (a3.tone > C7_INDEX && a3.tone == a2.tone)
-				tally += 1;
+				tally += REPEATING_NOTES;
 	    		
 	    		// Must be within an octave of the past two notes, not counting rests
 	    		if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a2.tone != REST))
-	    			tally += 2*abs(a3.tone - a2.tone)/NOTES_PER_OCTAVE;
+	    			tally += OCTAVE_RETENTION*abs(a3.tone - a2.tone)/NOTES_PER_OCTAVE;
 	    		if ((abs(a3.tone - a1.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a1.tone != REST))
-				tally += 2*abs(a3.tone - a1.tone)/NOTES_PER_OCTAVE;
+				tally += OCTAVE_RETENTION*abs(a3.tone - a1.tone)/NOTES_PER_OCTAVE;
 			
 			// Hold Time must stay approx. the same size as for prev notes
 			if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
-	    			tally += 1;
+	    			tally += REPEATING_NOTES;
 	    		if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
-				tally += 1;
+				tally += REPEATING_NOTES;
 			
 			if (a3.tone == REST) {
 				beat += a3.hold_time;
@@ -140,8 +161,12 @@ int supervisor(Song song) {
 			    for (int l = 0;l < a3.hold_time;l++) {
 				a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				
-				if (a4.tone == -1 || a4.tone == REST) continue;// This channel has already ended or is at rest
-				if (l == 0 && !(a4.pause_time == 3)) tally += 20;// Perfect Time is good
+				if (a4.tone == -1 || a4.tone == REST) {
+					tally += TRAILING_NOTES;
+					continue;// This channel has already ended or is at rest
+				}
+				if (l == 0 && !(a4.pause_time == 3)) 
+					tally += PERFECT_TIME;// Perfect Time is good
 
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
 				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
@@ -154,7 +179,7 @@ int supervisor(Song song) {
 					freq_ratio == 150 || // 3:2
 					freq_ratio == 133 || // 4:3
 					freq_ratio == 100))  // 1:1
-				  tally += 60;
+				  tally += CONSONANCE;
 			    }
 			}
 			beat += a3.hold_time;
