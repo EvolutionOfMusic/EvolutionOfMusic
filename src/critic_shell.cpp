@@ -113,15 +113,15 @@ int supervisor(Song song) {
 			if (tempo_alt > 0) {
 			  //Fast
 			  if (a3.hold_time < BEATS_PER_MEASURE/2)
-				  tally += 10*((BEATS_PER_MEASURE/2)-a3.hold_time)
+				  tally += 10*((BEATS_PER_MEASURE/2)-a3.hold_time);
 			} else if (tempo_alt < 0) {
 			  //Slow
 			  if (a3.hold_time > BEATS_PER_MEASURE/2)
-				  tally += 10*((BEATS_PER_MEASURE)-a3.hold_time)
+				  tally += 10*((BEATS_PER_MEASURE)-a3.hold_time);
 			}
 			
 			// 4/4 time; STAY ON BEAT
-			if (beat % 4 != 0) tally  +=100;
+			if (beat % 4 != 0) tally += 100;
 			
 			// Repeating Rests
 			if((a3.tone == REST) && (a2.tone == REST))
