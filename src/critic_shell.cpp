@@ -100,10 +100,10 @@ int supervisor(Song song) {
 			}
 			
 			// tempo_alt is at most 20 at least 0
-			if (song.tempo > 100 && a3.hold_time < BEATS_PER_MEASURE/2)
+			if (song.tempo > 100 && a3.hold_time < BEATS_PER_MEASURE/2) {
 				//Fast
 				 tally += 10*((BEATS_PER_MEASURE/2)-a3.hold_time);
-			} else if (song.tempo < 60 && a3.hold_time > BEATS_PER_MEASURE/2)
+			} else if (song.tempo < 60 && a3.hold_time > BEATS_PER_MEASURE/2) {
 				//Slow
 				tally += 10*((BEATS_PER_MEASURE)-a3.hold_time);
 			}
