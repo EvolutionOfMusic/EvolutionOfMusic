@@ -120,6 +120,9 @@ int supervisor(Song song) {
 				  tally += 10*((BEATS_PER_MEASURE)-a3.hold_time)
 			}
 			
+			// 4/4 time; STAY ON BEAT
+			if (beat % 4 != 0) tally  +=100;
+			
 			// Repeating Rests
 			if((a3.tone == REST) && (a2.tone == REST))
 				tally += 1;
