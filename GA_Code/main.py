@@ -45,8 +45,20 @@ get_gen_num = lambda song_id, song_count: song_id//song_count
 
 def get_population_sample(config_obj, *songs):
     gen_num = get_gen_num(songs[0].song_id, config_obj.song_count)
+    wv = []
+    for song in songs:
+        if wv == []:
+            wv.append(song)
+        elif wv[len(wv) - 1].score == song.score:
+            continue
+        else:
+            wv.append(song) 
+        
+        if len(wv) == config_obj.sample_size:
+            break 
+        
     write_to_output_file(config_obj.sample_file + "_generation_{}"
-                         .format(gen_num), *(songs[:config_obj.sample_size + 1]))
+                         .format(gen_num), *wv)
 
 def get_avg(*scores):
     return round(sum([score for score in scores])/len(scores)) 
