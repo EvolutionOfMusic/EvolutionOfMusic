@@ -49,7 +49,7 @@ int supervisor(Song song) {
 
 	//printf("OMP START\n");
 	// Parallelize on i, evaluates for errors within each track
-	//# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, freq_ratio, resolution_diff) reduction(+:tally)
+	# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, freq_ratio, resolution_diff) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
 	        beat = 0;
 	        
