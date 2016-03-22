@@ -87,7 +87,7 @@ Song start_AI(bool displayText, int * iteration, int score) {
 	}
 	
 	if (song_index == song_list.size()-1) {
-        if (song_index != -1) set_sd(song_list);
+	        //if (song_index != -1) set_sd(song_list);
 		char buffer[100];
 		
 		if (displayText)

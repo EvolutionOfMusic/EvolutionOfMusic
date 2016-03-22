@@ -9,7 +9,8 @@
 
 const int NOTES_PER_OCTAVE = 12;
 const int BEATS_PER_MEASURE = 16;
-const int C7_INDEX = 6 * NOTES_PER_OCTAVE + 1;
+const int C6_INDEX = 5 * NOTES_PER_OCTAVE + 1;
+const int C3_INDEX = 4 * NOTES_PER_OCTAVE + 1;
 
 /* A Song holds Tracks; A Track holds Notes
  * Consonance is good; Dissonance is bad
@@ -17,15 +18,16 @@ const int C7_INDEX = 6 * NOTES_PER_OCTAVE + 1;
  * https://musicmasterworks.com/WhereMathMeetsMusic.html
  * https://en.wikipedia.org/wiki/Pythagorean_tuning
  * http://hyperphysics.phy-astr.gsu.edu/hbase/music/mussca.html
- *
+ * - Also used for transitions
  */
-const int CONSONANCE = 60;
+const int CONSONANCE = 600;
 /* Rhythm
  * - Being on the same beat is good
  * - 4/4 Time is good
  */
-const int PERFECT_TIME = 20;
-const int FOURFOUR_TIME = 140;
+const int PERFECT_TIME = 1000;
+const int FOURFOUR_TIME = 20000;
+const int MORE_RESTS = 10;
 /* Length
  * - Slower notes for faster songs
  * - Faster notes for slower songs
@@ -37,23 +39,23 @@ const int FAST_TEMPO_MARKER = 100;
 const int SLOW_TEMPO_MARKER = 60;
 const int TEMPO_SCALING = 10;
 const int REPEATING_NOTES = 2;
-const int OCTAVE_RETENTION = 10;
+const int OCTAVE_RETENTION = 100;
  /* START OF SONG
   * - Don't start Silently
   */
-const int SILENT_START = 100;
+const int SILENT_START = 1000;
  /* END OF SONG
   * - Songs should end around the same time
   * - Should end with a step down
   * - Should end with a major step
   * - Should end on a longer note length
   */
-const int TRAILING_NOTES = 1;
-const int END_STEP_DOWN = 50;
-const int END_MAJOR_STEP = 10;
-const int END_LONGER = 3;
+const int TRAILING_NOTES = 50;
+const int END_STEP_DOWN = 100;
+const int END_MAJOR_STEP = 100;
+const int END_LONGER = 100;
 // - Less tracks should be discouraged
-const int TRACK_MARKER = 4; 
+const int TRACK_MARKER = 3;
 
 int c_shell(Song song) {
 	int score = 100;
@@ -130,18 +132,39 @@ int supervisor(Song song) {
 				//Slow
 				tally += TEMPO_SCALING*((BEATS_PER_MEASURE)-a3.hold_time);
 			}
+
+			// if note is short; PUNISH HIM
+			if (a3.hold_time < 4)
+			        tally += 10*(6-a3.hold_time);
+			if (a3.hold_time == 0)
+			        tally += SILENT_START*SILENT_START;
 			
 			// 4/4 time; STAY ON BEAT
-			if (beat % 4 != 0 && a3.tone != REST) 
+			if (beat % 4 != 0) 
 				tally += FOURFOUR_TIME;
+			
+			// 4/4 time; STAY ON HALF BEAT
+			if (beat % 4 != 0 && beat % 2 != 0) 
+				tally += FOURFOUR_TIME/2;
 			
 			// Repeating Rests
 			if((a3.tone == REST) && (a2.tone == REST))
 				tally += REPEATING_NOTES;
 
 			// If a note is high, we don't want it to repeat
-			if (a3.tone > C7_INDEX && a3.tone == a2.tone)
+			if (a3.tone > C6_INDEX && a3.tone == a2.tone)
 				tally += REPEATING_NOTES;
+
+			// a note is high
+			if (a3.tone > C6_INDEX-(NOTES_PER_OCTAVE/2))
+				tally += 10*REPEATING_NOTES;
+
+			// Low notes
+			if (a3.tone != REST && a3.tone < C3_INDEX)
+				tally += 10*REPEATING_NOTES;
+
+			if (k > 1 && !(a1.tone == REST || a2.tone == REST || a3.tone == REST))
+			        tally += MORE_RESTS;
 	    		
 	    		// Must be within an octave of the past two notes, not counting rests
 	    		if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a2.tone != REST))
@@ -159,6 +182,35 @@ int supervisor(Song song) {
 				beat += a3.hold_time;
 				continue;
 			}
+			
+			if (a2.tone != REST) {
+			  if (frequencies[a3.tone] > frequencies[a2.tone]) {
+			    freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a2.tone]);
+			  } else {
+			    freq_ratio = floor((100*frequencies[a2.tone]) / frequencies[a3.tone]);
+			  }
+
+			  // If there is dissonance, + demerits
+			  if (!(	fmod(freq_ratio, 150) == 0 || // 3:2
+					fmod(freq_ratio, 133) == 0 || // 4:3
+					fmod(freq_ratio, 100) == 0)) //Octaves
+			    tally += CONSONANCE;
+			}
+			
+			if (a1.tone != REST) {
+			  if (frequencies[a3.tone] > frequencies[a1.tone]) {
+			    freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a1.tone]);
+			  } else {
+			    freq_ratio = floor((100*frequencies[a1.tone]) / frequencies[a3.tone]);
+			  }
+
+			  // If there is dissonance, + demerits
+			  if (!(	fmod(freq_ratio, 150) == 0 || // 3:2
+					fmod(freq_ratio, 133) == 0 || // 4:3
+					fmod(freq_ratio, 100) == 0)) //Octaves
+			    tally += CONSONANCE;
+			}
+			
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time;l++) {
@@ -177,11 +229,10 @@ int supervisor(Song song) {
 				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
 
-				// If there is dissonance, +50 demerits
-				if (!(	freq_ratio == 200 || // 2:1
-					freq_ratio == 150 || // 3:2
-					freq_ratio == 133 || // 4:3
-					freq_ratio == 100))  // 1:1
+				// If there is dissonance, + demerits
+				if (!(	fmod(freq_ratio, 150) == 0 || // 3:2
+					fmod(freq_ratio, 133) == 0 || // 4:3
+					fmod(freq_ratio, 100) == 0)) //Octaves
 				  tally += CONSONANCE;
 			    }
 			}
