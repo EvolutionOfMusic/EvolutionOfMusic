@@ -1,11 +1,13 @@
 /*
- * critic_shell.cpp
+ * slow_critic_shell.cpp
  *
  *  Created on: Feb 1, 2016
  *      Author: Stephen
  */
 
 #include "critic_shell.h"
+#include <fstream>
+#include <iostream>
 
 const int NOTES_PER_OCTAVE = 12;
 const int BEATS_PER_MEASURE = 16;
@@ -65,30 +67,28 @@ int c_shell(Song song) {
 
 int supervisor(Song song) {
 	//JUDGE IT
-	int score = 0, tally = 0, instruments = song.track_num, beat, resolution_diff;
+        int score = 0, endTally = 0, consonanceTally = 0, repeatingTally = 0,
+	        rhythmTally = 0, noteLengthTally = 0, restTally = 0, octaveTally = 0, trackTally = 0,
+	        instruments = song.track_num, beat, resolution_diff;
 	float freq_ratio;
 	Note a1, a2, a3, a4, n1, n2, n3;
 	
 	// We want songs with more tracks
 	if (instruments < TRACK_MARKER)
-		tally += pow(TRACK_MARKER+2 - instruments, 10);
+		trackTally += pow(TRACK_MARKER+2 - instruments, 10);
 
 	// Parallelize on i, evaluates for errors within each track
-	# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, freq_ratio, resolution_diff) reduction(+:tally)
+	//	# pragma omp parallel for num_threads(4) private(n1, n2, n3, a1, a2, a3, a4, beat, freq_ratio, resolution_diff) reduction(+:tally)
 	for (int i = 0;i < instruments;i++) {
-	        beat = 0;
-	        
-	        n1 = song.tunes[i].channel[0];
+		beat = 0;
+		
+		n1 = song.tunes[i].channel[0];
 		n2 = song.tunes[i].channel[song.tunes[i].track_length -2];
 		n3 = song.tunes[i].channel[song.tunes[i].track_length -1];
 	        
-	        // Song is silent at the beginning...
-		if (n1.tone == REST)
-			tally += SILENT_START*song.tunes[i].track_length;
-	        
-	        // Track has poor ending, last note should be lower than 2nd last
+		// Track has poor ending, last note should be lower than 2nd last
 		if (n2.tone < n3.tone)
-			tally += END_STEP_DOWN;
+			endTally += END_STEP_DOWN;
 		
 		resolution_diff = abs(n2.tone - n3.tone);
 		// Track should resolve on a major step
@@ -98,16 +98,16 @@ int supervisor(Song song) {
 		    resolution_diff != 7 || 
 		    resolution_diff != 11 ||
 		    resolution_diff != NOTES_PER_OCTAVE)
-			tally += END_MAJOR_STEP;
+			endTally += END_MAJOR_STEP;
 		
 		
 		// Last note should be held for half a measure or longer
 		if(n3.hold_time < (BEATS_PER_MEASURE/2))
-			tally += END_LONGER;
+			endTally += END_LONGER;
 		
 		// Song should end within the same octave that it began
 		if(abs(n1.tone - n3.tone) > (NOTES_PER_OCTAVE/2))
-			tally += OCTAVE_RETENTION*song.tunes[i].track_length;
+			endTally += OCTAVE_RETENTION*song.tunes[i].track_length;
 		
 		for (int k = 0;k < song.tunes[i].track_length;k++) {
 			if(k == 0) {
@@ -127,121 +127,106 @@ int supervisor(Song song) {
 			// tempo_alt is at most 20 at least 0
 			if (song.tempo > FAST_TEMPO_MARKER && a3.hold_time < BEATS_PER_MEASURE/2) {
 				//Fast
-				tally += TEMPO_SCALING*((BEATS_PER_MEASURE/2)-a3.hold_time);
+				noteLengthTally += TEMPO_SCALING*((BEATS_PER_MEASURE/2)-a3.hold_time);
 			} else if (song.tempo < SLOW_TEMPO_MARKER && a3.hold_time > BEATS_PER_MEASURE/2) {
 				//Slow
-				tally += TEMPO_SCALING*((BEATS_PER_MEASURE)-a3.hold_time);
+				noteLengthTally += TEMPO_SCALING*((BEATS_PER_MEASURE)-a3.hold_time);
 			}
 
 			// if note is short; PUNISH HIM
 			if (a3.hold_time < 4)
-			        tally += 10*(6-a3.hold_time);
+				noteLengthTally += 10*(6-a3.hold_time);
 			if (a3.hold_time == 0)
-			        tally += SILENT_START*SILENT_START;
+				noteLengthTally += SILENT_START*SILENT_START;
 			
 			// 4/4 time; STAY ON BEAT
-			if (beat % 4 != 0) 
-				tally += FOURFOUR_TIME;
-			
-			// 4/4 time; STAY ON HALF BEAT
-			if (beat % 4 != 0 && beat % 2 != 0) 
-				tally += FOURFOUR_TIME/2;
+			if (beat % a3.hold_time != 0) {
+				rhythmTally += FOURFOUR_TIME/2;
+				noteLengthTally += FOURFOUR_TIME/2;
+			}
 			
 			// Repeating Rests
-			if((a3.tone == REST) && (a2.tone == REST))
-				tally += REPEATING_NOTES;
+			if((a3.tone == REST) && (a2.tone == REST)) {
+				restTally += REPEATING_NOTES/2;
+				repeatingTally += REPEATING_NOTES/2;
+			}
 
 			// If a note is high, we don't want it to repeat
-			if (a3.tone > C6_INDEX && a3.tone == a2.tone)
-				tally += REPEATING_NOTES;
+			if (a3.tone > C6_INDEX && a3.tone == a2.tone) {
+				repeatingTally += REPEATING_NOTES/2;
+				octaveTally += REPEATING_NOTES/2;
+			}
 
 			// a note is high
 			if (a3.tone > C6_INDEX-(NOTES_PER_OCTAVE/2))
-				tally += 10*REPEATING_NOTES;
+				octaveTally += 10*REPEATING_NOTES;
 
 			// Low notes
 			if (a3.tone != REST && a3.tone < C3_INDEX)
-				tally += 10*REPEATING_NOTES;
+				octaveTally += 10*REPEATING_NOTES;
 
 			if (k > 1 && !(a1.tone == REST || a2.tone == REST || a3.tone == REST))
-			        tally += MORE_RESTS;
+				restTally += MORE_RESTS;
 	    		
-	    		// Must be within an octave of the past two notes, not counting rests
-	    		if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a2.tone != REST))
-	    			tally += OCTAVE_RETENTION*abs(a3.tone - a2.tone)/NOTES_PER_OCTAVE;
-	    		if ((abs(a3.tone - a1.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a1.tone != REST))
-				tally += OCTAVE_RETENTION*abs(a3.tone - a1.tone)/NOTES_PER_OCTAVE;
+			// Must be within an octave of the past two notes, not counting rests
+			if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a2.tone != REST))
+				octaveTally += OCTAVE_RETENTION*abs(a3.tone - a2.tone)/NOTES_PER_OCTAVE;
+			if ((abs(a3.tone - a1.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a1.tone != REST))
+				octaveTally += OCTAVE_RETENTION*abs(a3.tone - a1.tone)/NOTES_PER_OCTAVE;
 			
 			// Hold Time must stay approx. the same size as for prev notes
 			if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
-	    			tally += REPEATING_NOTES;
-	    		if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
-				tally += REPEATING_NOTES;
+				noteLengthTally += REPEATING_NOTES;
+			if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
+				noteLengthTally += REPEATING_NOTES;
 			
 			if (a3.tone == REST) {
 				beat += a3.hold_time;
 				continue;
 			}
 			
-			if (a2.tone != REST) {
-			  if (frequencies[a3.tone] > frequencies[a2.tone]) {
-			    freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a2.tone]);
-			  } else {
-			    freq_ratio = floor((100*frequencies[a2.tone]) / frequencies[a3.tone]);
-			  }
-
-			  // If there is dissonance, + demerits
-			  if (!(	fmod(freq_ratio, 150) == 0 || // 3:2
-					fmod(freq_ratio, 133) == 0 || // 4:3
-					fmod(freq_ratio, 100) == 0)) //Octaves
-			    tally += CONSONANCE;
-			}
-			
-			if (a1.tone != REST) {
-			  if (frequencies[a3.tone] > frequencies[a1.tone]) {
-			    freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a1.tone]);
-			  } else {
-			    freq_ratio = floor((100*frequencies[a1.tone]) / frequencies[a3.tone]);
-			  }
-
-			  // If there is dissonance, + demerits
-			  if (!(	fmod(freq_ratio, 150) == 0 || // 3:2
-					fmod(freq_ratio, 133) == 0 || // 4:3
-					fmod(freq_ratio, 100) == 0)) //Octaves
-			    tally += CONSONANCE;
-			}
-			
 			for (int j = 0;j < instruments;j++) {
 			    if (j == i) continue;
 			    for (int l = 0;l < a3.hold_time;l++) {
-				a4 = getNoteAtBeat(song.tunes[j], beat+l);
+			        a4 = getNoteAtBeat(song.tunes[j], beat+l);
 				
 				if (a4.tone == -1 || a4.tone == REST) {
-					tally += TRAILING_NOTES;
+					endTally += TRAILING_NOTES;
 					continue;// This channel has already ended or is at rest
 				}
-				if (l == 0 && !(a4.pause_time == 3)) 
-					tally += PERFECT_TIME;// Perfect Time is good
+				//if (l == 0 && !(a4.pause_time == 3) && (beat % 4 != 0)) 
+				//	rhythmTally += PERFECT_TIME;// Perfect Time is good
 
 				if (frequencies[a3.tone] > frequencies[a4.tone]) {
-				  freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
+					freq_ratio = floor((100*frequencies[a3.tone]) / frequencies[a4.tone]);
 				} else {
-				  freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
+					freq_ratio = floor((100*frequencies[a4.tone]) / frequencies[a3.tone]);
 				}
 
 				// If there is dissonance, + demerits
-				if (!(	fmod(freq_ratio, 150) == 0 || // 3:2
+				if (!(fmod(freq_ratio, 150) == 0 || // 3:2
 					fmod(freq_ratio, 133) == 0 || // 4:3
 					fmod(freq_ratio, 100) == 0)) //Octaves
-				  tally += CONSONANCE;
+				  consonanceTally += CONSONANCE;
 			    }
 			}
 			beat += a3.hold_time;
 		}
 	}
-	score += tally;
-	if (score < 0) score = 0;
-	return score;
+	
+	std::ofstream file("critic_output", std::ios_base::app);
+	if (file.is_open()) {
+		file << "End " << endTally << "\n"; 
+		file << "Consonance " << consonanceTally << "\n";
+		file << "Rhythm " << rhythmTally << "\n";
+		file << "Note Length " << noteLengthTally << "\n";
+		file << "Rests " << restTally << "\n"; 
+		file << "Octaves " << octaveTally << "\n";
+		file << "Track " << trackTally << "\n";
+		file.close();
+	}
+	
+	return endTally + consonanceTally + rhythmTally + noteLengthTally + restTally + octaveTally + trackTally;
 }
 
 Note getNoteAtBeat(Track track, int beat) {
