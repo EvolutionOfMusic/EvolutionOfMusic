@@ -1,19 +1,18 @@
 clear
 clc
 
-S = 8000;
+FS = 8192;
 % http://www.mathworks.com/matlabcentral/newsreader/view_thread/136160
 % T is the duration of the note
 % f is the frequency in Hertz
 % a is the amplitude or Volume
-note = @(a,f,T) a*sin(2*pi*f*[0:1/(2*S):T]);
-tempo = @(bpm) bpm; 
-% 16 (1/16 beats) = 1 beat   
+note = @(a,f,T) a*cos(2*pi*f*[0:1/FS:T]);
+tempo = @(bpm) 16*bpm/60; 
+% 16 (1/16 beats) = 1 beat
 % 1 bpm = 16 (1/16 beats)/min  
 % 60 sec = 1 min  
 % 1 bpm = 60*16 (1/16th beats) / sec
-time = @(hold, pause, bpm) (hold - pause)/tempo(bpm);
-%FS = []; fs = []; ds = [];
+time = @(hold, pause, bpm) (hold - (pause/2))/tempo(bpm);
 
 song_file = input('Enter file name: ');
 
@@ -25,58 +24,38 @@ for i = 1:num_songs
     num_tracks = sscanf(fgetl(file), '%d');
     tempo = sscanf(fgetl(file), '%d');
     song_id = sscanf(fgetl(file), '%d');
-    FS = [];
+    SONG = [];
     
     for j = 1:num_tracks
-        fs = []; ds = [];
+        CHANNEL = zeros(1, 160); TIMES = zeros(1, 160);
         num_notes = sscanf(fgetl(file), '%d'); 
         tuple = sscanf(fgetl(file), '%d %d');
         volume = tuple(1, 1); track_id = tuple(2, 1);
         clear track_id;
         for k = 1:num_notes
             temp = sscanf(fgetl(file), '%d %d %d');
-            fs = [fs, tone_freq(temp(2))];
-            ds = [ds, time(temp(3), temp(1), 40)];
+            %CHANNEL(k) = tone_freq(temp(2));%
+            CHANNEL = [CHANNEL, tone_freq(temp(2))];
+            %TIMES(k) = time(temp(3), temp(1), tempo);%
+            TIMES = [TIMES, time(temp(3), temp(1), 40)];
         end
         
-        new_fs = [];
-        for index=1:length(ds)
-            new_fs = [new_fs note(volume/100, fs(index), ds(index))];
+        SCALED_FREQUENCIES = [];
+        for index=1:length(TIMES)
+            SCALED_FREQUENCIES = [SCALED_FREQUENCIES note(0.8, CHANNEL(index), TIMES(index))];
         end
         
-        [rowsFS columnsFS] = size(FS);
-        [rowsfs columnsfs] = size(new_fs);
+        [rowsSONG, columnsSONG] = size(SONG);
+        [rowsFREQUENCIES, columnsFREQUENCIES] = size(SCALED_FREQUENCIES);
         
         %Preparation
-        if (j < num_tracks/2)
-            if (j == 1)
-                FS = new_fs./num_tracks;
-            elseif (columnsfs > columnsFS)
-                FS = [FS zeros(rowsFS, columnsfs - columnsFS)];
-                FS(1:columnsfs) = (FS(1:columnsfs)) + (new_fs./num_tracks);
-            else
-                FS(1:columnsfs) = (FS(1:columnsfs)) + (new_fs./num_tracks);
-            end
-        else
-            if ((mod(num_tracks, 2) == 0 && j == floor(num_tracks/2)) || (mod(num_tracks, 2) == 1 && j == floor(num_tracks/2)+1))
-                if (columnsfs > columnsFS)
-                    FS = [FS zeros(rowsFS, columnsfs - columnsFS)];
-                elseif (columnsFS > columnsfs)
-                    new_fs = [new_fs zeros(1, columnsFS - columnsfs)];
-                end
-                FS = [FS;new_fs./num_tracks];
-            elseif (columnsfs > columnsFS)
-                FS = [FS zeros(rowsFS, columnsfs - columnsFS)];
-                FS(2, 1:columnsfs) = FS(2, 1:columnsfs) + (new_fs./num_tracks);
-            else
-                FS(2, 1:columnsfs) = FS(2, 1:columnsfs) + (new_fs./num_tracks);
-            end
+        if (columnsFREQUENCIES > columnsSONG)
+            SONG = [SONG zeros(1, columnsFREQUENCIES - columnsSONG)];
         end
+        SONG(1:columnsFREQUENCIES) = (SONG(1:columnsFREQUENCIES)) + (SCALED_FREQUENCIES(1:columnsFREQUENCIES)./(num_tracks));
     end
-    FS = FS';
+    SONG = SONG';
     out_file = sprintf('sample_%d.wav', song_id);
-    audiowrite(out_file, FS, S);
-    audioinfo(out_file)
-    %sound(FS, S);
+    audiowrite(out_file, SONG, FS);
 end
 fclose(file);

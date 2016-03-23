@@ -28,7 +28,7 @@
 // END OF IMPORTANT DEFINITIONS
 
 typedef struct{
-	short int pause_time, 	// 1/4th beat, at the moment (changes how the note is attacked, 1/8 beat)
+	short int pause_time, 	// 1/64th * [0-2] of a beat, at the moment (changes how the note is attacked, 1/8 beat)
 		  hold_time,	// 1/4th beat, at the moment
 		  tone;			// 0-95
 } Note;

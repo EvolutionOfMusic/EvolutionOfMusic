@@ -147,10 +147,12 @@ def sample_pair(seq):
     rv = []
     rv.append(seq.random_get())
     rv.append(seq.random_get())
-
+    i = 0
     while rv[1] is rv[0] or rv[0].score == rv[1].score:
         rv[1] = seq.random_get()
-
+        if i > 500:
+            break 
+        i += 1
     return rv[0], rv[1]
     
 
