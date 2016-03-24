@@ -41,9 +41,11 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0;i < iterations;) {
 		song = ai_shell(continuing, displayText, &i, score);
+		if (displayText)
+			printf("Song %d:", song.song_id);
 		score = c_shell(song);
 		if (displayText)
-			printf("Song %d: Score of %d\n", song.song_id, score);
+			printf(" Score of %d\n", song.song_id, score);
 	}
 
 	gettimeofday(&end_time, NULL);
