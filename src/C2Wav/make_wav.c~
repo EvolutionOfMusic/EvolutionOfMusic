@@ -6,16 +6,17 @@
  * Creative Commons license Attribution-NonCommercial
  *  http://creativecommons.org/licenses/by-nc/3.0/
  */
- 
+/* modified based on www-mmsp.ece.mcgill.ca/documents/audioformats/wave/wave.html and https://blogs.msdn.microsoft.com/dawate/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format/ */
+
 #include "make_wav.h"
  
 void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file){
     unsigned buf;
-    while(num_bytes>0){   
-	buf = word & 0xff;
+    while(num_bytes>0){
+	buf = word & 0xff;/* write a byte at a time */
         fwrite(&buf, 1,1, wav_file);
         num_bytes--;
-    word >>= 8;
+	word >>= 8;
     }
 }
  
@@ -23,7 +24,7 @@ void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file){
     http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
  */
  
-void write_wav(char * filename, unsigned long num_samples, short int * data, int s_rate) {
+void write_wav(char * filename, unsigned long num_samples, float * data, int s_rate) {
     FILE* wav_file;
     unsigned int sample_rate;
     unsigned int num_channels;
@@ -34,7 +35,7 @@ void write_wav(char * filename, unsigned long num_samples, short int * data, int
     num_channels = 1;   /* monoaural */
     bytes_per_sample = 2;
  
-    if (s_rate<=0) sample_rate = 44100;
+    if (s_rate <= 0) sample_rate = 44100;
     else sample_rate = (unsigned int) s_rate;
  
     byte_rate = sample_rate*num_channels*bytes_per_sample;
@@ -44,7 +45,7 @@ void write_wav(char * filename, unsigned long num_samples, short int * data, int
  
     /* write RIFF header */
     fwrite("RIFF", 1, 4, wav_file);
-    write_little_endian(36 + bytes_per_sample* num_samples*num_channels, 4, wav_file);
+    write_little_endian(36 + bytes_per_sample* num_samples*num_channels, 4, wav_file); /* Tells the wav how many bytes there are */
     fwrite("WAVE", 1, 4, wav_file);
  
     /* write fmt  subchunk */
@@ -59,10 +60,10 @@ void write_wav(char * filename, unsigned long num_samples, short int * data, int
  
     /* write data subchunk */
     fwrite("data", 1, 4, wav_file);
-    write_little_endian(bytes_per_sample* num_samples*num_channels, 4, wav_file);
-    for (i=0; i< num_samples; i++){   
-	write_little_endian((unsigned int)(data[i]),bytes_per_sample, wav_file);
-    }
+    write_little_endian(bytes_per_sample*num_samples, 4, wav_file);/* data chunk size */
+    for (i = 0;i < num_samples;i++)
+	write_little_endian((unsigned int)(data[i]*2147483647),bytes_per_sample, wav_file); /* translates float to 32-bit */
+	/* writes the Song into the WAV */
  
     fclose(wav_file);
 }

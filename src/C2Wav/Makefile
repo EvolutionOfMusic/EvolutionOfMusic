@@ -2,13 +2,18 @@
 #* Stephen Andersen                    ECE 420 *#
 #* 011363024                                   *#
 #***********************************************#
-CC = gcc
-CFLAGS = -g -Wall -lm
-DEPS = main.h C2Wav.h make_wav.h ../song_structs.h ../frequencies.h
-OBJ = main.o C2Wav.o make_wav.o ../frequencies.o
+CC = g++
+CFLAGS = -lm -g -Wall
+DEPS = main.h C2Wav.h make_wav.h \
+	../python3_to_cpp_converter.h \
+	../song_structs.h ../frequencies.h
+OBJ = main.o C2Wav.o make_wav.o \
+	../python3_to_cpp_converter.o \
+	../frequencies.o
 
 %.o: %.c #$(DEPS)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c $< -o $@
+#$@ is rule name, $< is first arg after
 
 main: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^

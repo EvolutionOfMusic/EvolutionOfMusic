@@ -40,11 +40,11 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
 	return song;
 }
 
-int get_diversity(std::vector<Song> song_list, int song_index) {
-	Song song = song_list.at(song_index);
+int get_diversity(std::list<Song> song_list, std::list<Song>::iterator current) {
+	Song song = (*current);//song_list.at(song_index);
 	int diversity = 0;
 	//# pragma omp parallel for num_threads(4) reduction(-:diversity)
-	for(std::vector<Song>::iterator it = song_list.begin();it <= song_list.end();it++)
+	for(std::list<Song>::iterator it = song_list.begin();it != song_list.end();it++)
 		if ((*it).song_id != song.song_id)
 			for (int i = 0;i < song.track_num;i++)
 				for (int j = 0;j < (*it).tunes[i].track_length;j++)
@@ -70,24 +70,26 @@ void init_AI() {
 }
 
 Song start_AI(bool displayText, int * iteration, int score) {
-	static std::vector<Song> song_list;
+	static std::list<Song> song_list;
+	static std::list<Song>::iterator it;
 	static int song_index = -1;
 	
 	if (song_index == -1){
 		// READ OUTPUT
 		ifstream file("./main_py_output");
 		song_list = parse_song(file);
+		it = song_list.begin();
 	} else {
 		// Pass the song & score to the AI
 		ofstream file("main_py_input", std::ios_base::app);
 		if (file.is_open()) {
-			file << score << " " << get_diversity(song_list, song_index) << "\n";
+			file << score << " " << get_diversity(song_list, it) << "\n";//song_index) << "\n";
 			file.close();
 		}
 	}
 	
 	if (song_index == song_list.size()-1) {
-	        //if (song_index != -1) set_sd(song_list);
+	    //if (song_index != -1) set_sd(song_list);
 		char buffer[100];
 		
 		if (displayText)
@@ -102,19 +104,24 @@ Song start_AI(bool displayText, int * iteration, int score) {
 		    pause();
 		sig_flag = false;
 		
+		printf("READ OUTPUT\n");
 		// READ OUTPUT
 		ifstream file("./main_py_output");
 		song_list = parse_song(file);
-		
+		it = song_list.begin();
+		printf("I READ OUTPUT\n");
+
 		// Index Change
 		song_index = 0;
 		//New Iteration
 		(*iteration)++;
+		printf("WILL IT FAIL\n");
 	} else {
 		song_index++;
+		it++;
 	}
 	
-	return song_list.at(song_index);
+	return (*it);//song_list.at(song_index);
 }
 
 void sig_handler(int sig) {

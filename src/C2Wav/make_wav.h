@@ -14,6 +14,6 @@
 #include <assert.h>
  
 void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file);
-void write_wav(char * filename, unsigned long num_samples, short int * data, int s_rate);
+void write_wav(char * filename, unsigned long num_samples, float * data, int s_rate);
 
 #endif

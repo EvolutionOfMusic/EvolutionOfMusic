@@ -11,9 +11,9 @@
 #include <cstdlib>
 #include <fstream> // ifstream, ofstream
 #include <iostream>
-#include <vector>
+#include <list>
 #include "song_structs.h"
 
-std::vector<Song> parse_song(std::ifstream &file);
+std::list<Song> parse_song(std::ifstream &file);
 
 #endif /* PYTHON_CONV_H_ */

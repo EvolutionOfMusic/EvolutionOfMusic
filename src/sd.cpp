@@ -20,14 +20,14 @@ void init_sd() {
 	if (toSD.is_open()) toSD.close();
 }
 
-void set_sd(std::vector<Song> song_list) {
+void set_sd(std::list<Song> song_list) {
 	ofstream toSD;
 	toSD.open("music");
 	if (toSD.is_open()) {
 		// NUM_SONGS
 		toSD << song_list.size() << "\n";
-		for(std::vector<Song>::iterator it = song_list.begin();
-			it <= song_list.end();
+		for(std::list<Song>::iterator it = song_list.begin();
+			it != song_list.end();
 			it++) {
 		  //printf("%d", it);
 			int NUM_TRACKS = (*it).track_num;//sizeof((*it).tunes)/sizeof(Track);

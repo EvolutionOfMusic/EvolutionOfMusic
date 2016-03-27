@@ -9,10 +9,10 @@
 
 using namespace std;
 
-std::vector<Song> parse_song(ifstream &file){
+std::list<Song> parse_song(ifstream &file){
     char file_line[20];
 	
-	std::vector<Song> song_list;
+	std::list<Song> song_list;
 	
 	short int NUM_SONGS, NUM_TRACKS, NUM_NOTES;
 	if (file.is_open()) {
@@ -20,7 +20,7 @@ std::vector<Song> parse_song(ifstream &file){
 		file.getline(file_line, 20);
 		sscanf(file_line, "%hd", &NUM_SONGS);
 		
-		song_list.reserve(NUM_SONGS);
+		//song_list.reserve(NUM_SONGS);
 		
 		for (int i = 0;i < NUM_SONGS;i++) {
 			// Make a new song
