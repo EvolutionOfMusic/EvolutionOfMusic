@@ -248,7 +248,7 @@ Note getNoteAtBeat(Track track, int beat) {
 	Note got = track.channel[o];
 	if (temp_beat - track.channel[o].hold_time == beat)
 		got.pause_time = 3;//Was perfectly timed
-	return track.channel[o];
+	return got;
 }
 
 int manual_override(Song song) {
