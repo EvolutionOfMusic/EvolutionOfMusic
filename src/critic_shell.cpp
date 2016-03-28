@@ -30,7 +30,7 @@ const int CONSONANCE_RANGE = 8;
  */
 const int PERFECT_TIME = 1000;
 const int FOURFOUR_TIME = 20000;
-const int MORE_RESTS = 10;
+const int MORE_RESTS = 20;
 /* Length
  * - Slower notes for faster songs
  * - Faster notes for slower songs
@@ -40,8 +40,8 @@ const int MORE_RESTS = 10;
  */
 const int FAST_TEMPO_MARKER = 100;
 const int SLOW_TEMPO_MARKER = 60;
-const int TEMPO_SCALING = 10;
-const int REPEATING_NOTES = 6;
+const int TEMPO_SCALING = 20;
+const int REPEATING_NOTES = 10;
 const int OCTAVE_RETENTION = 100;
  /* START OF SONG
   * - Don't start Silently
@@ -131,7 +131,7 @@ int supervisor(Song song) {
 				noteLengthTally += TEMPO_SCALING*((BEATS_PER_MEASURE/2)-a3.hold_time);
 			} else if (song.tempo < SLOW_TEMPO_MARKER && a3.hold_time > BEATS_PER_MEASURE/2) {
 				//Slow
-				noteLengthTally += TEMPO_SCALING*((BEATS_PER_MEASURE)-a3.hold_time);
+				noteLengthTally += TEMPO_SCALING*(a3.hold_time-(BEATS_PER_MEASURE/2));
 			}
 
 			// if note is short; PUNISH HIM
@@ -141,9 +141,8 @@ int supervisor(Song song) {
 				noteLengthTally += SILENT_START*SILENT_START;
 			
 			// 4/4 time; STAY ON BEAT
-			if (beat % a3.hold_time != 0) {
+			if (a3.hold_time != 0 && beat % a3.hold_time != 0)
 				rhythmTally += FOURFOUR_TIME;
-			}
 			
 			// Repeating Rests
 			if((a3.tone == REST) && (a2.tone == REST)) {
@@ -157,7 +156,7 @@ int supervisor(Song song) {
 				octaveTally += REPEATING_NOTES/2;
 			}
 
-			// a note is high
+			// A note is high
 			if (a3.tone > C6_INDEX-(NOTES_PER_OCTAVE/2))
 				octaveTally += 10*REPEATING_NOTES;
 
@@ -175,9 +174,9 @@ int supervisor(Song song) {
 				octaveTally += OCTAVE_RETENTION*abs(a3.tone - a1.tone)/NOTES_PER_OCTAVE;
 			
 			// Hold Time must stay approx. the same size as for prev notes
-			if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
+			if (abs(a3.hold_time - a2.hold_time) > (NOTES_PER_OCTAVE/4))
 				noteLengthTally += REPEATING_NOTES;
-			if (!(abs(a3.hold_time - a2.hold_time) <= (NOTES_PER_OCTAVE/4)))
+			if (abs(a3.hold_time - a2.hold_time) > (NOTES_PER_OCTAVE/4))
 				noteLengthTally += REPEATING_NOTES;
 			
 			if (a3.tone == REST) {
@@ -208,13 +207,17 @@ int supervisor(Song song) {
 				                freq_ratio -= 100;
 				
 				// If there is dissonance, + demerits
-				if (!(  ((freq_ratio < 200 + CONSONANCE_RANGE) && (freq_ratio > 200 - CONSONANCE_RANGE)) || // 2:1
-				        ((freq_ratio < 150 + CONSONANCE_RANGE) && (freq_ratio > 150 - CONSONANCE_RANGE)) || // 3:2
-				        ((freq_ratio < 133 + CONSONANCE_RANGE) && (freq_ratio > 133 - CONSONANCE_RANGE)) || // 4:3
-				        ((freq_ratio < 100 + CONSONANCE_RANGE) && (freq_ratio > 100 - CONSONANCE_RANGE)))) { //Octaves
+				if (!(  ((freq_ratio < 200 + CONSONANCE_RANGE) && 
+					(freq_ratio > 200 - CONSONANCE_RANGE)) || // 2:1
+				        ((freq_ratio < 150 + CONSONANCE_RANGE) && 
+					(freq_ratio > 150 - CONSONANCE_RANGE)) || // 3:2
+				        ((freq_ratio < 133 + CONSONANCE_RANGE) && 
+					(freq_ratio > 133 - CONSONANCE_RANGE)) || // 4:3
+				        ((freq_ratio < 100 + CONSONANCE_RANGE) && 
+					(freq_ratio > 100 - CONSONANCE_RANGE)))) { //Octaves
 				        consonanceTally += CONSONANCE;
 					//printf("CONS %f\n", freq_ratio);
-					}
+				}
 			    }
 			}
 			beat += a3.hold_time;
