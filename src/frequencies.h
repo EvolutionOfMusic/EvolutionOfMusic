@@ -99,7 +99,7 @@
 #define NUM_FREQ (12 * 7)+1
 #define MAX_SCALE_SIZE 12
 
-extern const int frequencies[NUM_FREQ];
+extern const double frequencies[NUM_FREQ];
 
 // Semitones from C in every octave
 extern const int everything_scale[MAX_SCALE_SIZE];
