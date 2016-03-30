@@ -1,0 +1,16 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity frequency_counter_0 is
+    Port ( clock: IN STD_LOGIC_1164;
+	 clock_reset: IN STD_LOGIC_1164;
+	 conduit_end_0: IN STD_LOGIC_1164
+	 s0: OUT STD_LOGIC_VECTOR(31 downto 0)));
+end frequency_counter_0;
+
+
+architecture behavioural of frequency_counter_0 is
+generate i in 31 downto 0:
+
+end behavioural;
+

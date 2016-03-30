@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_up_clocks_0.vhd"
+   type="VHDL"
+   library="up_clocks_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_serial_bus_controller.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_slow_clock_generator.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_dc2.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_d5m.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_lcm.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_ltm.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_ob_de2_35.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_ob_adv7181.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_ob_de2_70.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_ob_de2_115.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_ob_audio.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_av_config_auto_init_ob_adv7180.v"
+   type="VERILOG"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_audio_and_video_config_0.vhd"
+   type="VHDL"
+   library="audio_and_video_config_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_audio_bit_counter.v"
+   type="VERILOG"
+   library="audio_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_audio_in_deserializer.v"
+   type="VERILOG"
+   library="audio_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_audio_out_serializer.v"
+   type="VERILOG"
+   library="audio_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_clock_edge.v"
+   type="VERILOG"
+   library="audio_0" />
+ <file
+   path="niosII_system/simulation/submodules/altera_up_sync_fifo.v"
+   type="VERILOG"
+   library="audio_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_audio_0.vhd"
+   type="VHDL"
+   library="audio_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_gate_timer.vhd"
+   type="VHDL"
+   library="gate_timer" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_sram_0.vhd"
+   type="VHDL"
+   library="sram_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_sdram_0.vhd"
+   type="VHDL"
+   library="sdram_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_jtag_uart_0.vhd"
+   type="VHDL"
+   library="jtag_uart_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_jtag_uart_0_input_stream.dat"
+   type="OTHER"
+   library="jtag_uart_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_jtag_uart_0_output_stream.dat"
+   type="OTHER"
+   library="jtag_uart_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_jtag_uart_0_input_mutex.dat"
+   type="OTHER"
+   library="jtag_uart_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_timer_0.vhd"
+   type="VHDL"
+   library="timer_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_sysid_qsys_0.vho"
+   type="VHDL"
+   library="sysid_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_onchip_memory2_0.hex"
+   type="HEX"
+   library="onchip_memory2_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_onchip_memory2_0.vhd"
+   type="VHDL"
+   library="onchip_memory2_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_ociram_default_contents.dat"
+   type="DAT"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_rf_ram_b.mif"
+   type="MIF"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0.sdc"
+   type="SDC"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0.do"
+   type="OTHER"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_jtag_debug_module_tck.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_rf_ram_b.hex"
+   type="HEX"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_rf_ram_b.dat"
+   type="DAT"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_ociram_default_contents.hex"
+   type="HEX"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_rf_ram_a.dat"
+   type="DAT"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_jtag_debug_module_wrapper.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_jtag_debug_module_sysclk.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_oci_test_bench.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_ociram_default_contents.mif"
+   type="MIF"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_rf_ram_a.mif"
+   type="MIF"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_rf_ram_a.hex"
+   type="HEX"
+   library="nios2_qsys_0" />
+ <file
+   path="niosII_system/simulation/submodules/niosII_system_nios2_qsys_0_test_bench.vhd"
+   type="VHDL"
+   library="nios2_qsys_0" />
+ <file path="niosII_system/simulation/niosII_system.vhd" type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_nios2_qsys_0_jtag_debug_module_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_onchip_memory2_0_s1_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_sdram_0_s1_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_sram_0_avalon_sram_slave_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_audio_and_video_config_0_avalon_av_config_slave_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_synthesizer_0_voice_select_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_spi_0_spi_control_port_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_timer_0_s1_translator.vhd"
+   type="VHDL" />
+ <file
+   path="niosII_system/simulation/niosii_system_jtag_uart_0_avalon_jtag_slave_translator.vhd"
+   type="VHDL" />
+ <topLevel name="niosII_system" />
+ <deviceFamily name="cycloneii" />
+ <modelMap
+   controllerPath="niosII_system.onchip_memory2_0"
+   modelPath="niosII_system.onchip_memory2_0" />
+</simPackage>

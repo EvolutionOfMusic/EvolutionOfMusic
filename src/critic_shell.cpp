@@ -11,7 +11,7 @@
 
 const int NOTES_PER_OCTAVE = 12;
 const int BEATS_PER_MEASURE = 16;
-const int C6_INDEX = 5 * NOTES_PER_OCTAVE + 1;
+const int C5_INDEX = 5 * NOTES_PER_OCTAVE + 1;
 const int C3_INDEX = 4 * NOTES_PER_OCTAVE + 1;
 
 /* A Song holds Tracks; A Track holds Notes
@@ -28,8 +28,8 @@ const int CONSONANCE_RANGE = 8;
  * - Being on the same beat is good
  * - 4/4 Time is good
  */
-const int PERFECT_TIME = 1000;
-const int FOURFOUR_TIME = 20000;
+const int PERFECT_TIME = 5000;
+const int FOURFOUR_TIME = 200000;
 const int MORE_RESTS = 20;
 /* Length
  * - Slower notes for faster songs
@@ -41,7 +41,7 @@ const int MORE_RESTS = 20;
 const int FAST_TEMPO_MARKER = 100;
 const int SLOW_TEMPO_MARKER = 60;
 const int TEMPO_SCALING = 20;
-const int REPEATING_NOTES = 10;
+const int REPEATING_NOTES = 1000;
 const int OCTAVE_RETENTION = 100;
  /* START OF SONG
   * - Don't start Silently
@@ -58,7 +58,7 @@ const int END_STEP_DOWN = 100;
 const int END_MAJOR_STEP = 100;
 const int END_LONGER = 100;
 // - Less tracks should be discouraged
-const int TRACK_MARKER = 3;
+const int TRACK_MARKER = 10;
 
 int c_shell(Song song) {
 	int score = 100;
@@ -134,6 +134,8 @@ int supervisor(Song song) {
 				noteLengthTally += TEMPO_SCALING*(a3.hold_time-(BEATS_PER_MEASURE/2));
 			}
 
+			if (a3.tone == REST && a3.hold_time >= 8)
+			        restTally += MORE_RESTS;
 			// if note is short; PUNISH HIM
 			if (a3.hold_time < 4)
 				noteLengthTally += 10*(6-a3.hold_time);
@@ -151,18 +153,18 @@ int supervisor(Song song) {
 			}
 
 			// If a note is high, we don't want it to repeat
-			if (a3.tone > C6_INDEX && a3.tone == a2.tone) {
+			if (a3.tone > C5_INDEX && a3.tone == a2.tone) {
 				repeatingTally += REPEATING_NOTES/2;
 				octaveTally += REPEATING_NOTES/2;
 			}
 
 			// A note is high
-			if (a3.tone > C6_INDEX-(NOTES_PER_OCTAVE/2))
-				octaveTally += 10*REPEATING_NOTES;
+			if (a3.tone > C5_INDEX-(NOTES_PER_OCTAVE/2))
+				octaveTally += 10*REPEATING_NOTES*REPEATING_NOTES;
 
 			// Low notes
 			if (a3.tone != REST && a3.tone < C3_INDEX)
-				octaveTally += 10*REPEATING_NOTES;
+				octaveTally += 10*REPEATING_NOTES*REPEATING_NOTES;
 
 			//if (k > 1 && !(a1.tone == REST || a2.tone == REST || a3.tone == REST))
 			//	restTally += MORE_RESTS;
