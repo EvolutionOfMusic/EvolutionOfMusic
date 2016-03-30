@@ -1,0 +1,10 @@
+
+**** Build of configuration Nios II for project Evo_Synth ****
+
+make all 
+Info: Building ../Evo_Synth_bsp/
+make --no-print-directory -C ../Evo_Synth_bsp/
+[BSP build complete]
+[Evo_Synth build complete]
+
+**** Build Finished ****
