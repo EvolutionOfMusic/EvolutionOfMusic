@@ -2,7 +2,7 @@ from copy import copy, deepcopy
 
 from NoteGene import NoteGene
 #implement fill with zeros functionality
-#add song length to save_songs in main
+
 
 INF = float("inf")
 

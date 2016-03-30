@@ -6,7 +6,6 @@ from ConfigFile import ConfigFile
 from NoteGene import NoteGene
 from NoteChromosome import NoteChromosome
 from GeneticSong import GeneticSong
-from MusicalInstrument import Instrument
  
 
 def random_gene(config_obj):

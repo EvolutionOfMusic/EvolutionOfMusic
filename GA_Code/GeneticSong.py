@@ -1,10 +1,10 @@
 from copy import copy, deepcopy
 from random import randint, seed
 
-from NoteGene import NoteGene
+from NoteGene import NoteGene, to_range
 from NoteChromosome import NoteChromosome
-from to_range import to_range
        
+
 class GeneticSong:
     """
     >>> gene1 = NoteGene(1,1,1,1,1)
@@ -263,7 +263,7 @@ class GeneticSong:
         rv = GeneticSong(*copy(self._chromosome_list), max_len=self.max_length)
         rv.mutation_chance = self.mutation_chance
         rv.crossover_chance = self.crossover_chance
-        rv.score = self.score
+        rv.score = self.score 
         return rv
 
     def __getitem__(self, track_id):
@@ -373,7 +373,10 @@ class GeneticSong:
             except KeyError:
                 new_chromosome_list.append(deepcopy(song[track_id]))
                 
-        return GeneticSong(*new_chromosome_list, max_len=self.max_length)
+        rv = GeneticSong(*new_chromosome_list, max_len=self.max_length)
+        rv.tempo = self.tempo
+        rv.tempo_range = self.tempo_range
+        return rv
 
     def mutate(self, *delta_mask):
         """

@@ -1,6 +1,5 @@
 from copy import copy
 
-from to_range import to_range
 
 class NoteGene:
     """
@@ -118,9 +117,14 @@ class NoteGene:
         >>> gene2.left_pause_time
         5
         """
-        return NoteGene(self.right_pause_time, self.right_hold_time,
-                        self.tone,
-                        self.left_hold_time, self.left_pause_time)
+        rv = NoteGene(self.right_pause_time, self.right_hold_time,
+                      self.tone,
+                      self.left_hold_time, self.left_pause_time) 
+        rv.max_pause = self.max_pause
+        rv.hold_range = self.hold_range
+        rv.tone_range = self.tone_range 
+        rv.safe_mutation_on = self.safe_mutation_on
+        return rv
 
     def __eq__(self, gene2):
         """
@@ -197,18 +201,25 @@ class NoteGene:
         return [self.left_pause_time, self.left_hold_time, self.tone,
                 self.right_hold_time, self.right_pause_time] 
 
-    def __hash__(self):
-        rv = 7
-        rv = 31 * rv ^ self.left_pause_time
-        rv = 31 * rv ^ self.left_hold_time
-        rv = 31 * rv ^ self.tone
-        rv = 31 * rv ^ self.right_hold_time
-        rv = 31 * rv ^ self.right_pause_time
-        return rv
-
 
 def divide_range(r):
     return range(min(r)//2, max(r)//2 + 1)
+
+
+def to_range(value, new_range):
+    return value % (max(new_range) - min(new_range)) + min(new_range)
+
+
+
+
+        
+
+
+
+
+        
+
+
 
         
 
