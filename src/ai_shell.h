@@ -18,9 +18,9 @@
 #include "song_structs.h"
 #include "sd.h"
 
-Song ai_shell(bool continuing, bool displayText, int * iteration, int score);
+Song ai_shell(bool continuing, bool displayText, int * iteration, long long score);
 void init_AI();
-Song start_AI(bool displayText, int * iteration, int score);
+Song start_AI(bool displayText, int * iteration, long long score);
 void sig_handler(int sig);
 int get_diversity(std::list<Song> song_list, std::list<Song>::iterator current);//int song_index);
 
