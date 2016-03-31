@@ -109,8 +109,9 @@ if __name__ == "__main__":
                 score, diversity = read_input_file_line(save)
                 score_list.append(score)
                 diversity_list.append(abs(diversity))
-                song.score = (config_file.score_scale_factor * score) // (config_file.div_scale_factor * abs(diversity) + 1)
-            song_list.sort(key=lambda v: v.score, reverse=False)
+                song.score = score * config_file.score_scale_factor
+                song.diversity = diversity * config_file.div_scale_factor + 1
+            song_list.sort(key=lambda v: v.score//v.diversity, reverse=False)
             for i in range(len(song_list)):
                 song_list[i].crossover_chance = get_crossover_prob(i)
             clear_file(config_file.input_file)
