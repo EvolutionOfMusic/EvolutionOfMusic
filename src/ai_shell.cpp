@@ -9,7 +9,7 @@
 
 bool sig_flag = false;
 
-Song ai_shell(bool continuing, bool displayText, int * iteration, int score) {
+Song ai_shell(bool continuing, bool displayText, int * iteration, long long score) {
 	static int last_song_id = -1;
 	Song song;
 	char buffer[100];
@@ -69,7 +69,7 @@ void init_AI() {
 	if (file.is_open()) file.close();
 }
 
-Song start_AI(bool displayText, int * iteration, int score) {
+Song start_AI(bool displayText, int * iteration, long long score) {
 	static std::list<Song> song_list;
 	static std::list<Song>::iterator it;
 	static int song_index = -1;
