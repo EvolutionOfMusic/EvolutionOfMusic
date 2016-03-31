@@ -12,7 +12,8 @@ int main(int argc, char *argv[]) {
 	// cin & cout
 
 	bool displayText = false, continuing = false;
-	int seed = 0, iterations, score = 0;
+	int seed = 0, iterations;
+	long long score = 0;
 	struct timeval start_time, end_time;
 	Song song;
 	
