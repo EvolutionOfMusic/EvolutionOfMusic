@@ -66,9 +66,9 @@ int c_shell(Song song) {
 	return score;
 }
 
-int supervisor(Song song) {
+long long supervisor(Song song) {
 	//JUDGE IT
-        int endTally = 0, consonanceTally = 0, repeatingTally = 0,
+        long long endTally = 0, consonanceTally = 0, repeatingTally = 0,
 	        rhythmTally = 0, noteLengthTally = 0, restTally = 0, octaveTally = 0, trackTally = 0,
 	        instruments = song.track_num, beat, resolution_diff;
 	float freq_ratio;
