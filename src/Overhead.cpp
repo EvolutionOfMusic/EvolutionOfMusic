@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 			printf("Song %d:", song.song_id);
 		score = c_shell(song);
 		if (displayText)
-			printf(" Score of %d\n", score);
+			printf(" Score of %llu\n", score);
 	}
 
 	gettimeofday(&end_time, NULL);
