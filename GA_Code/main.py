@@ -150,8 +150,10 @@ if __name__ == "__main__":
                 logging.info("song {}, was mutated".format(song3.song_id))
 
         new_song_list.append(song3)
-        
-    logging.debug("gen_num = {}".format(gen_num))
+
+    logging.debug("number of songs = {}".format(len(new_song_list)))
+    logging.debug("song {}, with fitness {}, is the top song".format(new_song_list[0].song_id, new_song_list.score))
+    
     song_list = new_song_list
     write_to_output_file(config_file.save_file, *song_list)
     save_songs(config_file.save_file, *song_list)
