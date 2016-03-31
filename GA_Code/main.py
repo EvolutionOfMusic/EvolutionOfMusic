@@ -119,7 +119,7 @@ if __name__ == "__main__":
 
     get_population_sample(config_file, *song_list)
     logging.info("avg fitness: {}, max fitness: {}, min fitness: {}".format(get_avg(*score_list), max(score_list), min(score_list)))
-    gen_num = get_gen_num(song_list[0].song_id, config_file.song_count)
+    gen_num = get_gen_num(song_list[1].song_id, config_file.song_count)
     value_list = [get_avg(*score_list), max(score_list), min(score_list), get_avg(*diversity_list)]
     append_to_graph_file(config_file.graph_file, gen_num, *value_list)
 
