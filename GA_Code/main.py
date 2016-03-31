@@ -153,7 +153,7 @@ if __name__ == "__main__":
 
         new_song_list.append(song3)
 
-    logging.debug("song {}, with fitness {}, obj id {}".format(top_song.song_id, top_song.score, id(top_song))
+    logging.debug("song {}, with fitness {}, obj id {}".format(top_song.song_id, top_song.score, id(top_song)))
     
     song_list = new_song_list
     write_to_output_file(config_file.save_file, *song_list)
