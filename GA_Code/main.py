@@ -126,7 +126,9 @@ if __name__ == "__main__":
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     new_song_list = []
 
-    for i in range(config_file.song_count):
+    new_song_list.append(min(song_list, key=lambda v: v.score))
+
+    for i in range(config_file.song_count - 1):
         song1, song2 = sample_pair(song_list)
         c_over_point = randomizer.get_crossover_point(song1, song2)
         song3 = song1.crossover(song2, c_over_point)
