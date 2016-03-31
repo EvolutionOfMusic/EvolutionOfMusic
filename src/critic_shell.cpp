@@ -161,13 +161,13 @@ int supervisor(Song song) {
 			// A note is high
 			if (a3.tone > C5_INDEX-(NOTES_PER_OCTAVE/2)) {
 				octaveTally += 10*REPEATING_NOTES*REPEATING_NOTES;
-				octaveTally += pow(a3.tone - (C5_INDEX-(NOTES_PER_OCTAVE/2)), 10);
+				octaveTally += pow(a3.tone - (C5_INDEX-(NOTES_PER_OCTAVE/2)), 2);
 			}
 
 			// Low notes
 			if (a3.tone != REST && a3.tone < C3_INDEX) {
 				octaveTally += 10*REPEATING_NOTES*REPEATING_NOTES;
-				octaveTally += pow(C3_INDEX - a3.tone, 10);
+				octaveTally += pow(C3_INDEX - a3.tone, 2);
 			}
 
 			//if (k > 1 && !(a1.tone == REST || a2.tone == REST || a3.tone == REST))
