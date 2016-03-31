@@ -60,8 +60,8 @@ const int END_LONGER = 100;
 // - Less tracks should be discouraged
 const int TRACK_MARKER = 10;
 
-int c_shell(Song song) {
-	int score = 100;
+long long c_shell(Song song) {
+	long long score = 100;
        	score = supervisor(song);
 	return score;
 }
