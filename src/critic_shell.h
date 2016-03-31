@@ -15,7 +15,7 @@
 #include "frequencies.h"
 #include "song_structs.h"
 
-lon long c_shell(Song song);
+long long c_shell(Song song);
 long long supervisor(Song song);
 int manual_override(Song song);
 Note getNoteAtBeat(Track track, int beat);
