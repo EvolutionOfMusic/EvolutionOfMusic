@@ -124,7 +124,9 @@ if __name__ == "__main__":
     append_to_graph_file(config_file.graph_file, gen_num, *value_list)
 
     new_song_list = []
-    new_song_list.append(min(song_list, key=lambda v: v.score))
+    top_song = min(song_list, key=lambda v: v.score)
+    top_song.song_id = gen_num * config_file.song_count
+    new_song_list.append(top_song)
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     
 
@@ -151,8 +153,7 @@ if __name__ == "__main__":
 
         new_song_list.append(song3)
 
-    logging.debug("number of songs = {}".format(len(new_song_list)))
-    logging.debug("song {}, with fitness {}, is the top song".format(new_song_list[0].song_id, new_song_list.score))
+    logging.debug("song {}, with fitness {}, is the top song".format(top_song.song_id, top_song.score))
     
     song_list = new_song_list
     write_to_output_file(config_file.save_file, *song_list)
