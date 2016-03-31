@@ -108,11 +108,11 @@ class GeneticSong:
         self.mutation_chance = 0
         self.crossover_chance = 0
         self.score = 0
-	
+	self.diversity = 0
 
         self._song_id = type(self)._song_count
         type(self)._song_count += 1
-
+    
     @property
     def song_id(self):
         return self._song_id
