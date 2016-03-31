@@ -125,7 +125,7 @@ if __name__ == "__main__":
 
     new_song_list = []
     top_song = min(song_list, key=lambda v: v.score)
-    top_song.song_id = gen_num * config_file.song_count
+    top_song.song_id = (gen_num + 1) * config_file.song_count
     new_song_list.append(top_song)
     song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     
