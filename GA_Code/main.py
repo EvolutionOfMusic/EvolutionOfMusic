@@ -123,11 +123,10 @@ if __name__ == "__main__":
     value_list = [get_avg(*score_list), max(score_list), min(score_list), get_avg(*diversity_list)]
     append_to_graph_file(config_file.graph_file, gen_num, *value_list)
 
-
-    song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
     new_song_list = []
-
     new_song_list.append(min(song_list, key=lambda v: v.score))
+    song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
+    
 
     for i in range(config_file.song_count - 1):
         song1, song2 = sample_pair(song_list)
