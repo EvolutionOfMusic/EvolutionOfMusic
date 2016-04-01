@@ -154,8 +154,8 @@ if __name__ == "__main__":
     
 
     for i in range(config_file.song_count - 1):
-        pheno1, pheno2 = sample_pair(song_list)
-        c_over_point = randomizer.get_crossover_point(song1, song2)
+        pheno1, pheno2 = sample_pair(pheno_list)
+        c_over_point = randomizer.get_crossover_point(pheno1, pheno2)
         pheno3 = pheno1.crossover(pheno2, c_over_point)
         log_cross_over(pheno1, pheno2, c_over_point)
         
