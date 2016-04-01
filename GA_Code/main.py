@@ -118,6 +118,9 @@ def find_min_pheno(pheno_list, config_file):
     top_pheno = min(pheno_list, key=lambda v: v.score)
     top_pheno.song_id = (gen_num + 1) * config_file.song_count
     return top_pheno
+
+def get_pheno_count(config_file):
+    return config_file.song_count
     
 if __name__ == "__main__":
     args = init_arg_parser()
@@ -167,7 +170,7 @@ if __name__ == "__main__":
     pheno_list = BiasedRandomSequence(*pheno_list, insert_key=lambda v: v.crossover_chance) 
     
 
-    for i in range(config_file.song_count - 1):
+    for i in range(get_pheno_count(config_file) - 1):
         pheno1, pheno2 = sample_pair(pheno_list)
         c_over_point = randomizer.get_crossover_point(pheno1, pheno2)
         pheno3 = pheno1.crossover(pheno2, c_over_point)
