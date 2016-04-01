@@ -13,7 +13,7 @@ int main(int argc, char ** argv) {
 
   cannon = parse_song(ifs);
   for (std::list<Song>::const_iterator iterator = cannon.begin();iterator != cannon.end();iterator++) {
-    score = c_shell(cannon.at(0)); 
+    score = c_shell(*iterator); 
     std::cout << "The score is: " << score << std::endl;
   }
   ifs.close();
