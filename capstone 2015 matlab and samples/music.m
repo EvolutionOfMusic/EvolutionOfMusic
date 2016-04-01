@@ -1,13 +1,13 @@
 clear
 clc
 
-FS = 8912;
+FS = 44100;
 % http://www.mathworks.com/matlabcentral/newsreader/view_thread/136160
 % T is the duration of the note
 % f is the frequency in Hertz
 % a is the amplitude or Volume
-note = @(a,f,T) a*cos(2*pi*f*[0:1/FS:T]);
-tempo = @(bpm) 16*bpm/60; 
+note = @(a,f,T) a*sin(2*pi*f*[0:1/FS:T]);
+tempo = @(bpm) 4*bpm/60; 
 % 16 (1/16 beats) = 1 beat
 % 1 bpm = 16 (1/16 beats)/min  
 % 60 sec = 1 min  
@@ -27,7 +27,7 @@ for i = 1:num_songs
     SONG = [];
     
     for j = 1:num_tracks
-        CHANNEL = zeros(1, 160); TIMES = zeros(1, 160);
+        CHANNEL = zeros(1, 160); TIMES = zeros(1, 160); PAUSE = zeros(1, 160);
         num_notes = sscanf(fgetl(file), '%d'); 
         tuple = sscanf(fgetl(file), '%d %d');
         volume = tuple(1, 1); track_id = tuple(2, 1);
@@ -37,12 +37,19 @@ for i = 1:num_songs
             CHANNEL(k) = tone_freq(temp(2));%
             %CHANNEL = [CHANNEL, tone_freq(temp(2))];
             TIMES(k) = time(temp(3), temp(1), tempo);%
+            PAUSE(k) = (temp(1)/2)/tempo;
             %TIMES = [TIMES, time(temp(3), temp(1), 40)];
         end
         
         SCALED_FREQUENCIES = [];
         for index=1:length(TIMES)
             SCALED_FREQUENCIES = [SCALED_FREQUENCIES note(0.8, CHANNEL(index), TIMES(index))];
+            if index == length(TIMES) && SCALED_FREQUENCIES(index) ~= 0
+                SCALED_FREQUENCIES(index) = SCALED_FREQUENCIES(index)/2;
+            end
+        end
+        for index=1:length(PAUSE)
+            SCALED_FREQUENCIES = [SCALED_FREQUENCIES note(0.8, 0, PAUSE(index))];
         end
         
         [rowsSONG, columnsSONG] = size(SONG);
