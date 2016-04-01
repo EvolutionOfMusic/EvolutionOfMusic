@@ -87,7 +87,7 @@ def save_pheno_list_to_file(pheno_list, config_file):
 
 def log_cross_over(pheno1, pheno2, c_over_point):
     logging.info("phenotypes {} and {} with fitnesses {} {}, crossed over, at {}"
-                         .format(pheno1.song_id, pheno2.song_id, song1.score, pheno2.score, c_over_point))
+                         .format(pheno1.song_id, pheno2.song_id, pheno1.score, pheno2.score, c_over_point))
     
 def delete_mutation(pheno3, randomizer):
     del_track_id = randomizer.sample_one_item(pheno3.track_ids) 
