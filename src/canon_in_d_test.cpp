@@ -9,7 +9,7 @@ int main(int argc, char ** argv) {
   if (argc != 2) return 1;
   std::list <Song> cannon;
   long long score;
-  std::ifstream ifs("openingToCanonInD", std::ifstream::in);
+  std::ifstream ifs(argv[1], std::ifstream::in);
 
   cannon = parse_song(ifs);
   for (std::list<Song>::const_iterator iterator = cannon.begin();iterator != cannon.end();iterator++) {
