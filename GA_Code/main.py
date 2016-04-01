@@ -103,6 +103,15 @@ def mutation(pheno3, config_file):
     delta_mask = randomizer.get_delta_mask(config_file.max_step_size, pheno3, meta_data)
     pheno3.mutate(*delta_mask)
     return pheno3
+
+def log_delete_mutation(pheno3):
+    logging.info("phenotype {}, was mutated (chromo delete)".format(pheno3.song_id))
+
+def log_add_mutation(pheno3): 
+    logging.info("phenotype {}, was mutated (chromo add)".format(pheno3.song_id))
+
+def log_mutation(pheno3)
+    logging.info("phenotype {}, was mutated".format(pheno3.song_id))
     
 if __name__ == "__main__":
     args = init_arg_parser()
@@ -162,14 +171,14 @@ if __name__ == "__main__":
         if randomizer.get_prob() <= config_file.mutation_chance:
             if randomizer.get_prob() <= config_file.chromo_delete_prob and len(pheno3) > 1:
                 pheno3 = delete_mutation(pheno3, randomizer)
-                logging.info("phenotype {}, was mutated (chromo delete)".format(pheno3.song_id))
+                log_delete_mutation(pheno3)
             elif randomizer.get_prob() <= config_file.chromo_add_prob:
                 pheno3 = add_mutation(pheno3, config_file)
-                logging.info("phenotype {}, was mutated (chromo add)".format(pheno3.song_id))
+                log_add_mutation(pheno3)
             else:
                 pheno3 = mutation(pheno3, config_file)
-                logging.info("phenotype {}, was mutated".format(pheno3.song_id))
-
+                log_mutation(pheno3)
+                
         new_pheno_list.append(pheno3)
 
     pheno_list = new_pheno_list
