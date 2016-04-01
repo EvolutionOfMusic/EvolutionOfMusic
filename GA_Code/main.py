@@ -44,16 +44,16 @@ def write_to_output_file(output_file_name, *songs):
 def get_gen_num(pheno, config_file):
     return pheno.song_id//config_file.song_count
 
-def get_population_sample(config_obj, *songs):
-    gen_num = get_gen_num(songs[0].song_id, config_obj.song_count)
+def get_population_sample(config_obj, *phenos):
+    gen_num = get_gen_num(phenos[0], config_obj.song_count)
     wv = []
-    for song in songs:
+    for pheno in phenos:
         if wv == []:
-            wv.append(song)
-        elif wv[len(wv) - 1].score == song.score:
+            wv.append(pheno)
+        elif wv[len(wv) - 1].score == pheno.score:
             continue
         else:
-            wv.append(song) 
+            wv.append(pheno) 
         
         if len(wv) == config_obj.sample_size:
             break 
