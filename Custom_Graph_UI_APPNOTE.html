@@ -1,0 +1,479 @@
+<html>
+	<head>
+		<title>Custom Graph UI in Java</title>
+		<h1>Custom Graph UI in Java</h1>
+		<hr>
+		----------------<br>
+		Written by:<br>
+		Stephen Andersen<br>
+		Group 8<br>
+		Winter 2016<br>
+		----------------<br>
+		<body>
+			<h3><u>Introduction</u></h3>
+			<p>This tutorial or 'app note' will demonstrate how to create<br>
+			a custom User Interface with a graph that will update based <br>
+			on an updated file.<br></p>
+			<br>
+			This tutorial also expects you to understand basic Java.<br>
+			<br>
+			<h3><u>JFrame Basics</u></h3>
+			<br>
+			<p>Make a new JFrame:</p>
+			/*-------------------------------------
+			<p>
+			JFrame frame = new JFrame("Example Title");<br>
+			<br>
+			/*<br>
+			 * Add any class that implements JComponents Here<br>
+			 * frame.add(new JComponent());<br>
+			 */<br>
+			 <br>
+			 JTabbedPane tabs = new JTabbedPane();<br>
+			 <br>
+			/*<br>
+			 * Add any class that implements JComponents Here<br>
+			 * tabs.add(new JComponent(), "Tab Name");<br>
+			 * tabs.add(new Graph(), "Graph Name");<br>
+			 */<br>
+			 //I add the JTabbedPane <br>
+			 frame.setContentPane(pane);<br>
+			 <br>
+			 // I set a method "endTasks()" to be activated if the JFrame is closed<br>
+			 frame.addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){endTasks();}});<br>
+			 <br>
+			 // Compress and consolidate all JComponents (They won't be visible otherwise) <br>
+			 frame.pack();<br>
+			 // Set the Current Size of the frame (X_SIZE and Y_SIZE must be integers)<br>
+			 frame.setSize(X_SIZE, Y_SIZE);<br>
+			 // Should be obvious<br>
+			 frame.setVisible(true);<br>
+			 // Sets the frame to the center of the screen<br>
+			 frame.setLocationRelativeTo(null);<br>
+			</p>
+			/*-------------------------------------
+
+
+			<h3><u>Graph Basics</u></h3>
+			<br>
+			To make my graph class:<br>
+			/*-------------------------------------
+			<p>	The arguments are entered in this order:<br> 
+			Graph Title <br>
+			Y Label	<br>
+			WIDTH	 <br>
+			HEIGHT		<br>
+			ArrayList of Points<br><br>
+			final Graph graph = new Graph("Average Score", "Average Score", X_SIZE, (Y_SIZE/2)-28, 	points);<br>
+			</p>
+			/*-------------------------------------
+			<p>The final modifier is required because it is used in the ActionListener anonymous inner class.</p>
+
+
+			<h3><u>Timer(Swing) Basics</u></h3>
+			<p>To make a Timer</p>
+			/*-------------------------------------
+			<p>
+			int periodBetweenTimerCalls = 1000;//milliseconds<br>
+			<br>
+			ActionListener a = null; // If you don't already have an ActionListener, give it null<br>
+			<br>
+			Timer t = new Timer(periodBetweenTimerCalls, a);<br>
+			<br>
+			// You can add more than one ActionListeners<br>
+			t.addActionListener(new ActionListener() {<br>
+					@Override<br>
+					public void actionPerformed(ActionEvent arg0) {<br>
+						//Do Stuff Here Every 1000 milliseconds<br>
+					}<br>
+				});<br>
+			<br>
+			//Start Timer<br>
+			t.start();<br>
+			<br>
+			//Stop Timer, as used in endTasks()<br>
+			t.stop();<br>
+			<br>
+			//One-liner for making and starting<br>
+			new Timer(1000, a).start();<br>
+			//Not recommended due to loss of Timer (you can't stop)<br>
+			</p>
+			/*-------------------------------------
+
+			<p>Making an ActionListener:</p>
+			/*-------------------------------------
+			<p>
+			/* ActionListener is an abstract class and therefore must be either<br>
+			 * anonymous or implemented by a different class.<br>
+			 */<br>
+			 // This is an anonymous inner class<br>
+			ActionListener a = new ActionListener() {<br>
+					@Override<br>
+					public void actionPerformed(ActionEvent arg0) {<br>
+						//Do Stuff Here Every Time The Timer Running This Calls<br>
+					}<br>
+				};<br>
+			</p>
+			/*-------------------------------------
+
+			<h3><u>Examples</u></h3>
+			<p>
+			The following EG.java code reads one file and outputs one graph.<br>
+			<br>
+				fileToRead = "ave_fitness_graph";<br>
+			Can be changed to a file name you prefer.
+			</p>
+		<h3>Example Code</h3>
+		<h2>EG.java</h2>
+		<p>
+			import java.awt.GridLayout;<br>
+			import java.awt.Point;<br>
+			import java.awt.event.ActionEvent;<br>
+			import java.awt.event.ActionListener;<br>
+			import java.awt.event.WindowAdapter;<br>
+			import java.awt.event.WindowEvent;<br>
+			import java.io.BufferedReader;<br>
+			import java.io.File;<br>
+			import java.io.FileInputStream;<br>
+			import java.io.IOException;<br>
+			import java.io.InputStreamReader;<br>
+			import java.io.PrintWriter;<br>
+			import java.net.URISyntaxException;<br>
+			import java.util.ArrayList;<br>
+
+			import javax.swing.JFrame;<br>
+			import javax.swing.JPanel;<br>
+			import javax.swing.JTabbedPane;<br>
+			import javax.swing.SwingUtilities;<br>
+			import javax.swing.Timer;<br>
+			<br>
+			public class EG {<br>
+				private ArrayList<Point> points;<br>
+				private Double X_SIZE = new Double(1100), Y_SIZE = new Double(600);<br>
+				<br>
+				private Timer t;<br>
+				private ActionListener graph_t;<br>
+				<br>
+				public static void main(final String[] args) {<br>
+					SwingUtilities.invokeLater(new Runnable() {<br>
+						@Override<br>
+						public void run() {<br>
+							new EG();<br>
+						}<br>
+					});<br>
+				}<br>
+				<br>
+				String filePath, fileToRead = "ave_fitness_graph";<br>
+				Integer iterations = 0;<br>
+				EG() {<br>
+					initFiles();<br>
+				<br>
+					final JFrame frame = new JFrame("Evolution of Music");<br>
+				<br>
+					// Make several different types of Graphs<br>
+					final Graph graph = new Graph("Average Score", "Average Score", X_SIZE, (Y_SIZE/2)-28, points);<br>
+				<br>
+					JTabbedPane tabs = new JTabbedPane();<br>
+					tabs.add(graph, graph.getTitle());<br>
+					JPanel panel = new JPanel();<br>
+					panel.setLayout(new GridLayout(2, 2));<br>
+				<br>
+					panel.add(tabs);<br>
+					frame.setContentPane(panel);<br>
+					frame.addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){endTasks();}});<br>
+				<br>
+					frame.pack();<br>
+					frame.setSize(X_SIZE.intValue(), Y_SIZE.intValue());<br>
+					frame.setVisible(true);<br>
+					frame.setLocationRelativeTo(null);<br>
+				<br>
+					graph_t = new ActionListener(){<br>
+						ArrayList<Point> points;<br>
+						@Override<br>
+						public void actionPerformed(ActionEvent arg0) {<br>
+							try {<br>
+								ArrayList<Point> fitness = readFitness();<br>
+								if (points == null || fitness.size() != points.size()) {<br>
+									graph.update(fitness);<br>
+									points = fitness;<br>
+									<br>
+									frame.repaint();<br>
+								}<br>
+							} catch (IOException e) {<br>
+								System.err.println("LONG LIVE FITNESS...\nExcept that it died...");<br>
+								System.exit(0);<br>	
+							}<br>
+						}<br>
+					};<br>
+				<br>
+					// Will update every 1000 milliseconds<br>
+					t = new Timer(1000, graph_t);<br>
+					t.start();<br>
+				}<br>
+				<br>
+				public String initFiles() {<br>
+					String text = "";<br>
+					try {<br>
+						try {<br>
+							filePath = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();<br>
+							String arg[] = filePath.split("/");<br>
+							filePath = "";<br>
+							for (int i = 0;i < arg.length-1;i++)<br>
+								filePath += arg[i] + "/";<br>
+				<br>
+						} catch (URISyntaxException e) {<br>
+							e.printStackTrace();<br>
+							System.err.println("Couldn't get Class info/pathing");<br>
+							System.exit(0);<br>
+						}<br>
+						// Make a new file if one doesn't exist<br>
+						File file = new File(filePath + fileToRead);<br>
+				<br>
+						if (!file.createNewFile()) {<br>
+							System.err.println("Failed to create file '" + fileToRead + "' \n\t-\tin " + <br>
+									filePath + "' \n\t-\t" + "Maybe it already exists?");<br>
+						}<br>
+						//Empty File<br>
+						new PrintWriter(filePath + fileToRead).close();<br>
+						// Get Empty Graph<br>
+						points = readFitness();<br>
+					} catch (IOException e1) {<br>
+						e1.printStackTrace();<br>
+						System.err.println("Can't Read '"+fileToRead+"'");<br>
+						System.exit(0);<br>
+					}<br>
+					return text;<br>
+				}<br>
+				<br>
+				public void endTasks() {<br>
+					// Should end tasks<br>
+					t.stop();<br>
+					System.exit(0);<br>
+				}<br>
+				<br>
+				public ArrayList<Point> readFitness() throws IOException {<br>
+					ArrayList<Point> points = new ArrayList<Point>();<br>
+					FileInputStream stream = new FileInputStream(filePath+fileToRead);<br>
+					InputStreamReader inputStream = new InputStreamReader(stream);<br>
+					BufferedReader reader = new BufferedReader(inputStream);<br>
+				<br>
+					String columns[];<br>
+					String line;<br>
+				<br>
+					while (reader.ready() && !(line = reader.readLine()).equals("")) {<br>
+						columns = line.split(" ");<br>
+						if (columns[0].isEmpty()) break;//I expect "iteration num" in that order<br>
+						points.add(<br>
+								new Point(<br>
+										Integer.parseInt(columns[0]),<br>
+										Integer.parseInt(columns[1])));<br>
+					}<br>
+					reader.close();<br>
+					iterations = points.size();<br>
+					if (iterations == 0)<br>
+						points.add(new Point(0, 0));<br>
+					return points;<br>
+				}<br>
+			}<br>
+		</p>
+
+			<p>The Graph class is seen below.</p>
+		<br>
+		<h2>Graph.java</h2>
+		<p>	import java.awt.BasicStroke;<br>
+			import java.awt.BorderLayout;<br>
+			import java.awt.Color;<br>
+			import java.awt.Graphics;<br>
+			import java.awt.Graphics2D;<br>
+			import java.awt.Point;<br>
+			import java.awt.geom.AffineTransform;<br>
+			import java.util.ArrayList;<br>
+<br>
+			import javax.swing.JPanel;<br>
+<br>
+			public class Graph extends JPanel {<br>
+				private String title, yTitle;<br>
+				private Double X_SIZE, Y_SIZE;<br>
+				private ArrayList<Point> points;<br>
+				private Color barColour = null;<br>
+				private Boolean isNegative = false;<br>
+	<br>			
+				Graph(String title, String yTitle, Double x, Double y, ArrayList<Point> points) {<br>
+					super(null);<br>
+					this.title = title;<br>
+					this.yTitle = yTitle;<br>
+					X_SIZE = x-50;<br>
+					Y_SIZE = y-10;<br>
+					this.points = points;<br>
+				}<br>
+				<br>
+				Graph(String title, String yTitle, Double x, Double y, ArrayList<Point> points, boolean negatives) {<br>
+					super(null);<br>
+					this.title = title;<br>
+					this.yTitle = yTitle;<br>
+					X_SIZE = x-50;<br>
+					Y_SIZE = y-10;<br>
+					this.points = points;<br>
+					<br>
+					isNegative = negatives;<br>
+				}<br>
+				<br>
+				Graph(String title, String yTitle, Double x, Double y, ArrayList<Point> points, Color c) {<br>
+					super(null);<br>
+					this.title = title;<br>
+					this.yTitle = yTitle;<br>
+					X_SIZE = x-50;<br>
+					Y_SIZE = y-10;<br>
+					this.points = points;<br>
+					<br>
+					barColour = c;<br>
+				}<br>
+				<br>
+				public void update(ArrayList<Point> points) {<br>
+					this.points = points;<br>
+					repaint();<br>
+				}<br>
+				<br>
+				public String getTitle() {<br>
+					return title;<br>
+				}<br>
+				<br>
+				@Override<br>
+				public void paintComponent(Graphics g) {<br>
+					super.paintComponent(g);<br>
+					String text;<br>
+					Graphics2D g2D = (Graphics2D)g;<br>
+					<br>
+					g.setColor(Color.WHITE);<br>
+					g.fillRect(0, 0, X_SIZE.intValue()+40, Y_SIZE.intValue());<br>
+					<br>
+					if (points.isEmpty()) return;<br>
+					Double Y_TEMP =  (isNegative) ? ((Y_SIZE - 10)/2):(Y_SIZE - 10);<br>
+					<br>
+					int max = points.get(0).y;<br>
+					for (Point p:points) if (Math.abs(p.y) > max) max = Math.abs(p.y);<br>
+					<br>
+					Double xfraction = (points.get(points.size()-1).x == 0) ? 0:(X_SIZE - 40) / points.get(points.size()-1).x;<br>
+					Double yfraction = (Y_TEMP - 40) / max;<br>
+					<br>
+					g2D.setColor(Color.BLUE);<br>
+					g2D.setStroke(new BasicStroke(0.01f));<br>
+					double NUM_DIVISIONS = 5.0;<br>
+					if (isNegative) {<br>
+						for (double i = 0;i < NUM_DIVISIONS+1;i++){<br>
+							g2D.drawString(new Double(max*(NUM_DIVISIONS-i)/NUM_DIVISIONS).intValue()+"", <br>
+									13, <br>
+									new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+20);<br>
+							g2D.drawLine(50, <br>
+									new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15, <br>
+									X_SIZE.intValue()+20, <br>
+									new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15);<br>
+						}<br>
+						for (double i = 0;i < NUM_DIVISIONS+1;i++){<br>
+							g2D.drawString(-new Double((max)-(max*(NUM_DIVISIONS-i)/NUM_DIVISIONS)).intValue()+"", <br>
+									13, <br>
+									new Double((Y_TEMP-40)+((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+20);<br>
+							g2D.drawLine(50, <br>
+									new Double((Y_TEMP-40)+((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15, <br>
+									X_SIZE.intValue()+20, <br>
+									new Double((Y_TEMP-40)+((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15);<br>
+						}<br>
+					} else {<br>
+						for (double i = 0;i < NUM_DIVISIONS+1;i++){<br>
+							g2D.drawString(new Double(max*(NUM_DIVISIONS-i)/NUM_DIVISIONS).intValue()+"", <br>
+									13, <br>
+									new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+20);<br>
+							g2D.drawLine(50, <br>
+									new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15, <br>
+									X_SIZE.intValue()+20, <br>
+									new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15);<br>
+						}<br>
+					}<br>
+					<br>
+					g2D.setColor(Color.BLACK);<br>
+					<br>
+					//X_AXIS<br>
+					g2D.drawLine(50, new Double(Y_TEMP-40).intValue()+15, <br>
+								 new Double(X_SIZE-40).intValue()+50, new Double(Y_TEMP-40).intValue()+15);<br>
+					//Y_AXIS<br>
+					g2D.drawLine(50, 15, <br>
+								 50, new Double((isNegative) ? ((Y_SIZE-90)):(Y_SIZE-50)).intValue()+15);<br>
+					<br>
+					text = title.toUpperCase()+" PER ITERATION";<br>
+					g.drawString(text, (X_SIZE.intValue() -  g.getFontMetrics().stringWidth(text))/2, 10);<br>
+					text = "NUMBER OF ITERATIONS";<br>
+					g.drawString(text, (X_SIZE.intValue() - g.getFontMetrics().stringWidth(text))/2, new Double(Y_SIZE-10).intValue());<br>
+					<br>
+					AffineTransform original = g2D.getTransform();<br>
+					g2D.rotate(-Math.PI/2);<br>
+					text = yTitle.toUpperCase();<br>
+					g2D.drawString(text, -new Double((((isNegative) ? (Y_SIZE-10):Y_TEMP) + g.getFontMetrics().stringWidth(text))/2).intValue()-5, 10);//X_SIZE.intValue()/2);<br>
+					g2D.setTransform(original);<br>
+					<br>
+					g2D.setStroke(new BasicStroke(2.0f));<br>
+					<br>
+					if (barColour == null) {<br>
+						g2D.setColor(Color.BLACK);<br>
+						for (int i = 0;i < points.size()-1;i++)<br>
+							//if (points.get(i+1).y - points.get(i).y)<br>
+							g2D.drawLine(<br>
+									new Double(points.get(i).x*xfraction).intValue()+50, <br>
+									new Double((Y_TEMP-40) - points.get(i).y*yfraction).intValue()+15, <br>
+									new Double(points.get(i+1).x*xfraction).intValue()+50, <br>
+									new Double((Y_TEMP-40) - points.get(i+1).y*yfraction).intValue()+15);<br>
+					} else {<br>
+						g2D.setColor(barColour);<br>
+						for (int i = 0;i < points.size()-1;i++)<br>
+							g.fillRect(<br>
+									new Double(points.get(i).x*xfraction).intValue()+50, <br>
+									new Double((Y_TEMP-40) - points.get(i).y*yfraction).intValue()+15, <br>
+									new Double(points.get(i+1).x*xfraction).intValue()-new Double(points.get(i).x*xfraction).intValue(), <br>
+									new Double(points.get(i).y*yfraction).intValue());<br>
+						g2D.setColor(Color.BLACK);<br>
+						for (int i = 0;i < points.size()-1;i++){<br>
+							// Horz Line<br>
+							g.drawLine(<br>
+									new Double(points.get(i).x*xfraction).intValue()+50, <br>
+									new Double((Y_TEMP-40) - points.get(i).y*yfraction).intValue()+15, <br>
+									new Double(points.get(i+1).x*xfraction).intValue()+50, <br>
+									new Double((Y_TEMP-40) - points.get(i).y*yfraction).intValue()+15);<br>
+							//Left<br>
+							g.drawLine(<br>
+									new Double(points.get(i).x*xfraction).intValue()+50, <br>
+									new Double((Y_TEMP-40) - points.get(i).y*yfraction).intValue()+15, <br>
+									new Double(points.get(i).x*xfraction).intValue()+50, <br>
+									new Double(Y_TEMP-40).intValue()+15);<br>
+							//Right<br>
+							g.drawLine(<br>
+									new Double(points.get(i+1).x*xfraction).intValue()+50, <br>
+									new Double((Y_TEMP-40) - points.get(i).y*yfraction).intValue()+15, <br>
+									new Double(points.get(i+1).x*xfraction).intValue()+50, <br>
+									new Double(Y_TEMP-40).intValue()+15);<br>
+						}<br>
+					}<br>
+					<br>
+					g.setColor(Color.BLACK);<br>
+					g2D.setStroke(new BasicStroke(1.2f));<br>
+					Point p;<br>
+					int division = points.size()/10;<br>
+					for (int i = 0;i < points.size();i++) {<br>
+						p = points.get(i);<br>
+						//X_AXIS<br>
+						if (division == 0 || p.x % division == 0) {// || i == points.size()-1) {<br>
+							g2D.drawString(p.x+"", <br>
+									new Double(p.x*xfraction).intValue()+50-(g.getFontMetrics().stringWidth(p.x+"")/2),<br>
+									new Double(Y_TEMP-40).intValue()+30);<br>
+							g2D.drawLine(new Double(p.x*xfraction).intValue()+50, new Double(Y_TEMP-40).intValue()+11, <br>
+									 new Double(p.x*xfraction).intValue()+50, new Double(Y_TEMP-40).intValue()+19);<br>
+						}<br>
+					}<br>
+<br>
+					for (double i = 0;i < NUM_DIVISIONS+1;i++)<br>
+						//Y_AXIS<br>
+						g2D.drawLine(46, new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15, <br>
+									 54, new Double(((Y_TEMP-40)*i)/NUM_DIVISIONS).intValue()+15);<br>
+				}<br>
+			}<br>
+		</p>
+	</body>
+</html>
