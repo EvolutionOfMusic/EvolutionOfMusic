@@ -147,7 +147,7 @@ if __name__ == "__main__":
     append_to_graph_file(config_file.graph_file, gen_num, *value_list)
 
     new_pheno_list = []
-    top_pheno = min(song_list, key=lambda v: v.score)
+    top_pheno = min(pheno_list, key=lambda v: v.score)
     top_pheno.song_id = (gen_num + 1) * config_file.song_count
     new_pheno_list.append(top_song)
     pheno_list = BiasedRandomSequence(*pheno_list, insert_key=lambda v: v.crossover_chance) 
