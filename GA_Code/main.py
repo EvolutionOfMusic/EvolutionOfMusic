@@ -110,7 +110,7 @@ def log_delete_mutation(pheno3):
 def log_add_mutation(pheno3): 
     logging.info("phenotype {}, was mutated (chromo add)".format(pheno3.song_id))
 
-def log_mutation(pheno3)
+def log_mutation(pheno3):
     logging.info("phenotype {}, was mutated".format(pheno3.song_id))
     
 if __name__ == "__main__":
