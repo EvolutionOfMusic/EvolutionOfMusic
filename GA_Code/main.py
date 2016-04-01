@@ -45,7 +45,7 @@ def get_gen_num(pheno, config_file):
     return pheno.song_id//config_file.song_count
 
 def get_population_sample(config_obj, *phenos):
-    gen_num = get_gen_num(phenos[0], config_obj.song_count)
+    gen_num = get_gen_num(phenos[0], config_obj)
     wv = []
     for pheno in phenos:
         if wv == []:
