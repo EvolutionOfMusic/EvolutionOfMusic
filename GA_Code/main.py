@@ -112,6 +112,11 @@ def log_add_mutation(pheno3):
 
 def log_mutation(pheno3):
     logging.info("phenotype {}, was mutated".format(pheno3.song_id))
+
+def find_min_pheno(pheno_list, config_file):
+    top_pheno = min(pheno_list, key=lambda v: v.score)
+    top_pheno.song_id = (gen_num + 1) * config_file.song_count
+    return top_pheno
     
 if __name__ == "__main__":
     args = init_arg_parser()
@@ -156,8 +161,7 @@ if __name__ == "__main__":
     append_to_graph_file(config_file.graph_file, gen_num, *value_list)
 
     new_pheno_list = []
-    top_pheno = min(pheno_list, key=lambda v: v.score)
-    top_pheno.song_id = (gen_num + 1) * config_file.song_count
+    top_pheno = find_min_pheno(pheno_list, config_file)
     new_pheno_list.append(top_pheno)
     pheno_list = BiasedRandomSequence(*pheno_list, insert_key=lambda v: v.crossover_chance) 
     
