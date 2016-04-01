@@ -41,7 +41,8 @@ def write_to_output_file(output_file_name, *songs):
         for song in songs:
             save.write(str(song) + '\n') 
 
-get_gen_num = lambda pheno, config_file: pheno.song_id//config_file.song_count
+def get_gen_num(pheno, config_file):
+    return pheno.song_id//config_file.song_count
 
 def get_population_sample(config_obj, *songs):
     gen_num = get_gen_num(songs[0].song_id, config_obj.song_count)
