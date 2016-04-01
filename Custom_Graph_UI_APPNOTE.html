@@ -16,11 +16,12 @@
 			on an updated file.<br></p>
 			<br>
 			This tutorial also expects you to understand basic Java.<br>
+			This tutorial was written in Java 1.7.<br>
 			<br>
 			<h3><u>JFrame Basics</u></h3>
 			<br>
 			<p>Make a new JFrame:</p>
-			/*-------------------------------------
+			<hr>
 			<p>
 			JFrame frame = new JFrame("Example Title");<br>
 			<br>
@@ -51,13 +52,13 @@
 			 // Sets the frame to the center of the screen<br>
 			 frame.setLocationRelativeTo(null);<br>
 			</p>
-			/*-------------------------------------
+			<hr>
 
 
 			<h3><u>Graph Basics</u></h3>
 			<br>
 			To make my graph class:<br>
-			/*-------------------------------------
+			<hr>
 			<p>	The arguments are entered in this order:<br> 
 			Graph Title <br>
 			Y Label	<br>
@@ -66,13 +67,13 @@
 			ArrayList of Points<br><br>
 			final Graph graph = new Graph("Average Score", "Average Score", X_SIZE, (Y_SIZE/2)-28, 	points);<br>
 			</p>
-			/*-------------------------------------
+			<hr>
 			<p>The final modifier is required because it is used in the ActionListener anonymous inner class.</p>
 
 
 			<h3><u>Timer(Swing) Basics</u></h3>
 			<p>To make a Timer</p>
-			/*-------------------------------------
+			<hr>
 			<p>
 			int periodBetweenTimerCalls = 1000;//milliseconds<br>
 			<br>
@@ -98,10 +99,10 @@
 			new Timer(1000, a).start();<br>
 			//Not recommended due to loss of Timer (you can't stop)<br>
 			</p>
-			/*-------------------------------------
+			<hr>
 
 			<p>Making an ActionListener:</p>
-			/*-------------------------------------
+			<hr>
 			<p>
 			/* ActionListener is an abstract class and therefore must be either<br>
 			 * anonymous or implemented by a different class.<br>
@@ -114,7 +115,7 @@
 					}<br>
 				};<br>
 			</p>
-			/*-------------------------------------
+			<hr>
 
 			<h3><u>Examples</u></h3>
 			<p>
@@ -148,7 +149,7 @@
 			import javax.swing.Timer;<br>
 			<br>
 			public class EG {<br>
-				private ArrayList<Point> points;<br>
+				private ArrayList&ltPoint&gt points;<br>
 				private Double X_SIZE = new Double(1100), Y_SIZE = new Double(600);<br>
 				<br>
 				private Timer t;<br>
@@ -188,11 +189,11 @@
 					frame.setLocationRelativeTo(null);<br>
 				<br>
 					graph_t = new ActionListener(){<br>
-						ArrayList<Point> points;<br>
+						ArrayList&ltPoint&gt points;<br>
 						@Override<br>
 						public void actionPerformed(ActionEvent arg0) {<br>
 							try {<br>
-								ArrayList<Point> fitness = readFitness();<br>
+								ArrayList&ltPoint&gt fitness = readFitness();<br>
 								if (points == null || fitness.size() != points.size()) {<br>
 									graph.update(fitness);<br>
 									points = fitness;<br>
@@ -251,8 +252,8 @@
 					System.exit(0);<br>
 				}<br>
 				<br>
-				public ArrayList<Point> readFitness() throws IOException {<br>
-					ArrayList<Point> points = new ArrayList<Point>();<br>
+				public ArrayList&ltPoint&gt readFitness() throws IOException {<br>
+					ArrayList&ltPoint&gt points = new ArrayList<Point>();<br>
 					FileInputStream stream = new FileInputStream(filePath+fileToRead);<br>
 					InputStreamReader inputStream = new InputStreamReader(stream);<br>
 					BufferedReader reader = new BufferedReader(inputStream);<br>
@@ -294,11 +295,11 @@
 			public class Graph extends JPanel {<br>
 				private String title, yTitle;<br>
 				private Double X_SIZE, Y_SIZE;<br>
-				private ArrayList<Point> points;<br>
+				private ArrayList&ltPoint&gt points;<br>
 				private Color barColour = null;<br>
 				private Boolean isNegative = false;<br>
 	<br>			
-				Graph(String title, String yTitle, Double x, Double y, ArrayList<Point> points) {<br>
+				Graph(String title, String yTitle, Double x, Double y, ArrayList&ltPoint&gt points) {<br>
 					super(null);<br>
 					this.title = title;<br>
 					this.yTitle = yTitle;<br>
@@ -307,7 +308,7 @@
 					this.points = points;<br>
 				}<br>
 				<br>
-				Graph(String title, String yTitle, Double x, Double y, ArrayList<Point> points, boolean negatives) {<br>
+				Graph(String title, String yTitle, Double x, Double y, ArrayList&ltPoint&gt points, boolean negatives) {<br>
 					super(null);<br>
 					this.title = title;<br>
 					this.yTitle = yTitle;<br>
@@ -318,7 +319,7 @@
 					isNegative = negatives;<br>
 				}<br>
 				<br>
-				Graph(String title, String yTitle, Double x, Double y, ArrayList<Point> points, Color c) {<br>
+				Graph(String title, String yTitle, Double x, Double y, ArrayList&ltPoint&gt points, Color c) {<br>
 					super(null);<br>
 					this.title = title;<br>
 					this.yTitle = yTitle;<br>
@@ -329,7 +330,7 @@
 					barColour = c;<br>
 				}<br>
 				<br>
-				public void update(ArrayList<Point> points) {<br>
+				public void update(ArrayList&ltPoint&gt points) {<br>
 					this.points = points;<br>
 					repaint();<br>
 				}<br>
