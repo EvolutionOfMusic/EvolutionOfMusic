@@ -149,7 +149,7 @@ if __name__ == "__main__":
     new_pheno_list = []
     top_pheno = min(pheno_list, key=lambda v: v.score)
     top_pheno.song_id = (gen_num + 1) * config_file.song_count
-    new_pheno_list.append(top_song)
+    new_pheno_list.append(top_pheno)
     pheno_list = BiasedRandomSequence(*pheno_list, insert_key=lambda v: v.crossover_chance) 
     
 
