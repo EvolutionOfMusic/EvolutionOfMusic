@@ -11,8 +11,9 @@
 
 const int NOTES_PER_OCTAVE = 12;
 const int BEATS_PER_MEASURE = 16;
+const int C6_INDEX = 6 * NOTES_PER_OCTAVE + 1;
 const int C5_INDEX = 5 * NOTES_PER_OCTAVE + 1;
-const int C3_INDEX = 4 * NOTES_PER_OCTAVE + 1;
+const int C3_INDEX = 3 * NOTES_PER_OCTAVE + 1;
 
 /* A Song holds Tracks; A Track holds Notes
  * Consonance is good; Dissonance is bad
@@ -58,7 +59,7 @@ const int END_STEP_DOWN = 100;
 const int END_MAJOR_STEP = 100;
 const int END_LONGER = 100;
 // - Less tracks should be discouraged
-const int TRACK_MARKER = 10;
+const int TRACK_MARKER = 4;
 
 long long c_shell(Song song) {
 	long long score = 100;
@@ -153,25 +154,25 @@ long long supervisor(Song song) {
 			}
 
 			// If a note is high, we don't want it to repeat
-			if (a3.tone > C5_INDEX && a3.tone == a2.tone) {
+			if (a3.tone > C6_INDEX && a3.tone == a2.tone) {
 				repeatingTally += REPEATING_NOTES/2;
 				octaveTally += REPEATING_NOTES/2;
 			}
 
 			// A note is high
-			if (a3.tone > C5_INDEX-(NOTES_PER_OCTAVE/2)) {
-				octaveTally += 10*REPEATING_NOTES*REPEATING_NOTES;
-				octaveTally += pow(a3.tone - (C5_INDEX-(NOTES_PER_OCTAVE/2)), 2);
+			if (a3.tone > C6_INDEX-(NOTES_PER_OCTAVE/2)) {
+				octaveTally += 10;//*REPEATING_NOTES*REPEATING_NOTES;
+				//octaveTally += pow(a3.tone - (C5_INDEX-(NOTES_PER_OCTAVE/2)), 2);
 			}
 
 			// Low notes
 			if (a3.tone != REST && a3.tone < C3_INDEX) {
-				octaveTally += 10*REPEATING_NOTES*REPEATING_NOTES;
-				octaveTally += pow(C3_INDEX - a3.tone, 2);
+				octaveTally += 10;//*REPEATING_NOTES;
+				//octaveTally += pow(C3_INDEX - a3.tone, 2);
 			}
 
-			//if (k > 1 && !(a1.tone == REST || a2.tone == REST || a3.tone == REST))
-			//	restTally += MORE_RESTS;
+			/*if (k > 1 && !(a1.tone == REST || a2.tone == REST || a3.tone == REST))
+				restTally += MORE_RESTS;*/
 	    		
 			// Must be within an octave of the past two notes, not counting rests
 			if ((abs(a3.tone - a2.tone) >= NOTES_PER_OCTAVE) && (a3.tone != REST) && (a2.tone != REST))
