@@ -1,7 +1,7 @@
-from SongPersistance import load_songs, save_songs
+from SongPersistance import load_songs as load_pheno_list, save_songs
 from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 from ConfigFile import ConfigFile
-from RandomSongGen import random_song, tempo_gen, random_chromosome
+from RandomSongGen import random_song, tempo_gen as meta_gen, random_chromosome
 from GeneticRandomizer import GeneticRandomizer
 from SongPersistance import load_songs, save_songs
 from GeneticSong import min_nc_length
@@ -77,6 +77,32 @@ def clear_file(file_name):
 def read_input_file_line(file_obj):
     return tuple(map(int, file_obj.readline().split()))
 
+def get_pheno_list(config_file):
+    return [random_song(config_file) for i in range(config_file.song_count)]
+
+def save_pheno_list_to_file(pheno_list, config_file):
+    save_songs(config_file.save_file, *pheno_list)
+    write_to_output_file(config_file.save_file, *pheno_list)
+    alert_parent_program(args.pid)
+
+def log_cross_over(pheno1, pheno2, c_over_point):
+    logging.info("phenotypes {} and {} with fitnesses {} {}, crossed over, at {}"
+                         .format(pheno1.song_id, pheno2.song_id, song1.score, pheno2.score, c_over_point))
+    
+def delete_mutation(pheno3, randomizer):
+    del_track_id = randomizer.sample_one_item(pheno3.track_ids) 
+    pheno3.chromosome_delete(del_track_id)
+    return pheno3
+
+def add_mutation(pheno3, config_file):
+    pheno3.chromosome_add(random_chromosome(config_file)) 
+    return pheno3
+    
+def mutation(pheno3, config_file)
+    meta_data = meta_gen(config_file) 
+    delta_mask = randomizer.get_delta_mask(config_file.max_step_size, pheno3, meta_data)
+    pheno3.mutate(*delta_mask)
+    return pheno3
     
 if __name__ == "__main__":
     args = init_arg_parser()
@@ -94,69 +120,58 @@ if __name__ == "__main__":
         clear_file(LOG_FILE_PATH)
         clear_file(config_file.graph_file)
         seed(args.seed)
-        song_list = [random_song(config_file) for i in range(config_file.song_count)]
-        save_songs(config_file.save_file, *song_list)
-        write_to_output_file(config_file.save_file, *song_list)
-        alert_parent_program(args.pid)       
+        pheno_list = get_pheno_list(config_file)
+        save_pheno_list_to_file(pheno_list, config_file)
         raise SystemExit  
     else:
-        song_list = load_songs(config_file.save_file, config_file)
-        flat_song_list = [song.flatten() for song in song_list]
+        pheno_list = load_pheno_list(config_file.save_file, config_file)
         score_list = []
         diversity_list = []
         with open(config_file.input_file) as save:
-            for song in song_list:
+            for pheno in pheno_list:
                 score, diversity = read_input_file_line(save)
                 score_list.append(score)
                 diversity_list.append(abs(diversity))
-                song.score = score * config_file.score_scale_factor
-                song.diversity = diversity * config_file.div_scale_factor + 1
-            song_list.sort(key=lambda v: v.score//v.diversity, reverse=False)
-            for i in range(len(song_list)):
-                song_list[i].crossover_chance = get_crossover_prob(i)
+                pheno.score = score * config_file.score_scale_factor
+                pheno.diversity = diversity * config_file.div_scale_factor + 1
+            pheno_list.sort(key=lambda v: v.score//v.diversity, reverse=False)
+            for i in range(len(pheno_list)):
+                pheno_list[i].crossover_chance = get_crossover_prob(i)
             clear_file(config_file.input_file)
     
 
-    get_population_sample(config_file, *song_list)
+    get_population_sample(config_file, *pheno_list)
     logging.info("avg fitness: {}, max fitness: {}, min fitness: {}".format(get_avg(*score_list), max(score_list), min(score_list)))
-    gen_num = get_gen_num(song_list[1].song_id, config_file.song_count)
+    gen_num = get_gen_num(pheno_list[1].song_id, config_file.song_count)
     value_list = [get_avg(*score_list), max(score_list), min(score_list), get_avg(*diversity_list)]
     append_to_graph_file(config_file.graph_file, gen_num, *value_list)
 
-    new_song_list = []
-    top_song = min(song_list, key=lambda v: v.score)
-    top_song.song_id = (gen_num + 1) * config_file.song_count
-    new_song_list.append(top_song)
-    song_list = BiasedRandomSequence(*song_list, insert_key=lambda v: v.crossover_chance) 
+    new_pheno_list = []
+    top_pheno = min(song_list, key=lambda v: v.score)
+    top_pheno.song_id = (gen_num + 1) * config_file.song_count
+    new_pheno_list.append(top_song)
+    pheno_list = BiasedRandomSequence(*pheno_list, insert_key=lambda v: v.crossover_chance) 
     
 
     for i in range(config_file.song_count - 1):
-        song1, song2 = sample_pair(song_list)
+        pheno1, pheno2 = sample_pair(song_list)
         c_over_point = randomizer.get_crossover_point(song1, song2)
-        song3 = song1.crossover(song2, c_over_point)
-        logging.info("songs {} and {} with fitnesses {} {}, crossed over, at {}"
-                         .format(song1.song_id, song2.song_id, song1.score, song2.score, c_over_point))
+        pheno3 = pheno1.crossover(pheno2, c_over_point)
+        log_cross_over(pheno1, pheno2, c_over_point)
         
         if randomizer.get_prob() <= config_file.mutation_chance:
-            if randomizer.get_prob() <= config_file.chromo_delete_prob and len(song3) > 1:
-                del_track_id = randomizer.sample_one_item(song3.track_ids)
-                song3.chromosome_delete(del_track_id)
-                logging.info("song {}, was mutated (chromo delete)".format(song3.song_id))
+            if randomizer.get_prob() <= config_file.chromo_delete_prob and len(pheno3) > 1:
+                pheno3 = delete_mutation(pheno3, randomizer)
+                logging.info("phenotype {}, was mutated (chromo delete)".format(pheno3.song_id))
             elif randomizer.get_prob() <= config_file.chromo_add_prob:
-                song3.chromosome_add(random_chromosome(config_file))
-                logging.info("song {}, was mutated (chromo add)".format(song3.song_id))
+                pheno3 = add_mutation(pheno3, config_file)
+                logging.info("phenotype {}, was mutated (chromo add)".format(pheno3.song_id))
             else:
-                meta_data = tempo_gen(config_file)
-                delta_mask = randomizer.get_delta_mask(config_file.max_step_size, song3, meta_data)
-                song3.mutate(*delta_mask)
-                logging.info("song {}, was mutated".format(song3.song_id))
+                pheno3 = mutation(pheno3, config_file)
+                logging.info("phenotype {}, was mutated".format(pheno3.song_id))
 
-        new_song_list.append(song3)
+        new_pheno_list.append(pheno3)
 
-    logging.debug("song {}, with fitness {}, obj id {}".format(top_song.song_id, top_song.score, id(top_song)))
-    
-    song_list = new_song_list
-    write_to_output_file(config_file.save_file, *song_list)
-    save_songs(config_file.save_file, *song_list)
-    alert_parent_program(args.pid)
+    pheno_list = new_pheno_list
+    save_pheno_list_to_file(pheno_list, config_file)
     raise SystemExit
