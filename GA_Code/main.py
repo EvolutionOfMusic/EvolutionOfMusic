@@ -98,7 +98,7 @@ def add_mutation(pheno3, config_file):
     pheno3.chromosome_add(random_chromosome(config_file)) 
     return pheno3
     
-def mutation(pheno3, config_file)
+def mutation(pheno3, config_file):
     meta_data = meta_gen(config_file) 
     delta_mask = randomizer.get_delta_mask(config_file.max_step_size, pheno3, meta_data)
     pheno3.mutate(*delta_mask)
