@@ -66,7 +66,7 @@ def write_to_output_file(output_file_name, *phenos):
     Outputs: to a file in raw text format
     """
     with open(output_file_name, 'w+') as save:
-        save.write(str(len(penos)) + '\n')
+        save.write(str(len(phenos)) + '\n')
         for pheno in phenos:
             save.write(str(pheno) + '\n') 
 
