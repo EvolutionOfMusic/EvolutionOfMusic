@@ -29,6 +29,10 @@ def basic_parse(file_name):
 
     
 class ConfigFile:
+    """
+    Note that any config file parser will do, as long as it returns a dictionary
+    which can be used as the config file's __dict__.
+    """
     def __init__(self, file_name, parser=basic_parse):
         self.__dict__ = parser(file_name)
 
