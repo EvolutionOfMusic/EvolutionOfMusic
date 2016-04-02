@@ -91,8 +91,7 @@ def get_population_sample(config_obj, *phenos):
         if len(wv) == config_obj.sample_size:
             break 
         
-    write_to_output_file(config_obj.sample_file + "_generation_{}"
-                         .format(gen_num), *wv)
+    write_to_output_file(config_obj.sample_file + "_generation_{}".format(gen_num), *wv)
 
 def get_avg(*scores):
     """
