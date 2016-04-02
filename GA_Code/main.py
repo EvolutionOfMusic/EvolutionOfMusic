@@ -65,10 +65,10 @@ def write_to_output_file(output_file_name, *phenos):
     for purposes other than data persistance
     Outputs: to a file in raw text format
     """
-     with open(output_file_name, 'w+') as save:
+    with open(output_file_name, 'w+') as save:
         save.write(str(len(penos)) + '\n')
         for pheno in phenos:
-            save.write(str(song) + '\n') 
+            save.write(str(pheno) + '\n') 
 
 def get_gen_num(pheno, config_file):
     """
