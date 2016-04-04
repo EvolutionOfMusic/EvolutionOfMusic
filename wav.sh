@@ -2,7 +2,7 @@
 # Creates and plays wavs
 
 if [ $# -lt 1 ]; then
-  echo "Usages: $0 [BRASS|BELL|ORGAN|AM|FM] sample_generation"
+  echo "Usages: $0 [ACCORDIAN|BASSOON|BELL|BRASS|GUITAR|ORGAN|WOODBLOCK|AM|FM] sample_generation"
   exit
 fi
 
