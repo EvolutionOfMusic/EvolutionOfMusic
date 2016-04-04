@@ -16,12 +16,20 @@ double getFMWave(double amplitude, double timbre, double carrier, double frequen
     return amplitude*sin(thetaC + timbre*(abs(carrier-frequency))*sin(thetaF));
 }
 
+double getGuitarWave(double amplitude, double timbre, double frequency, double time) {
+    return getFMWave(amplitude, timbre, frequency, frequency/2, time);
+}
+
 double getOrganWave(double amplitude, double frequency, double time) {
 	return amplitude*sin(((2.0*M_PI*frequency*time)/(SAMPLING_RATE)))*sin(((1.0*M_PI*frequency*time)/(SAMPLING_RATE)));
 }
 
+double getBassoonWave(double amplitude, double timbre, double frequency, double time) {
+    return getFMWave(amplitude, timbre, 5*frequency, frequency, time);
+}
+
 double getBrassWave(double amplitude, double frequency, double time) {
-    return getFMWave(amplitude, 1, frequency, (frequency > 1) ? frequency-2:frequency, time);
+    return getFMWave(amplitude, 1, frequency, frequency-2, time);
 }
 
 double getBellWave(double amplitude, double timbre, double frequency, double time) {
@@ -30,7 +38,13 @@ double getBellWave(double amplitude, double timbre, double frequency, double tim
 }
 
 void setEnvelope(int type, double* envelope) {
-    if (type == 4) {//Bell
+    if (type == 6) {//Guitar
+        envelope[0] = 0.0;
+        envelope[1] = 1.0;
+        envelope[2] = 0.4;
+        envelope[3] = 0.01;
+        envelope[4] = 0.0;
+    } else if (type == 4) {//Bell
         envelope[0] = 0.0;
         envelope[1] = 1.0;
         envelope[2] = 0.4;
@@ -53,7 +67,15 @@ void setEnvelope(int type, double* envelope) {
 
 double getInstrumentWave(double tempAmp, Track track, Note note, int i, double time, double T, double trackNum, int type) {
     // Instruments
-    if (type == 5) {
+    if (type == 7) {
+        return getGuitarWave(tempAmp, 0.1+0.9/(1000*(i-time)/(SAMPLING_RATE/2)), frequencies[note.tone], i)/(trackNum+4);
+    } else if (type == 6) {
+	    if (i < 1*SAMPLING_RATE/6 + time) {//WoodWinds Need Mod Func
+            return getBassoonWave(tempAmp, pow((i-time)/(SAMPLING_RATE/6), 2), frequencies[note.tone], i)/(trackNum+4);
+        } else {
+            return getBassoonWave(tempAmp, 1, frequencies[note.tone], i)/(trackNum+4);
+        }
+    } else if (type == 5) {
         return getOrganWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
     } else if (type == 4) {// Bells need a Modulation Func
         //if (i < 1*SAMPLING_RATE/2 + time) {
@@ -124,15 +146,20 @@ void C2Wav(int type, Song song){
                     // This should solve popping
                     tempAmp = amplitude*(envelope[3]-envelope[4]);
                     if (type == 4) {
-                        finalSong[i] += getBellWave(3.0*tempAmp/4.0, 0, frequencies[note.tone], i)/(trackNum+4);
-                        finalSong[i] += getBellWave(tempAmp/2.0, 0, frequencies[note.tone], i)/(trackNum+4);
-                        finalSong[i] += getBellWave(tempAmp/4.0, 0, frequencies[note.tone], i)/(trackNum+4);
-                        finalSong[i] += getBellWave(tempAmp/8.0, 0, frequencies[note.tone], i)/(trackNum+4);
+                        finalSong[i] += getBellWave(3.0*tempAmp/4.0, 1.0/(10000*(i-time)/(SAMPLING_RATE/2)), frequencies[note.tone], i)/(trackNum+4);
+                        finalSong[i+1] += getBellWave(tempAmp/2.0, 1.0/(10000*(i+1-time)/(SAMPLING_RATE/2)), frequencies[note.tone], i+1)/(trackNum+4);
+                        finalSong[i+2] += getBellWave(tempAmp/4.0, 1.0/(10000*(i+2-time)/(SAMPLING_RATE/2)), frequencies[note.tone], i+2)/(trackNum+4);
+                        finalSong[i+3] += getBellWave(tempAmp/8.0, 1.0/(10000*(i+3-time)/(SAMPLING_RATE/2)), frequencies[note.tone], i+3)/(trackNum+4);
+                    } else if (type == 3) {
+                        finalSong[i] += getBrassWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
+                        finalSong[i+1] += getBrassWave(tempAmp, frequencies[note.tone], i+1)/(trackNum+4);
+                        finalSong[i+2] += getBrassWave(tempAmp, frequencies[note.tone], i+2)/(trackNum+4);
+                        finalSong[i+3] += getBrassWave(tempAmp, frequencies[note.tone], i+3)/(trackNum+4);
                     } else if (type == 2) {
-                        /*finalSong[i] += getAMWave(3.0*tempAmp/4.0, frequencies[note.tone], i)/(trackNum+4);
-                        finalSong[i+1] += getAMWave(tempAmp/2.0, frequencies[note.tone], i+1)/(trackNum+4);
-                        finalSong[i+2] += getAMWave(tempAmp/4.0, frequencies[note.tone], i+2)/(trackNum+4);
-                        finalSong[i+3] += getAMWave(tempAmp/8.0, frequencies[note.tone], i+3)/(trackNum+4);*/
+                        finalSong[i] += getAMWave(3.0*tempAmp/4.0, 1.0, frequencies[note.tone], frequencies[note.tone+12], i)/(trackNum+4);
+                        finalSong[i+1] += getAMWave(tempAmp/2.0, 1.0, frequencies[note.tone], frequencies[note.tone+12], i+1)/(trackNum+4);
+                        finalSong[i+2] += getAMWave(tempAmp/4.0, 1.0, frequencies[note.tone], frequencies[note.tone+12], i+2)/(trackNum+4);
+                        finalSong[i+3] += getAMWave(tempAmp/8.0, 1.0, frequencies[note.tone], frequencies[note.tone+12], i+3)/(trackNum+4);
                     } else if (type == 1) {
                         finalSong[i] += getFMWave(3.0*tempAmp/4.0, 1.0, frequencies[track.channel[0].tone], 
                                                     frequencies[note.tone], i)/(trackNum+4);
@@ -156,9 +183,9 @@ void C2Wav(int type, Song song){
                     T = runtime(note.hold_time, note.pause_time, tempo);
             }
             
-            // Amplitude Envelope Comprhension
+            // Amplitude Envelope Comprehension
             if (i < 1*SAMPLING_RATE/6 + time) {
-                tempAmp = amplitude*(envelope[1]-envelope[0])*(i-time)/(SAMPLING_RATE/6);
+                tempAmp = amplitude*sqrt((i-time)/(SAMPLING_RATE/6));//(envelope[1]-envelope[0])*(i-time)/(SAMPLING_RATE/6);
             } else if (i < 1*SAMPLING_RATE/3 + time) {
                 tempAmp = amplitude*(envelope[1] - (envelope[1]-envelope[2])*(i-(time+(SAMPLING_RATE/6)))/(SAMPLING_RATE/6));
             } else {

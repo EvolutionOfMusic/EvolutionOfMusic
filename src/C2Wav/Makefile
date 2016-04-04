@@ -20,6 +20,8 @@ main: $(OBJ)
 
 clean:
 	rm -rf *.o
+	rm -rf ../*.o
+	rm -rf ../../*.o
 
 delete: clean
 	rm -rf main

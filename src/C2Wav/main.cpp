@@ -6,7 +6,22 @@ int main(int argc, char **argv) {
 
 	std::list<Song> song_list;
 	int type = 0;
-	if (argc == 3 && strcmp(argv[1], "ORGAN") == 0) {
+	
+	if (argc == 3 && strcmp(argv[1], "GUITAR") == 0) {
+		type = 7;
+		std::ifstream file(argv[2]);
+		printf("Found file %s\n", argv[2]);
+		//std::ifstream file("../../main_py_output");
+		song_list = parse_song(file);
+		printf("Got %i song(s) from %s\n", song_list.size(), argv[2]);
+	} else if (argc == 3 && strcmp(argv[1], "BASSOON") == 0) {
+		type = 6;
+		std::ifstream file(argv[2]);
+		printf("Found file %s\n", argv[2]);
+		//std::ifstream file("../../main_py_output");
+		song_list = parse_song(file);
+		printf("Got %i song(s) from %s\n", song_list.size(), argv[2]);
+	} else if (argc == 3 && strcmp(argv[1], "ORGAN") == 0) {
 		type = 5;
 		std::ifstream file(argv[2]);
 		printf("Found file %s\n", argv[2]);
