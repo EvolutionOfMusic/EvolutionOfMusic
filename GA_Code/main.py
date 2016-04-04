@@ -5,7 +5,6 @@ from RandomSongGen import random_song, tempo_gen as meta_gen, random_chromosome
 from GeneticRandomizer import GeneticRandomizer
 from SongPersistance import load_songs, save_songs
 from GeneticSong import min_nc_length
-from DiversityCalc import get_avg_diversity
 
 from random import SystemRandom, seed, randrange
 from argparse import ArgumentParser
