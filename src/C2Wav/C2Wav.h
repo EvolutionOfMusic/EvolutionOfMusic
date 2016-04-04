@@ -9,6 +9,6 @@
 #include "../song_structs.h"
 #include "make_wav.h"
 
-void C2Wav(Song song);
+void C2Wav(int type, Song song);
 
 #endif

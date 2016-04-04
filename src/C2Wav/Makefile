@@ -11,7 +11,7 @@ OBJ = main.o C2Wav.o make_wav.o \
 	../python3_to_cpp_converter.o \
 	../frequencies.o
 
-%.o: %.c #$(DEPS)
+%.o: %.cpp #$(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 #$@ is rule name, $< is first arg after
 
