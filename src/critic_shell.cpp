@@ -59,7 +59,7 @@ const int END_STEP_DOWN = 100;
 const int END_MAJOR_STEP = 100;
 const int END_LONGER = 100;
 // - Less tracks should be discouraged
-const int TRACK_MARKER = 4;
+const int TRACK_MARKER = 2;
 
 long long c_shell(Song song) {
 	long long score = 100;
