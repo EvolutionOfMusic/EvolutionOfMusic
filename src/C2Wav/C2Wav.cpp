@@ -5,8 +5,9 @@ double getWave(double amplitude, double frequency, double time) {
     return amplitude*sin((2.0*M_PI*frequency*time)/(SAMPLING_RATE));
 }
 
-double getAMWave(double amplitude, double frequency, double time) {
-    return amplitude*sin(((2.0*M_PI*frequency*time)/(SAMPLING_RATE)))*sin(((1.0*M_PI*frequency*time)/(SAMPLING_RATE)));
+double getAMWave(double amplitude, double modIndex, double carrier, double modulator, double time) {
+    return (getWave(amplitude, carrier, time)+(modIndex/2)*(getWave(amplitude, carrier-modulator, time)+getWave(amplitude, carrier+modulator, time)))/2;
+	//amplitude*sin(((2.0*M_PI*frequency*time)/(SAMPLING_RATE)))*sin(((1.0*M_PI*frequency*time)/(SAMPLING_RATE)));
 }
 
 double getFMWave(double amplitude, double timbre, double carrier, double frequency, double time) {
@@ -15,13 +16,62 @@ double getFMWave(double amplitude, double timbre, double carrier, double frequen
     return amplitude*sin(thetaC + timbre*(abs(carrier-frequency))*sin(thetaF));
 }
 
+double getOrganWave(double amplitude, double frequency, double time) {
+	return amplitude*sin(((2.0*M_PI*frequency*time)/(SAMPLING_RATE)))*sin(((1.0*M_PI*frequency*time)/(SAMPLING_RATE)));
+}
+
 double getBrassWave(double amplitude, double frequency, double time) {
-    return getFMWave(amplitude, 1.0, frequency, frequency, time);
+    return getFMWave(amplitude, 1, frequency, (frequency > 1) ? frequency-2:frequency, time);
 }
 
 double getBellWave(double amplitude, double timbre, double frequency, double time) {
-    double GoldenRatio = 1.618033988749895;
+    double GoldenRatio = 1.618033988749895;// Creates Much Noise (Needs Modulation Func)
     return getFMWave(amplitude, timbre, frequency/GoldenRatio, frequency, time);
+}
+
+void setEnvelope(int type, double* envelope) {
+    if (type == 4) {//Bell
+        envelope[0] = 0.0;
+        envelope[1] = 1.0;
+        envelope[2] = 0.4;
+        envelope[3] = 0.01;
+        envelope[4] = 0.0;
+    } else if (type == 3) {//Brass
+        envelope[0] = 0.0;
+        envelope[1] = 1.0;
+        envelope[2] = 0.75;
+        envelope[3] = 0.6;
+        envelope[4] = 0.0;
+    } else {//Everything Else
+        envelope[0] = 0.0;
+        envelope[1] = 1.0;
+        envelope[2] = 1.0;        
+        envelope[3] = 1.0;
+        envelope[4] = 0.0;
+    }//This is also needed for WoodWinds
+}
+
+double getInstrumentWave(double tempAmp, Track track, Note note, int i, double time, double T, double trackNum, int type) {
+    // Instruments
+    if (type == 5) {
+        return getOrganWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
+    } else if (type == 4) {// Bells need a Modulation Func
+        //if (i < 1*SAMPLING_RATE/2 + time) {
+            return getBellWave(tempAmp, 1.0/(10000*(i-time)/(SAMPLING_RATE/2)), frequencies[note.tone], i)/(trackNum+4);
+        /*} else if (i < 1*SAMPLING_RATE + time) {
+            return getBellWave(tempAmp, 0.0001-0.0001*(i-(time+SAMPLING_RATE/2))/(SAMPLING_RATE/2), frequencies[note.tone], i)/(trackNum+4);
+        } else {
+            return getBellWave(tempAmp, 0, frequencies[note.tone], i)/(trackNum+4);
+        }*/
+    } else if (type == 3) {
+        return getBrassWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
+    } else if (type == 2) {
+        return getAMWave(tempAmp, 1.0, frequencies[note.tone], frequencies[note.tone+12], i)/(trackNum+4);
+    } else if (type == 1) {
+        return getFMWave(tempAmp, 1.0, frequencies[track.channel[0].tone], frequencies[note.tone], i)/(trackNum+4);
+    } else {
+        return getWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
+    }
 }
 
 double runtime(double hold, double pause, double tempo) {
@@ -55,25 +105,7 @@ void C2Wav(int type, Song song){
     int noteIndex;
     double time, trackNum = ((double)song.track_num), tempAmp;
     double envelope[5];
-    if (type == 4) {//Bell
-        envelope[0] = 0.0;
-        envelope[1] = 1.0;
-        envelope[2] = 0.5;
-        envelope[3] = 0.2;
-        envelope[4] = 0.0;
-    } else if (type == 3) {//Brass
-        envelope[0] = 0.0;
-        envelope[1] = 1.0;
-        envelope[2] = 0.75;
-        envelope[3] = 0.6;
-        envelope[4] = 0.0;
-    } else {
-        envelope[0] = 0.0;
-        envelope[1] = 1.0;
-        envelope[2] = 1.0;        
-        envelope[3] = 1.0;
-        envelope[4] = 0.0;
-    }
+    setEnvelope(type, envelope);
     Note note; Track track;
 
     for(k = 0;k < trackNum;k++){
@@ -83,7 +115,7 @@ void C2Wav(int type, Song song){
         note = track.channel[noteIndex];
         T = runtime(note.hold_time, note.pause_time, tempo);
         //type = (track.instrument_id) % 4;
-        //amplitude = 32000.0*track.volume/100.0;
+        amplitude = 32000.0*track.volume/100.0;
 
         for(i = 0;i < numberOfSamples;i++){
             if (noteIndex >= track.track_length) continue; //Most tracks aren't the longest track
@@ -91,11 +123,16 @@ void C2Wav(int type, Song song){
             if (i > T*SAMPLING_RATE + time) {
                     // This should solve popping
                     tempAmp = amplitude*(envelope[3]-envelope[4]);
-                    if (type == 2) {
-                        finalSong[i] += getAMWave(3.0*tempAmp/4.0, frequencies[note.tone], i)/(trackNum+4);
+                    if (type == 4) {
+                        finalSong[i] += getBellWave(3.0*tempAmp/4.0, 0, frequencies[note.tone], i)/(trackNum+4);
+                        finalSong[i] += getBellWave(tempAmp/2.0, 0, frequencies[note.tone], i)/(trackNum+4);
+                        finalSong[i] += getBellWave(tempAmp/4.0, 0, frequencies[note.tone], i)/(trackNum+4);
+                        finalSong[i] += getBellWave(tempAmp/8.0, 0, frequencies[note.tone], i)/(trackNum+4);
+                    } else if (type == 2) {
+                        /*finalSong[i] += getAMWave(3.0*tempAmp/4.0, frequencies[note.tone], i)/(trackNum+4);
                         finalSong[i+1] += getAMWave(tempAmp/2.0, frequencies[note.tone], i+1)/(trackNum+4);
                         finalSong[i+2] += getAMWave(tempAmp/4.0, frequencies[note.tone], i+2)/(trackNum+4);
-                        finalSong[i+3] += getAMWave(tempAmp/8.0, frequencies[note.tone], i+3)/(trackNum+4);
+                        finalSong[i+3] += getAMWave(tempAmp/8.0, frequencies[note.tone], i+3)/(trackNum+4);*/
                     } else if (type == 1) {
                         finalSong[i] += getFMWave(3.0*tempAmp/4.0, 1.0, frequencies[track.channel[0].tone], 
                                                     frequencies[note.tone], i)/(trackNum+4);
@@ -119,6 +156,7 @@ void C2Wav(int type, Song song){
                     T = runtime(note.hold_time, note.pause_time, tempo);
             }
             
+            // Amplitude Envelope Comprhension
             if (i < 1*SAMPLING_RATE/6 + time) {
                 tempAmp = amplitude*(envelope[1]-envelope[0])*(i-time)/(SAMPLING_RATE/6);
             } else if (i < 1*SAMPLING_RATE/3 + time) {
@@ -126,24 +164,8 @@ void C2Wav(int type, Song song){
             } else {
                 tempAmp = amplitude*(envelope[2] - (envelope[2]-envelope[3])*(i-(time+SAMPLING_RATE/3))/((T-0.3333)*SAMPLING_RATE));
             }
-            //printf("%d, amp %f\n", i, tempAmp);
 
-            if (type == 4) {
-                double index1 = ((i-time)/(T*SAMPLING_RATE/5));
-                if (fmod(index1,1.0) != 0) {
-                    finalSong[i] += getBellWave(tempAmp, ((i-time)/(T*SAMPLING_RATE))*(envelope[(int)index1]-envelope[(int)index1-1])/2, frequencies[note.tone], i)/(trackNum+4);
-                } else {
-                    finalSong[i] += getBellWave(tempAmp, ((i-time)/(T*SAMPLING_RATE))*envelope[(int)index1], frequencies[note.tone], i)/(trackNum+4);
-                }
-            } else if (type == 3) {
-                finalSong[i] += getBrassWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
-            } else if (type == 2) {
-                finalSong[i] += getAMWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
-            } else if (type == 1) {
-                finalSong[i] += getFMWave(tempAmp, 1.0, frequencies[track.channel[0].tone], frequencies[note.tone], i)/(trackNum+4);
-            } else {
-                finalSong[i] += getWave(tempAmp, frequencies[note.tone], i)/(trackNum+4);
-            }
+            finalSong[i] += getInstrumentWave(tempAmp, track, note, i, time, T, trackNum, type);
         }
     }
     printf("NumSamples: %lu\n", (long unsigned)numberOfSamples);
