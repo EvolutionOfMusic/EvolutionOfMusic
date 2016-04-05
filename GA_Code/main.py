@@ -1,7 +1,7 @@
 from SongPersistance import load_songs as load_pheno_list, save_songs
 from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 from ConfigFile import ConfigFile
-from RandomSongGen import random_song, tempo_gen as meta_gen, random_chromosome
+from RandomSongGen import simple_random_song as random_song, tempo_gen as meta_gen, random_chromosome
 from GeneticRandomizer import GeneticRandomizer
 from SongPersistance import load_songs, save_songs
 from GeneticSong import min_nc_length

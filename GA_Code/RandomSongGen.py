@@ -43,7 +43,11 @@ def random_song(config_obj):
 
     return GeneticSong(*chromo_list, max_len=config_obj.song_length,
                        tempo=tempo_gen(config_obj)[0])
-    
+
+def simple_random_song(config_obj):
+    nc = random_chromosome(config_obj)
+    return GeneticSong(nc, max_len=config_obj.song_length,
+                       tempo=tempo_gen(config_obj)[0])
 
 
 class BatchGen:
