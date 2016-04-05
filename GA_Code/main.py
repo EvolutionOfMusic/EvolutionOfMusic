@@ -273,7 +273,7 @@ if __name__ == "__main__":
     
     #crossover/mutation loop
     for i in range(get_pheno_count(config_file) - 1):
-        #phenotype selection
+        #phenotype selection and crossover
         pheno1, pheno2 = sample_pair(pheno_list)
         c_over_point = randomizer.get_crossover_point(pheno1, pheno2)
         pheno3 = pheno1.crossover(pheno2, c_over_point)
