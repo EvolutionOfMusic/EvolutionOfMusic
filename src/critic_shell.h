@@ -8,14 +8,16 @@
 #ifndef CRITIC_SHELL_H_
 #define CRITIC_SHELL_H_
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
-#include "ethernet.h"
+#include <omp.h>
 #include "frequencies.h"
 #include "song_structs.h"
 
 int c_shell(Song song);
-bool override_switch();
 int supervisor(Song song);
 int manual_override(Song song);
+Note getNoteAtBeat(Track track, int beat);
 
 #endif /* CRITIC_SHELL_H_ */

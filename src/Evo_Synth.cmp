@@ -1,0 +1,33 @@
+	component Evo_Synth is
+		port (
+			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_read_n_out       : out   std_logic_vector(0 downto 0);                     -- generic_tristate_controller_0_tcm_read_n_out
+			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_data_out         : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- generic_tristate_controller_0_tcm_data_out
+			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_chipselect_n_out : out   std_logic_vector(0 downto 0);                     -- generic_tristate_controller_0_tcm_chipselect_n_out
+			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_write_n_out      : out   std_logic_vector(0 downto 0);                     -- generic_tristate_controller_0_tcm_write_n_out
+			tristate_conduit_bridge_0_out_generic_tristate_controller_0_tcm_address_out      : out   std_logic_vector(21 downto 0);                    -- generic_tristate_controller_0_tcm_address_out
+			audio_0_external_interface_ADCDAT                                                : in    std_logic                     := 'X';             -- ADCDAT
+			audio_0_external_interface_ADCLRCK                                               : in    std_logic                     := 'X';             -- ADCLRCK
+			audio_0_external_interface_BCLK                                                  : in    std_logic                     := 'X';             -- BCLK
+			audio_0_external_interface_DACDAT                                                : out   std_logic;                                        -- DACDAT
+			audio_0_external_interface_DACLRCK                                               : in    std_logic                     := 'X';             -- DACLRCK
+			audio_0_avalon_right_channel_source_ready                                        : in    std_logic                     := 'X';             -- ready
+			audio_0_avalon_right_channel_source_data                                         : out   std_logic_vector(31 downto 0);                    -- data
+			audio_0_avalon_right_channel_source_valid                                        : out   std_logic;                                        -- valid
+			audio_0_avalon_right_channel_sink_data                                           : in    std_logic_vector(31 downto 0) := (others => 'X'); -- data
+			audio_0_avalon_right_channel_sink_valid                                          : in    std_logic                     := 'X';             -- valid
+			audio_0_avalon_right_channel_sink_ready                                          : out   std_logic;                                        -- ready
+			audio_0_avalon_left_channel_source_ready                                         : in    std_logic                     := 'X';             -- ready
+			audio_0_avalon_left_channel_source_data                                          : out   std_logic_vector(31 downto 0);                    -- data
+			audio_0_avalon_left_channel_source_valid                                         : out   std_logic;                                        -- valid
+			spi_0_external_MISO                                                              : in    std_logic                     := 'X';             -- MISO
+			spi_0_external_MOSI                                                              : out   std_logic;                                        -- MOSI
+			spi_0_external_SCLK                                                              : out   std_logic;                                        -- SCLK
+			spi_0_external_SS_n                                                              : out   std_logic;                                        -- SS_n
+			button_1_external_connection_export                                              : out   std_logic;                                        -- export
+			button_0_external_connection_export                                              : out   std_logic;                                        -- export
+			clk_clk_in_clk                                                                   : in    std_logic                     := 'X';             -- clk
+			audio_and_video_config_0_external_interface_SDAT                                 : inout std_logic                     := 'X';             -- SDAT
+			audio_and_video_config_0_external_interface_SCLK                                 : out   std_logic                                         -- SCLK
+		);
+	end component Evo_Synth;
+

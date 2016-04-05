@@ -9,6 +9,7 @@
 #define FREQ_H_
 
 // IMPORTANT DEFINITIONS
+#define REST 0
 #define NOTE_C1  33
 #define NOTE_CS1 35
 #define NOTE_D1  37
@@ -91,9 +92,11 @@
 #define NOTE_G7  3136
 #define NOTE_GS7 3322
 #define NOTE_A7  3520
+#define NOTE_AS7 3729
+#define NOTE_B7  3951
 // END OF IMPORTANT DEFINITIONS
 
-#define NUM_FREQ (12 * 7) - 1
+#define NUM_FREQ (12 * 7)+1
 #define MAX_SCALE_SIZE 12
 
 extern const int frequencies[NUM_FREQ];

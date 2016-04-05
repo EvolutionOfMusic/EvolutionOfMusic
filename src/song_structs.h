@@ -28,20 +28,22 @@
 // END OF IMPORTANT DEFINITIONS
 
 typedef struct{
-	short int pause_time, 	// 1/16th beat, at the moment
-			  hold_time;	// 1/16th beat, at the moment
-	int       tone;			// 0-95
+	short int pause_time, 	// 1/64th * [0-2] of a beat, at the moment (changes how the note is attacked, 1/8 beat)
+		  hold_time,	// 1/4th beat, at the moment
+		  tone;			// 0-95
 } Note;
 
 typedef struct{
-	int  instrument_id,
-	     volume;
+	short int  instrument_id,
+	     volume,
+	     track_length;
 	Note channel[MAX_NOTES+1];
 } Track;
 
 typedef struct{
-	int   song_id,
-	      tempo;
+	int song_id;
+	short int tempo,
+	          track_num;
 	Track tunes[MAX_INSTRUMENTS+1];
 } Song;
 

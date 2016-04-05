@@ -5,63 +5,68 @@
  * Created on February 8, 2016, 10:20 AM
  */
 
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <list>
-#include "song_structs.h"
+#include "python3_to_cpp_converter.h"
 
 using namespace std;
 
-Song parse_song(ifstream &file){
+std::list<Song> parse_song(ifstream &file){
     char file_line[20];
 	
-	Song song;
-	int NUM_TRACKS, i, j,
-		instr_id, volume;
-	long int pause_time, hold_time, tone;
+	std::list<Song> song_list;
 	
+	short int NUM_SONGS, NUM_TRACKS, NUM_NOTES;
 	if (file.is_open()) {
-		// Number of Tracks
+		// Number of Songs
 		file.getline(file_line, 20);
-		sscanf(file_line, "%d", &NUM_TRACKS);
-
-		// SongID
-		file.getline(file_line, 20);
-		sscanf(file_line, "%d", &song.song_id);
+		sscanf(file_line, "%hd", &NUM_SONGS);
 		
-		for (i = 0;i < NUM_TRACKS;i++) {
-			// Instrument ID, Volume
-			file.getline(file_line, 20);
-			sscanf(file_line, "%d %d", &instr_id, &volume);
-			song.tunes[i].instrument_id = instr_id;
-			song.tunes[i].volume = volume;
+		//song_list.reserve(NUM_SONGS);
+		
+		for (int i = 0;i < NUM_SONGS;i++) {
+			// Make a new song
+			Song song;
 			
-			for (j = 0;j < MAX_NOTES;j++) {
-				// Pause Time, Tone, Hold Time
+			// Number of Tracks
+			file.getline(file_line, 20);
+			sscanf(file_line, "%hd", &NUM_TRACKS);
+			song.track_num = NUM_TRACKS;
+			
+			// Tempo
+			file.getline(file_line, 20);
+			sscanf(file_line, "%hd", &song.tempo);
+		       	
+			// SongID
+			file.getline(file_line, 20);
+			sscanf(file_line, "%d", &song.song_id);
+			
+			for (int j = 0;j < NUM_TRACKS;j++) {
+				// Number of Notes
 				file.getline(file_line, 20);
-				sscanf(file_line, "%d %d %d", &pause_time, &tone, &hold_time);
-				song.tunes[i].channel[j].tone = tone;
-				song.tunes[i].channel[j].pause_time = pause_time;
-				song.tunes[i].channel[j].hold_time = hold_time;
+				sscanf(file_line, "%hd", 
+				       &NUM_NOTES);
+				song.tunes[j].track_length = NUM_NOTES;
+				
+				// Instrument ID, Volume
+				file.getline(file_line, 20);
+				sscanf(file_line, "%hd %hd", 
+				       &(song.tunes[j].instrument_id), 
+				       &(song.tunes[j].volume));
+				
+				for (int k = 0;k < NUM_NOTES;k++) {
+					// Pause Time, Tone, Hold Time
+					short int a, b, c;
+					file.getline(file_line, 20);
+					sscanf(file_line, "%hd %hd %hd", &a, &b, &c);
+					song.tunes[j].channel[k].pause_time = a; 
+					song.tunes[j].channel[k].tone = b;
+					song.tunes[j].channel[k].hold_time = c;
+				}
 			}
+			//printf("pushing\n");
+			// Add it to the list
+			song_list.push_back(song);
 		}
 	}
-	
-	return song;
-}
-
-int main(int argc, char** argv) {
-    Song song;
-    char songid[5];
-    
-    ifstream file("main_py_output");
-    
-    song = parse_song(file);
-	
-	Track track = song.tunes[0];
-    
-    cout << track.instrument_id << endl;
-    cout << track.volume << endl;
+	return song_list;
 }
 

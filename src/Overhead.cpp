@@ -4,61 +4,53 @@
  *  Created on: Jan 28, 2016
  *      Author: Stephen
  */
-// Unit Tests
-//#include <boost/test/minimal.hpp>
-//#define BOOST_TEST_MODULE MyTest
-//#include <boost/test/unit_test.hpp>
-//#include <gtest/gtest.h>
 
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
-#include "ethernet.h"
-#include "critic_shell.h"
-#include "ai_shell.h"
-//#include "song_structs.h"
+#include "Overhead.h"
 
-
-bool play_music_switch();
-
-int main() {
+int main(int argc, char *argv[]) {
 	using namespace std;
 	// cin & cout
 
-	int seed, iterations, score, total_time;
-	time_t start_time, end_time;
+	bool displayText = false, continuing = false;
+	int seed = 0, iterations, score = 0;
+	struct timeval start_time, end_time;
 	Song song;
-
-	cin >> seed >> iterations;
+	
+	if (argc == 4) {
+		if (strcmp(argv[1],"p") == 0 || strcmp(argv[1],"-p") == 0 || strcmp(argv[1],"print") == 0)
+			displayText = true;
+		seed = atoi(argv[2]);
+		iterations = atoi(argv[3]);
+	} else if (argc == 3) {
+		if (strcmp(argv[1],"c") == 0 || strcmp(argv[1],"-c") == 0 || strcmp(argv[1],"continue") == 0) {
+			continuing = true;
+			iterations = atoi(argv[2]);
+		} else {
+			seed = atoi(argv[1]);
+			iterations = atoi(argv[2]);
+		}
+	} else {
+		cout << "Seed, # iterations\n";
+		cin >> seed >> iterations;
+	}
 
 	srand(seed);
 
 	// Timing is everything
-	start_time = time(0);
+	gettimeofday(&start_time, NULL);
 
-	song = ai_shell(0);
-	for (int i = 0;i < iterations;i++) {
+	for (int i = 0;i < iterations;) {
+		song = ai_shell(continuing, displayText, &i, score);
+		if (displayText)
+			printf("Song %d:", song.song_id);
 		score = c_shell(song);
-		//Not sure how this will work with the AGI as it will only
-		//work on figuring out one type of instrument groups at a time
-		song = ai_shell(score);
-
-		if (play_music_switch())
-			play_music(song);
+		if (displayText)
+			printf(" Score of %d\n", score);
 	}
 
-	end_time = time(0);
-	total_time = difftime(start_time, end_time);
+	gettimeofday(&end_time, NULL);
 
-	cout << "Generation " << iterations << " Complete in " << total_time << " seconds" << '\n';
+	cout << "Generation " << iterations << " Complete in " << 
+	       (end_time.tv_sec - start_time.tv_sec) << " seconds" << '\n';
 }
 
-bool play_music_switch() {
-		info status = get_ethernet();
-		return status.play_music;
-}
-
-/*int test_main(int, char *[]) {
-	BOOST_CHECK(true);
-	return 0;
-}*/
