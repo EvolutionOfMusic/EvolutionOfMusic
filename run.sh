@@ -7,6 +7,7 @@ if [ $# -lt 2 ]; then
   exit
 fi
 
+chmod 0700 ./wav.sh
 make -f Makefile
 
 cnt=`ps -eaflc --sort stime | grep UI.jar |grep -v grep | wc -l`
@@ -25,6 +26,7 @@ if [ "$1" = "-p" ] || [ "$1" = "p" ] || [ "$1" = "print" ]; then
       scl enable python33 "./EvoMusic $1 $2 $3"
   else
       echo "neither python3 nor scl are commands in your environment"
+      exit
   fi
   
 elif [ "$1" = "-s" ] || [ "$1" = "s" ] || [ "$1" = "supress" ]; then
@@ -38,6 +40,7 @@ elif [ "$1" = "-s" ] || [ "$1" = "s" ] || [ "$1" = "supress" ]; then
       scl enable python33 "./EvoMusic $2 $3"
   else
       echo "neither python3 nor scl are commands in your environment"
+      exit
   fi
   
 elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
@@ -55,6 +58,7 @@ elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
       scl enable python33 "./EvoMusic $1 $2"
   else
       echo "neither python3 nor scl are commands in your environment"
+      exit
   fi
   
 else
@@ -68,6 +72,7 @@ else
       scl enable python33 "./EvoMusic $1 $2"
   else
       echo "neither python3 nor scl are commands in your environment"
+      exit
   fi
   
 fi

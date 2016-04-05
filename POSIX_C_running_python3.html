@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title>Run Python3 From C</title>
+		<h1>Run Python3 From C</h1>
+		<hr>
+		----------------<br>
+		Written by:<br>
+		Stephen Andersen<br>
+		Group 8<br>
+		Winter 2016<br>
+		----------------<br>
+	</head>
+	<body>
+		<h3><u>Introduction</u></h3>
+		<p>This tutorial or 'app note' will demonstrate how to run python3 from C<br>
+		<br>
+		This tutorial expects you to understand basic C and Python3.<br></p>
+		<h3>C Side</h3>
+		<hr>
+		<p>
+		  <h4>SETUP FOR SIGNAL HANDLING</h4>
+		    // Have a bool to ensure that if the signal activates, C will notice (Python can be FAST)<br>
+		    bool sig_flag = false;<br>
+		    ...<br>
+  		  // Init signal handler for first use<br>
+      	sig_handler(0);<br>
+		  <br>
+		  <h4>SIGNAL HANDLER</h4>
+		  void sig_handler(int sig) {<br>
+      	// We have resumed.<br>
+      	// Re-init signal handler<br>
+      	signal(SIGCONT, sig_handler);<br>
+      	sig_flag = true;<br>
+      	return;<br>
+      }<br>
+		  <br>
+  		<h4>SOMEWHERE ELSE IN CODE</h4><br>
+		  // Here we write the command to start python into a string<br>
+		  sprintf(buffer, "python3 GA_Code/main.py -p %d", getpid());<br>
+		  // The passing of the pid is important only if you pause for pythons result (via pipelining)<br>
+		  <br>
+		  // This runs the string in bash
+		  system(buffer);<br>
+  		<br>
+		  // WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())<br>
+		  // If sig_flag is already true, python finished really fast; no need for pause()<br>
+		  if (!sig_flag)<br>
+		      // Pause() will make C stop executing until killed<br>
+		      pause();<br>
+		  // Reset sig_flag
+		  sig_flag = false;<br>
+		</p>
+		<br>
+		<h3>Python Side</h3>
+		<hr>
+		<p>
+		  <h4>SIGNAL HANDLING</h4>
+		   def alert_parent_program(pid):<br>
+        """<br>
+        Inputs: pid (the pid of the program that called this code)<br>
+        Outputs: a SIGCONT signal to the process with the matching pid<br>
+        """<br>
+        if pid is not None:<br>
+            system("kill -CONT " + str(pid))<br>
+		</p>
+	</body>
+</html>
