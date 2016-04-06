@@ -48,17 +48,32 @@ elif [ "$1" = "-c" ] || [ "$1" = "c" ] || [ "$1" = "continue" ]; then
     echo "Usage: $0 [-c|c|continue] NumIterations"
     exit
   fi
-  if(test $cnt -lt 1) ; then
-    java -jar UI.jar -r &
-  fi
-  
-  if hash python3 2>/dev/null; then
-      ./EvoMusic $1 $2
-  elif hash scl 2>/dev/null; then
-      scl enable python33 "./EvoMusic $1 $2"
-  else
-      echo "neither python3 nor scl are commands in your environment"
+  if [ "$2" = "-s" ] || [ "$2" = "s" ] || [ "$2" = "supress" ]; then
+    if [ $# -lt 3 ]; then
+      echo "Usage: $0 [-c|c|continue] [-s|s|supress] NumIterations"
       exit
+    fi
+    if hash python3 2>/dev/null; then
+        ./EvoMusic $1 $3
+    elif hash scl 2>/dev/null; then
+        scl enable python33 "./EvoMusic $1 $2"
+    else
+        echo "neither python3 nor scl are commands in your environment"
+        exit
+    fi
+  else
+    if(test $cnt -lt 1) ; then
+      java -jar UI.jar -r &
+    fi
+    
+    if hash python3 2>/dev/null; then
+        ./EvoMusic $1 $2
+    elif hash scl 2>/dev/null; then
+        scl enable python33 "./EvoMusic $1 $2"
+    else
+        echo "neither python3 nor scl are commands in your environment"
+        exit
+    fi
   fi
   
 else
