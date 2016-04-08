@@ -18,38 +18,13 @@
 		<h3>C Side</h3>
 		<hr>
 		<p>
-		  <h4>SETUP FOR SIGNAL HANDLING</h4>
-		    // Have a bool to ensure that if the signal activates, C will notice (Python can be FAST)<br>
-		    bool sig_flag = false;<br>
-		    ...<br>
-  		  // Init signal handler for first use<br>
-      	sig_handler(0);<br>
-		  <br>
-		  <h4>SIGNAL HANDLER</h4>
-		  void sig_handler(int sig) {<br>
-      	// We have resumed.<br>
-      	// Re-init signal handler<br>
-      	signal(SIGCONT, sig_handler);<br>
-      	sig_flag = true;<br>
-      	return;<br>
-      }<br>
-		  <br>
-  		<h4>SOMEWHERE ELSE IN CODE</h4><br>
-		  // Here we write the command to start python into a string<br>
-		  sprintf(buffer, "python3 GA_Code/main.py -p %d", getpid());<br>
-		  // The passing of the pid is important only if you pause for pythons result (via pipelining)<br>
-		  <br>
-		  // This runs the string in bash
-		  system(buffer);<br>
-  		<br>
-		  // WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())<br>
-		  // If sig_flag is already true, python finished really fast; no need for pause()<br>
-		  if (!sig_flag)<br>
-		      // Pause() will make C stop executing until killed<br>
-		      pause();<br>
-		  // Reset sig_flag
-		  sig_flag = false;<br>
-		</p>
+		<h4>RUN COMMANDS FROM C</h4>
+		<pre>
+		char buffer[100];
+		sprintf(buffer, "python3 hello.py");
+		puts("starting python3 in C"); 
+		system(buffer);
+		</pre>
 		<br>
 		<h3>Python Side</h3>
 		<hr>
