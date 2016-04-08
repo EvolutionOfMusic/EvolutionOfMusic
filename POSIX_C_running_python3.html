@@ -15,7 +15,7 @@
 		<p>This tutorial or 'app note' will demonstrate how to run python3 from C<br>
 		<br>
 		This tutorial expects you to understand basic C and Python3.<br></p>
-		<h3>C Side</h3>
+		<br>
 		<hr>
 		<p>
 		<h4>RUN COMMANDS FROM C</h4>
@@ -26,17 +26,35 @@
 		system(buffer);
 		</pre>
 		<br>
+		<h2>Example</h2>
+		<hr>
+		<h3>C Side</h3>
+		<hr>
+		<pre>
+		#include <stdio.h>
+		#include <stdlib.h>
+		
+		int main(){
+		  char buffer[100];
+		
+		  sprintf(buffer, "python3 hello.py");
+		  puts("starting python3 in C"); 
+		  system(buffer); // Runs command in bash; Stops C from executing
+		  puts("resuming C");
+		  return 0;
+		}
+		</pre>
 		<h3>Python Side</h3>
 		<hr>
-		<p>
-		  <h4>SIGNAL HANDLING</h4>
-		   def alert_parent_program(pid):<br>
-        """<br>
-        Inputs: pid (the pid of the program that called this code)<br>
-        Outputs: a SIGCONT signal to the process with the matching pid<br>
-        """<br>
-        if pid is not None:<br>
-            system("kill -CONT " + str(pid))<br>
-		</p>
+		<pre>
+		from os import system
+		import sys
+		import time
+		
+		if __name__ == "__main__":
+			print("starting python")
+			time.sleep(2);# Sleep for 2 seconds
+			print("leaving python")
+		</pre>
 	</body>
 </html>
