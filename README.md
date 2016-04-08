@@ -38,6 +38,7 @@ To synthesize samples from a specific generation use
   - `AM`: Amplitude Modulator
   - `FM`: Frequency Modulator
   - All instruments are hardcoded in `C2Wav.cpp` and all of them but the Organ were created with the Frequency Modulator
+  - If run without arguments, instruments are assigned by track ID
 
 ##Separately
 ###Makefile
