@@ -11,9 +11,9 @@ make -f src/C2Wav/Makefile
 
 #Create Wavs
 if [ $# -gt 1 ];then
-src/C2Wav/main $1 $2
+./Synthesizer $1 $2
 else
-src/C2Wav/main $1
+./Synthesizer $1
 fi
 
 aplay `ls -Art *.wav | tail -n 1`

@@ -23,14 +23,14 @@ const int C3_INDEX = 3 * NOTES_PER_OCTAVE + 1;
  * http://hyperphysics.phy-astr.gsu.edu/hbase/music/mussca.html
  * - Also used for transitions
  */
-const int CONSONANCE = 600;
+const int CONSONANCE = 1000;
 const int CONSONANCE_RANGE = 8;
 /* Rhythm
  * - Being on the same beat is good
  * - 4/4 Time is good
  */
-const int PERFECT_TIME = 5000;
-const int FOURFOUR_TIME = 200000;
+const int PERFECT_TIME = 500000;
+const int FOURFOUR_TIME = 2000000;
 const int MORE_RESTS = 20;
 /* Length
  * - Slower notes for faster songs
@@ -59,7 +59,7 @@ const int END_STEP_DOWN = 100;
 const int END_MAJOR_STEP = 100;
 const int END_LONGER = 100;
 // - Less tracks should be discouraged
-const int TRACK_MARKER = 4;
+const int TRACK_MARKER = 5;
 
 long long c_shell(Song song) {
 	long long score = 100;
@@ -73,6 +73,7 @@ long long supervisor(Song song) {
 	        rhythmTally = 0, noteLengthTally = 0, restTally = 0, octaveTally = 0, trackTally = 0,
 	        instruments = song.track_num, beat, resolution_diff;
 	float freq_ratio;
+	int measure, id = 0;
 	bool check = false;
 	Note a1, a2, a3, a4, n1, n2, n3;
 	
@@ -81,9 +82,11 @@ long long supervisor(Song song) {
 		trackTally += pow(TRACK_MARKER+2 - instruments, 10);
 	
 	for (int i = 0;i < instruments;i++) {
-	        if (song.tunes[i].channel[0].tone != REST) check = true;
+	    if (song.tunes[i].channel[0].tone != REST) check = true;
+        id = song.tunes[i].instrument_id;
 		beat = 0;
-		
+		measure = 0;
+
 		n1 = song.tunes[i].channel[0];
 		n2 = song.tunes[i].channel[song.tunes[i].track_length - 2];
 		n3 = song.tunes[i].channel[song.tunes[i].track_length - 1];
@@ -116,17 +119,59 @@ long long supervisor(Song song) {
 				a1 = song.tunes[i].channel[0];
 				a2 = song.tunes[i].channel[0];
 				a3 = song.tunes[i].channel[0];
-	    		} else if(k == 1) {
+            } else if(k == 1) {
 				a1 = song.tunes[i].channel[0];
 				a2 = song.tunes[i].channel[0];
 				a3 = song.tunes[i].channel[1];
 			} else {
-				a1 = song.tunes[i].channel[k-2];
+                a1 = song.tunes[i].channel[k-2];
 				a2 = song.tunes[i].channel[k-1];
 				a3 = song.tunes[i].channel[k];
 			}
 			
-			// tempo_alt is at most 20 at least 0
+            // SHORT NOTES ARE NOT FOR ORGAN, ACCORDIAN, GUITAR
+            if (id == 0) { 
+                    if (a1.hold_time % 2)
+                        rhythmTally += PERFECT_TIME;
+                    if (a1.hold_time == a2.hold_time) {
+                        //Oh Yeah
+                        noteLengthTally -= 10;
+                        if (a1.hold_time == a3.hold_time)
+                            // Oh YEAH
+                            noteLengthTally -= 10;
+                    }
+            } else if (id % 6 != 2 && id % 6 != 3 && id % 6 != 4) {
+                if (a1.tone != REST && a1.hold_time != 1)
+                    noteLengthTally += PERFECT_TIME;
+                if (a1.tone != REST && a2.hold_time != 1)
+                    noteLengthTally += PERFECT_TIME;
+                if (a1.tone != REST && a3.hold_time != 1)
+                    noteLengthTally += PERFECT_TIME;
+                if (a1.tone != REST && a1.hold_time < 3)
+                    noteLengthTally += PERFECT_TIME;
+                // Similar percussion hold times
+                if (a1.hold_time == a2.hold_time) {
+                    //Oh Yeah
+                    noteLengthTally -= 10;
+                    if (a1.hold_time == a3.hold_time)
+                        // Oh YEAH
+                        noteLengthTally -= 10;
+                }
+                
+            }
+            
+            // If on a new measure
+            if (beat/4 > measure) {
+                measure = beat/4;
+                // If it does not have the same rhythm as the start; DEMERITS
+                if (a1.hold_time != song.tunes[i].channel[0].hold_time)
+                    rhythmTally += PERFECT_TIME;
+                if (a2.hold_time != song.tunes[i].channel[1].hold_time)
+                    rhythmTally += PERFECT_TIME;
+                if (a3.hold_time != song.tunes[i].channel[2].hold_time)
+                    rhythmTally += PERFECT_TIME;
+            }
+            
 			if (song.tempo > FAST_TEMPO_MARKER && a3.hold_time < BEATS_PER_MEASURE/2) {
 				//Fast
 				noteLengthTally += TEMPO_SCALING*((BEATS_PER_MEASURE/2)-a3.hold_time);
@@ -233,7 +278,7 @@ long long supervisor(Song song) {
 	
 	if (!check) restTally += SILENT_START;
 	
-	std::ofstream file("critic_output", std::ios_base::app);
+	/*std::ofstream file("critic_output", std::ios_base::app);
 	if (file.is_open()) {
 		file << "End " << endTally << "\n"; 
 		file << "Consonance " << consonanceTally << "\n";
@@ -243,7 +288,7 @@ long long supervisor(Song song) {
 		file << "Octaves " << octaveTally << "\n";
 		file << "Track " << trackTally << "\n";
 		file.close();
-	}
+	}*/
 	
 	return endTally + consonanceTally + rhythmTally + noteLengthTally + restTally + octaveTally + trackTally;
 }

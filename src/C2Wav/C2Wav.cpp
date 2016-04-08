@@ -1,5 +1,5 @@
 #include "C2Wav.h"
-const double SAMPLING_RATE = (2*44100);
+const double SAMPLING_RATE = (3*44100);
 
 double getWave(double amplitude, double frequency, double time) {
     return amplitude*sin((2.0*M_PI*frequency*time)/(SAMPLING_RATE));
@@ -126,7 +126,8 @@ void C2Wav(int type, Song song){
     double numberOfSamples = 0.0, T;
     double tempo = 4.0 * ((song.tempo < 10) ? 10.0:(double)song.tempo) / 60.0;
     int i, j, k, amplitude = 32000;
-	
+    int SavedType = type;
+
     char title[38];
     sprintf(title, "samples_%i.wav", song.song_id);
     printf("START %i\n", song.song_id);
@@ -140,8 +141,8 @@ void C2Wav(int type, Song song){
     }
     
     numberOfSamples = (runtime(maxNoteCount, 0.0, tempo)*SAMPLING_RATE);
-    numberOfSamples+=5;//For popping correction
-	
+    numberOfSamples += 5;//For popping correction
+    
     //printf("CALLOCING\n");
     double *finalSong = (double *)calloc(numberOfSamples, sizeof(double));
     //printf("CALLOCING DONE\n");
@@ -154,11 +155,42 @@ void C2Wav(int type, Song song){
 
     for(k = 0;k < trackNum;k++){
 	    noteIndex = 0;time = 0.0;
-        printf("Track %d %f\n", k, trackNum);
+        printf("Track %d ", k);
         track = song.tunes[k];
         note = track.channel[noteIndex];
         T = runtime(note.hold_time, note.pause_time, tempo);
-        //type = (track.instrument_id) % 4;
+        //type = (track.instrument_id) % 11;
+        if (SavedType == 0) {
+            switch ((k == 0) ? 0:((track.instrument_id) % 6)) {
+            case 0://WOODBLOCK
+                type = 9;
+                printf("WOODBLOCK\n");
+                break;
+            case 1://BELL
+                type = 4;
+                printf("BELL\n");
+                break;
+            case 2://ORGAN
+                type = 5;
+                printf("ORGAN\n");
+                break;
+            case 3://ACCORDIAN
+                type = 7;
+                printf("ACCORDIAN\n");
+                break;
+            case 4://GUITAR
+                type = 10;
+                printf("GUITAR\n");
+                break;
+            case 5://HARP
+                type = 8;
+                printf("HARP\n");
+                break;
+            }
+        } else {
+            printf("\n");
+        }
+        
         amplitude = 32000.0*track.volume/100.0;
 
         for(i = 0;i < numberOfSamples;i++){
