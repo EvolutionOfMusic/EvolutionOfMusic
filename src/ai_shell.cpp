@@ -7,7 +7,7 @@
 
 #include "ai_shell.h"
 
-bool sig_flag = false;
+//bool sig_flag = false;
 
 Song ai_shell(bool continuing, bool displayText, int * iteration, long long score) {
 	static int last_song_id = -1;
@@ -26,11 +26,6 @@ Song ai_shell(bool continuing, bool displayText, int * iteration, long long scor
 				"python3 GA_Code/main.py -n -s %d -p %d", 
 				rand(), getpid());
 			system(buffer);
-			
-			// Wait for python's init to complete
-			if (!sig_flag)
-			    pause();
-			sig_flag = false;
 		}
 	}
 
@@ -61,11 +56,8 @@ int get_diversity(std::list<Song> song_list, std::list<Song>::iterator current) 
 }
 
 void init_AI() {
-	// Init signal handler for first use
-	sig_handler(0);
-	
 	// Clear the file
-	ofstream file("main_py_input", std::ofstream::out | std::ofstream::trunc);
+	std::ofstream file("main_py_input", std::ofstream::out | std::ofstream::trunc);
 	if (file.is_open()) file.close();
 }
 
@@ -76,19 +68,19 @@ Song start_AI(bool displayText, int * iteration, long long score) {
 	
 	if (song_index == -1){
 		// READ OUTPUT
-		ifstream file("./main_py_output");
+		std::ifstream file("./main_py_output");
 		song_list = parse_song(file);
 		it = song_list.begin();
 		it--;
 	} else {
 		// Pass the song & score to the AI
-		ofstream file("main_py_input", std::ios_base::app);
+		std::ofstream file("main_py_input", std::ios_base::app);
 		if (file.is_open()) {
 			file << score << " " << get_diversity(song_list, it) << "\n";
 			file.close();
 		}
 	}
-	//printf("%d < %d\n", song_index,(song_list.size()-1));
+	
 	if (song_index == song_list.size()-1) {
 	    	char buffer[100];
 		
@@ -99,13 +91,8 @@ Song start_AI(bool displayText, int * iteration, long long score) {
 		sprintf(buffer, "python3 GA_Code/main.py -p %d", getpid());
 		system(buffer);
 		
-		// WAIT FOR OUTPUT (A SIGNAL FROM PYTHON'S KILL())
-		if (!sig_flag)
-		    pause();
-		sig_flag = false;
-		
 		// READ OUTPUT
-		ifstream file("./main_py_output");
+		std::ifstream file("./main_py_output");
 		song_list = parse_song(file);
 		it = song_list.begin();
 		
@@ -121,10 +108,3 @@ Song start_AI(bool displayText, int * iteration, long long score) {
 	return (*it);//song_list.at(song_index);
 }
 
-void sig_handler(int sig) {
-	// We have resumed.
-	// Re-init signal handler
-	signal(SIGCONT, sig_handler);
-	sig_flag = true;
-	return;
-}

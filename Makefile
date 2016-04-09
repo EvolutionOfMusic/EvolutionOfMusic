@@ -6,9 +6,9 @@
 CC = g++
 DIR = ./src/
 CFLAGS = -g -Wall -I/src
-DEPS = Overhead.h ai_shell.h critic_shell.h sd.h \
+DEPS = Overhead.h ai_shell.h critic_shell.h \
 	python3_to_cpp_converter.h song_structs.h frequencies.h
-OBJ = Overhead.o ai_shell.o critic_shell.o sd.o \
+OBJ = Overhead.o ai_shell.o critic_shell.o \
 	python3_to_cpp_converter.o frequencies.o
 
 %.o: $(DIR)%.cpp #$(DIR)$(DEPS)
@@ -22,8 +22,11 @@ clean:
 
 delete: clean
 	rm -rf EvoMusic
+	rm -rf ave_fitness_graph
+	rm -rf main_log.txt
 	rm -rf *~
-	rm -rf main_py_samples_generation_*
+	rm -rf $(DIR)*~
+	rm -rf main_py_*
 
 help: 
 	@echo 'RULES: EvoMusic, clean, delete'
