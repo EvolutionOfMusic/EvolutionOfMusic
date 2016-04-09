@@ -5,7 +5,7 @@
 
 CC = g++
 DIR = ./src/
-CFLAGS = -g -Wall -I/src -fopenmp
+CFLAGS = -g -Wall -I/src
 DEPS = Overhead.h ai_shell.h critic_shell.h sd.h \
 	python3_to_cpp_converter.h song_structs.h frequencies.h
 OBJ = Overhead.o ai_shell.o critic_shell.o sd.o \
