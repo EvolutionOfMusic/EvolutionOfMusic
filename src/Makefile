@@ -19,13 +19,11 @@ clean:
 	rm -rf *.o
 
 delete: clean
-	rm -rf EvoMusic
+	rm -rf CanonInD
 	rm -rf *~
 	rm -rf main_py_samples_generation_*
 
 run:	java -jar UI.jar
 	make
-	./EvoMusic
+	./CanonInD
 
-help: 
-	@echo 'RULES: EvoMusic, clean, delete'
