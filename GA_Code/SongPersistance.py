@@ -1,3 +1,11 @@
+"""
+
+ SongPersistance.py
+
+  Created on: Mar 20, 2016
+      Author: Lee
+
+"""
 from NoteGene import NoteGene
 from NoteChromosome import NoteChromosome
 from GeneticSong import GeneticSong
