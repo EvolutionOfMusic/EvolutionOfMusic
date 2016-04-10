@@ -1,3 +1,12 @@
+"""
+
+ RandomSongGen.py
+
+  Created on: Feb 10, 2016
+      Author: Lee
+
+"""
+
 from threading import Thread, Lock
 from random import randrange, seed
 from multiprocessing import Pool
