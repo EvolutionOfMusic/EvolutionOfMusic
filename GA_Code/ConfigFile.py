@@ -1,3 +1,12 @@
+"""
+
+ ConfigFile.py
+
+  Created on: Feb 8, 2016
+      Author: Lee
+
+"""
+
 def basic_parse(file_name):
     """
     Parses a config file with format:
