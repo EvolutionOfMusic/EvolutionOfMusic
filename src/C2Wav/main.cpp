@@ -1,3 +1,10 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Mar 28, 2016
+ *      Author: Stephen, Aaron
+ */
+
 #include "main.h"
 #include <string.h>
 
