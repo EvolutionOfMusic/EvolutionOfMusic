@@ -6,7 +6,7 @@
  * Creative Commons license Attribution-NonCommercial
  *  http://creativecommons.org/licenses/by-nc/3.0/
  */
-/* modified based on www-mmsp.ece.mcgill.ca/documents/audioformats/wave/wave.html and https://blogs.msdn.microsoft.com/dawate/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format/ */
+/* modified by Stephen based on www-mmsp.ece.mcgill.ca/documents/audioformats/wave/wave.html and https://blogs.msdn.microsoft.com/dawate/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format/ */
 
 #include "make_wav.h"
  
