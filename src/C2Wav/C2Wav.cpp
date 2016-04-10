@@ -1,3 +1,10 @@
+/*
+ * C2Wav.cpp
+ *
+ *  Created on: Mar 28, 2016
+ *      Author: Stephen, Aaron
+ */
+
 #include "C2Wav.h"
 const double SAMPLING_RATE = (3*44100);
 
