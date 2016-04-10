@@ -1,5 +1,5 @@
 /*
- * slow_critic_shell.cpp
+ * critic_shell.cpp
  *
  *  Created on: Feb 1, 2016
  *      Author: Stephen
