@@ -1,3 +1,12 @@
+"""
+
+ main.py
+
+  Created on: Feb 1, 2016
+      Author: Lee
+
+"""
+
 from SongPersistance import load_songs as load_pheno_list, save_songs
 from BiasedRandomSequence import BiasedRandomSequence, sample_pair
 from ConfigFile import ConfigFile
