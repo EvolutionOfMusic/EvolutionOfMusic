@@ -1,3 +1,12 @@
+"""
+
+ BiasedRandomSequence.cpp
+
+  Created on: Feb 10, 2016
+      Author: Lee
+
+"""
+
 from random import SystemRandom
 
 
