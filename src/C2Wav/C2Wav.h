@@ -1,3 +1,9 @@
+/*
+ * C2Wav.h
+ *
+ *  Created on: Mar 28, 2016
+ *      Author: Stephen
+ */
 
 #ifndef C2Wav_h
 #define C2Wav_h
