@@ -1,3 +1,12 @@
+"""
+
+ GeneticRandomizer.py
+
+  Created on: Mar 7, 2016
+      Author: Lee
+
+"""
+
 random_delta_mask = lambda max_step_size, randomizer, song: (randomizer.randrange(max_step_size + 1) for i in range(chromo_len*len(song)*5))
 
 """
