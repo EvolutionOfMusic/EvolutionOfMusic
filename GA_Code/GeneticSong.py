@@ -1,3 +1,12 @@
+"""
+
+ GeneticSong.py
+
+  Created on: Mar 7, 2016
+      Author: Lee
+
+"""
+
 from copy import copy, deepcopy
 from random import randint, seed
 
